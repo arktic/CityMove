@@ -16,6 +16,7 @@ main(int argc,char* argv[])
   {
   int s,i;
   sigset_t ens;
+  //un changement
 
   printf("debut processus pere\n");
   if (argc-1 != 1) {
