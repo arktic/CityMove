@@ -8,9 +8,8 @@ public class Map {
 
   protected Vector<Vehicule> tabVehicule;
 
-  protected MapElement tabMapElement;
+  protected MapElement tabMapElement[];
 
-    public Vector  myMapElement;
 
   public int Afficher() {
   return 0;

@@ -1,4 +1,4 @@
-public abstract class Feu extends ElementFixe implements Observable {
+public abstract class Feu extends ElementFixe {
 
   protected EtatFeu etat;
 

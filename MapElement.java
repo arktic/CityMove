@@ -1,4 +1,3 @@
-import java.util.Vector;
 
 public class MapElement {
 
@@ -7,7 +6,5 @@ public class MapElement {
   protected Feu myFeu;
 
   protected TypeMobileElement myTypeMobileElement;
-
-    public Vector  myMap;
 
 }

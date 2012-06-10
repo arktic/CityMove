@@ -1,4 +1,6 @@
-public class Elements {
+import java.util.Observable;
+
+public class Elements extends Observable {
 
   protected String nom;
 

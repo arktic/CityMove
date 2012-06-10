@@ -1,4 +1,4 @@
-public class FeuLongueRoute extends Feu implements IFeuPieton, IFeuPieton {
+public class FeuLongueRoute extends Feu implements IFeuPieton {
 
   public int timer;
 

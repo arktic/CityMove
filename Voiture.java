@@ -1,4 +1,4 @@
-public class Voiture extends Vehicules {
+public class Voiture extends Vehicule {
 
   public int verifierDeplacement() {
   return 0;

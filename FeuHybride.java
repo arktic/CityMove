@@ -1,4 +1,4 @@
-public class FeuHybride extends FeuPieton, FeuLongueRoute implements IFeuPieton, IFeuPieton {
+public class FeuHybride extends FeuLongueRoute implements IFeuPieton {
 
   public void changerEtat(EtatFeu e) {
   }
