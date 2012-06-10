@@ -12,6 +12,6 @@ public abstract class ElementMobiles extends Elements {
   return 0;
   }
 
-  public abstract int verifierDeplacement();
+  public abstract int verifierDeplacement(Direction d);
 
 }

@@ -1,7 +1,14 @@
 public class Voiture extends Vehicule {
 
-  public int verifierDeplacement() {
-  return 0;
-  }
+	@Override
+	public int verifierDeplacement(Direction d) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+
+
 
 }
