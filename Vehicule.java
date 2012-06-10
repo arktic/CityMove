@@ -1,6 +1,6 @@
 /** 
  *  Classe abstraite,
- *  permet de regrouper les véhicules
+ *  permet de regrouper les vŽhicules
  */
 public abstract class Vehicule extends ElementMobiles {
 
