@@ -8,16 +8,21 @@ public class Map {
 
 	protected Vector<Vehicule> tabVehicule;
 
+<<<<<<< HEAD
 	/**
 	 * le tableau de bloc qui compose la map
 	 */
 	protected MapElement tabMapElement[][];
+=======
+	protected MapElement tabMapElement[];
+>>>>>>> 7c94697c68e4045781f7094144aa7a4b0bfdcd2f
 
 	/**
 	 * La taille en pixel d'un element de type MapElement
 	 */
 	protected int sizeElement;
 
+<<<<<<< HEAD
 
 
 	/**
@@ -33,6 +38,19 @@ public class Map {
 		this.tabMapElement = new MapElement[width][height];
 		this.sizeElement = sizeElem;
 	}
+=======
+	public int Afficher() {
+		return 0;
+	}
+
+	public int addVehicule(Vehicule monVehicule) {
+		return 0;
+	}
+
+  public int removeVehicule(Vehicule monVehicule) {
+	  	return 0;
+  }
+>>>>>>> 7c94697c68e4045781f7094144aa7a4b0bfdcd2f
 
 
 
