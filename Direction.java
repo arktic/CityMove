@@ -1,11 +1,11 @@
 enum Direction {
 
-  NORD,
+	NORD,
 
-  SUD,
+	SUD,
 
-  EST,
+	EST,
 
-  OUEST;
+	OUEST;
 
 }
