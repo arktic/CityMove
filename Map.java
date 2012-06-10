@@ -2,25 +2,25 @@ import java.util.Vector;
 
 public class Map {
 
-  protected int height;
+	protected int height;
 
-  protected int width;
+	protected int width;
 
-  protected Vector<Vehicule> tabVehicule;
+	protected Vector<Vehicule> tabVehicule;
 
-  protected MapElement tabMapElement[];
+	protected MapElement tabMapElement[];
 
 
-  public int Afficher() {
-  return 0;
-  }
+	public int Afficher() {
+		return 0;
+	}
 
-  public int addVehicule(Vehicule monVehicule) {
-  return 0;
-  }
+	public int addVehicule(Vehicule monVehicule) {
+		return 0;
+	}
 
   public int removeVehicule(Vehicule monVehicule) {
-  return 0;
+	  	return 0;
   }
 
 }
