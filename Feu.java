@@ -1,6 +1,16 @@
 public abstract class Feu extends ElementFixe {
 
-  protected EtatFeu etat;
+  /**
+   * 
+   * @param etat: l'etat demande par le feu
+   */
+	public Feu(EtatFeu etat) {
+		super();
+		
+		this.etat = etat;
+	}
+
+protected EtatFeu etat;
 
   protected EtatFeu demande;
 
