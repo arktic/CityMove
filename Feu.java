@@ -6,6 +6,7 @@ public abstract class Feu extends ElementFixe {
 
   protected Boolean carrefour;
 
-  public abstract void changerEtat(EtatFeu e);
+  public void changerEtat(EtatFeu e) {
+}
 
 }
