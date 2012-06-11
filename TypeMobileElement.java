@@ -1,9 +1,9 @@
 enum TypeMobileElement {
 
-  VEHICULE,
+	VEHICULE,
 
-  PIETON,
+	PIETON,
 
-  VIDE;
+	VIDE;
 
 }

@@ -16,6 +16,7 @@ protected EtatFeu etat;
 
   protected Boolean carrefour;
 
-  public abstract void changerEtat(EtatFeu e);
+  public void changerEtat(EtatFeu e) {
+}
 
 }

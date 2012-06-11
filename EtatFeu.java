@@ -1,13 +1,13 @@
 enum EtatFeu {
 
-  ROUGE,
+	ROUGE,
 
-  VERT,
+	VERT,
 
-  ORANGE,
+	ORANGE,
 
-  ETEINT,
+	ETEINT,
 
-  ORANGE_CLIGNOTANT;
+	ORANGE_CLIGNOTANT;
 
 }
