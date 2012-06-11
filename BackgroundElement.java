@@ -1,3 +1,8 @@
+/**
+ * 
+ * Defini le type des Elements de background
+ *
+ */
 enum BackgroundElement {
 
 	HERBE,
@@ -31,5 +36,5 @@ enum BackgroundElement {
 	TROTTOIR_EST_OUEST,
 
 	MURRAILLE;
-
+	
 }
