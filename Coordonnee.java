@@ -16,8 +16,16 @@ public class Coordonnee {
 	
 
 	public void set(int x, int y) {
+	//TODO
 	}
 
+	public Coordonnee(Coordonnee coord) {
+		this.x = coord.x;
+		this.y = coord.y;
+	}
+	
+	
+	
 	/**
 	 * @param x
 	 * @param y
@@ -129,5 +137,29 @@ public class Coordonnee {
 	public boolean onBot(Coordonnee c){
 		return (this.y > c.y);
 	}
+	
+	
+	
+	/**
+	 * Renvoie la coordonnee après déplacement de 1 de la coordonnée appelante, suivant la direction
+	 * @param dir la direction 
+	 * @return la nouvelle coordonnée
+	 */
+	public Coordonnee getNextCoordonnee(Direction dir) {
+		switch(dir){
+		case NORD:
+			return new Coordonnee(this.offsetY(-1));
+		case SUD:
+			return new Coordonnee(this.offsetY(1)); 
+		case EST:
+			return new Coordonnee(this.offsetX(1));
+		case OUEST:
+			return new Coordonnee(this.offsetX(-1));
+		default:
+			return new Coordonnee(this);
+			
+		}	
+	}
+	
   
 }
