@@ -26,7 +26,7 @@ public abstract class ElementMobiles extends Elements {
 	 */
 	public Coordonnee getNextTilesPosition(int nbTailes, Direction direction) {
 		/* On recupere notre position courante, en tuiles, sur la map */
-		Coordonnee maMapPosition = Application.map.getPositionInTiles(this.position);
+		Coordonnee maMapPosition = CityMove.map.getPositionInTiles(this.position);
 
 		
 		/* On renvoie la tuile suivante, qui depend de notre position et de notre diretion */
