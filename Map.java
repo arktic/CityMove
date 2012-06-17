@@ -33,8 +33,8 @@ public class Map {
 		this.tabMapElement = new MapElement[width][height];
 		
 		/* On remplit notre nouvelle map de cases vides */
-		for(int i=0;i<width;i++) {
-			for(int j=0;j<height;j++) {
+		for(int i=0; i<width; i++) {
+			for(int j=0; j<height; j++) {
 				tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
 			}
 		}
