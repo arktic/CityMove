@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class MapElement {
 
+/*----- Attributs -----*/
 	protected BackgroundElement myBackgroundElement;
 	protected Feu myFeu;
 	protected TypeMobileElement myTypeMobileElement;
@@ -72,17 +73,17 @@ public class MapElement {
 	public void set(BackgroundElement bg, Feu feu,TypeMobileElement tmobile) {
 		myBackgroundElement = bg;
 		myFeu = feu;
-		myTypeMobileElement=tmobile;
+		myTypeMobileElement = tmobile;
 	}
 	
 /*----- Autres methodes -----*/
 	/**
 	 * @return Tableau comprenant les directions possibles
 	 */
-	public ArrayList<Direction> getPossibilities(){
+	public ArrayList<Direction> getPossibilities() {
 		ArrayList<Direction> tab = new ArrayList<Direction>();
 		
-		switch (this.myBackgroundElement){
+		switch (this.myBackgroundElement) {
 			
 			case ROUTE_NORD :
 				tab.add(Direction.NORD);
