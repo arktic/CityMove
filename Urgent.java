@@ -12,9 +12,20 @@ public class Urgent implements IUrgent {
 		return 0;
 	}
 
-	public int intervenirFeu() {
-
+	
+	/**
+	 * 
+	 * @param feu Le feu sur lequel intervenir
+	 * @return
+	 */
+	public int intervenirFeu(Feu feu) {
+		
+		if(feu!=null) {
+			feu.demande = EtatFeu.VERT;
+		}
+		
 		return 0;
 	}
+
 
 }
