@@ -61,10 +61,8 @@ public class Coordonnee {
 	 * @return vrai ou faux
 	 */
 	public boolean equals(Coordonnee coordonnee) {
-		if(x == coordonnee.getX() && y == coordonnee.getY()) {
-			return true;
-		}
-		return false;
+		
+		return (x == coordonnee.getX() && y == coordonnee.getY());
 	}
 
 /*----- Autres methodes -----*/
