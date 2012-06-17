@@ -29,7 +29,7 @@ public class CityMoveWindow extends JFrame{
 		setSize(1336,768);
 		setLayout(null);
 		setLocationRelativeTo(null);
-		setResizable(false);
+		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(buildContentPane());
 	}

@@ -2,11 +2,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class ElementMobiles extends Elements {
-
+/*----- Attributs -----*/
 	protected int vitesse;
 	protected Direction direction;
 
-	
 	public int seDeplacer() {
 		return 0;
 	}
@@ -46,7 +45,7 @@ public abstract class ElementMobiles extends Elements {
 	
 	/**
 	 * Choisit aleatoirement une direction parmis celles qui lui sont proposees
-	 * @return
+	 * @return La direction choisie
 	 */
 	public Direction choixDeplacement() {
 		Direction maDirection = Direction.AUCUNE;

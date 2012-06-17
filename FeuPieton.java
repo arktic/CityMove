@@ -5,6 +5,7 @@ public class FeuPieton extends Feu implements IFeuPieton {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public void changerEtat(EtatFeu e) {
 	}
 

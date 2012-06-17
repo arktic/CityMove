@@ -1,22 +1,31 @@
 public class CamionUrgent extends Camion implements IUrgent {
+/*----- Attributs -----*/
+	IUrgent camionUrgent;
 
-	IUrgent urg;
-	
+/*----- Constructeurs -----*/
 	public CamionUrgent() {
 		super();
-		urg = new Urgent();
+		camionUrgent = new Urgent();
 	}
 	
-	
-	@Override
+/*----- Autres methodes -----*/
+	/**
+	 * Allume le Giropahare,
+	 * Fait appel a la fonction de la classe abstraite Urgent
+	 */
 	public int allumerGirophare() {
-		urg.allumerGirophare();
+		camionUrgent.allumerGirophare();
+		
 		return 0;
 	}
 
-	@Override
+	/**
+	 * Eteint le girophare,
+	 * Fait appel a la fonction de la calsse abstraite Urgent
+	 */
 	public int stoperGirophare() {
-		urg.stoperGirophare();
+		camionUrgent.stoperGirophare();
+		
 		return 0;
 	}
 
@@ -46,9 +55,15 @@ public class CamionUrgent extends Camion implements IUrgent {
 	}
 
 
-	@Override
+	
+	 /** Fait une demande pour le passage au vert du feu desire,
+	 * Fait appel a la fonction de la classe abstraite Urgent
+	 * @param Le feu dont on veut qu'il passe au vert
+	 */
+@Override
 	public int intervenirFeu(Feu feu) {
-		urg.intervenirFeu(feu);
+		camionUrgent.intervenirFeu(feu);
+		
 		return 0;
 	}
 }
