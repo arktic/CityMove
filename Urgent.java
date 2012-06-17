@@ -8,6 +8,7 @@ public class Urgent implements IUrgent {
 	}
 
 	public int stoperGirophare() {
+		//System.out.println("TEST APPELER STOPPERGIROPGHARE DS URGENT");
 		etatGirophare=false;
 		return 0;
 	}
@@ -15,13 +16,17 @@ public class Urgent implements IUrgent {
 	
 	/**
 	 * 
-	 * @param feu Le feu sur lequel intervenir
+	 * @param feu: feu sur lequel on doit intervenir
 	 * @return
 	 */
 	public int intervenirFeu(Feu feu) {
 		
+		/* On dit au feu que l'on veut qu'il passe au VERT */
 		if(feu!=null) {
-			feu.demande = EtatFeu.VERT;
+			if(feu.etat!=EtatFeu.VERT) {
+				feu.setDemande(EtatFeu.VERT);
+			}
+			
 		}
 		
 		return 0;

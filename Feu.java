@@ -1,10 +1,10 @@
-public abstract class Feu extends ElementFixe {
+public abstract class Feu extends ElementFixe  {
 
 	
 	
 	protected EtatFeu etat;
 
-	protected EtatFeu demande;
+	private EtatFeu demande;
 
 	protected Boolean carrefour;
 	
@@ -22,6 +22,11 @@ public abstract class Feu extends ElementFixe {
 	
 
 	public void changerEtat(EtatFeu e) {
+	}
+	
+	public void setDemande(EtatFeu newDemande) {
+		demande = newDemande;
+		notifyObservers();
 	}
 
 }

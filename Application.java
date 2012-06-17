@@ -8,6 +8,10 @@ public final class Application {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		MotoUrgent urgentmoto = new MotoUrgent();
+		
+		urgentmoto.stoperGirophare();
 	
 	}
 
