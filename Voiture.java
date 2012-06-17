@@ -1,7 +1,5 @@
 public class Voiture extends Vehicule {
-	
-	
-	@Override
+	/* Pas besoin */
 	public int verifierDeplacement(Direction d) {
 		/* On recupere la position en tuiles de notre Voiture */
 		//TODO : map est une varialbe a ajouter dans le main afin d'y avoir accès de n'importe où ? J'espere qque ça marche..
