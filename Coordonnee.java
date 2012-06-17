@@ -52,13 +52,10 @@ public class Coordonnee {
 	 * @return vrai ou faux
 	 */
 	public boolean equals(Coordonnee coordonnee) {
-		boolean test = false;
-		
-		if(this.getX() == coordonnee.getX() && this.getY() == coordonnee.getY()) {
-			test = true;
+		if(x == coordonnee.getX() && y == coordonnee.getY()) {
+			return true;
 		}
-		
-		return test;
+		return false;
 	}
 
 /*----- Autres methodes -----*/
