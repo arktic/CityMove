@@ -1,6 +1,11 @@
 public class FeuPieton extends Feu implements IFeuPieton {
 
-  public void changerEtat(EtatFeu e) {
-  }
+	public FeuPieton(EtatFeu etat) {
+		super(etat);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void changerEtat(EtatFeu e) {
+	}
 
 }

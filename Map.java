@@ -14,7 +14,7 @@ public class Map {
 	protected MapElement tabMapElement[][];
 
 	/**
-	 * La taille en pixel d'un element de type MapElement
+	 * La taille en pixel d'un element (carré) de type MapElement
 	 */
 	protected int sizeElement;
 
@@ -29,7 +29,15 @@ public class Map {
 		this.height = height;
 		this.width = width;
 		this.tabVehicule = new Vector<Vehicule>();
+		//A remplir ac du vide, herbe ?
 		this.tabMapElement = new MapElement[width][height];
+		
+		/* On remplit notre nouvelle map de cases vides */
+		for(int i=0;i<width;i++) {
+			for(int j=0;i<height;j++) {
+				tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
+			}
+		}
 		this.sizeElement = sizeElem;
 	}
 
@@ -98,13 +106,6 @@ public class Map {
 		return sizeElement;
 	}
 
-	/**
-	 * @param sizeElement the sizeElement to set
-	 */
-	public void setSizeElement(int sizeElement) {
-		this.sizeElement = sizeElement;
-	}
-
 
 
 	public int addVehicule(Vehicule monVehicule) {
@@ -125,8 +126,38 @@ public class Map {
 	public MapElement getMapElement(int x,int y) {
 		return tabMapElement[x][y];
 	}
+	
+	
+	/**
+	 * @param tilesCoord coordonnées en  Tuiles dont on veut récupérer le MapElement
+	 * @return
+	 */
+	public MapElement getMapElement(Coordonnee tilesCoord) {
+		return tabMapElement[tilesCoord.getX()][tilesCoord.getY()];
+	}
 
 	public int Afficher() {
 		return 0;
 	}
+	
+	
+	
+	/**
+	 * Renvoie la position en tuiles d'une position en pixels
+	 * @param pixelsPosition la position en pixels
+	 * @return
+	 */
+	public Coordonnee getPositionInTiles(Coordonnee pixelsPosition) {
+		Coordonnee tilesPosition = new Coordonnee(pixelsPosition.getX()%sizeElement,pixelsPosition.getY()%sizeElement);
+		
+		return tilesPosition;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
