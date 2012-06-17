@@ -1,0 +1,24 @@
+------------- Arnaud ----------------
+
+Classes en cours:
+
+
+A besoin de (dépendances):
+
+Classes faites:
+ - Coordonne
+
+------------- Audric ----------------
+
+Classes en cours:
+
+
+A besoin de (dépendances):
+
+
+------------- Julien ----------------
+
+Classes en cours:
+
+
+A besoin de (dépendances):
