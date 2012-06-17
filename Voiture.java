@@ -12,8 +12,8 @@ public class Voiture extends Vehicule {
 		
 		
 		/* On déduit notre future position avec notre direction et notre position courante */
-		
-		verifMapPosition = getNextTilesPosition(0,direction);
+		verifMapPosition = getNextTilesPosition(0, direction);
+
 		
 		
 		//De meme
