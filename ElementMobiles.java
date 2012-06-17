@@ -52,8 +52,8 @@ public abstract class ElementMobiles extends Elements {
 		Direction maDirection = Direction.AUCUNE;
 		
 		/* Je recupere mon mapElement correspondant a mon ElementMobile */
-		Coordonnee posInTiles = Application.map.getPositionInTiles(position);
-		MapElement monMapElement = Application.map.getMapElement(posInTiles);
+		Coordonnee posInTiles = CityMove.map.getPositionInTiles(position);
+		MapElement monMapElement = CityMove.map.getMapElement(posInTiles);
 		
 		/* Je recupere le tableau de possibilites de ce mapElement puis je stock la taille du tableau */
 		ArrayList<Direction> tab = monMapElement.getPossibilities();
