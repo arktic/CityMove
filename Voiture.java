@@ -5,7 +5,7 @@ public class Voiture extends Vehicule {
 	public int verifierDeplacement(Direction d) {
 		/* On recupere la position en tuiles de notre Voiture */
 		//TODO : map est une varialbe a ajouter dans le main afin d'y avoir accès de n'importe où ? J'espere qque ça marche..
-		Coordonnee maMapPosition = map.getPositionInTiles(position.getX(),position.getY());
+	//	Coordonnee maMapPosition = Application.map.getPositionInTiles(position);
 		Coordonnee verifMapPosition;
 		MapElement verifMapElement;
 		
@@ -17,7 +17,7 @@ public class Voiture extends Vehicule {
 		
 		
 		//De meme
-		verifMapElement = map.getMapElement(verifMapPosition);
+		verifMapElement = Application.map.getMapElement(verifMapPosition);
 		
 		if(verifMapElement.isRoute()){
 			
