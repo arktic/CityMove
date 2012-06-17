@@ -23,6 +23,10 @@ public class MotoUrgent extends Moto implements IUrgent {
 	}
 
 
+	/**
+	 * Permet de demande au feu présents devant nous de passer au vert
+	 * @return
+	 */
 	public int intervenirFeu() {
 
 		int i=0;
@@ -35,7 +39,7 @@ public class MotoUrgent extends Moto implements IUrgent {
 			coordSuivantes = getNextTilesPosition(i+1,direction);
 
 			/* On récupère le feu présent à cet endroit, ou null */
-			feu = Application.map.getMapElement(coordSuivantes).getMyFeu();
+			feu = CityMove.map.getMapElement(coordSuivantes).getMyFeu();
 			
 			/* Et on lui demande de passer au vert */
 			intervenirFeu(feu);
