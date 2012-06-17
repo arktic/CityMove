@@ -17,7 +17,7 @@ public class Voiture extends Vehicule {
 		
 		
 		//De meme
-		verifMapElement = Application.map.getMapElement(verifMapPosition);
+		verifMapElement = CityMove.map.getMapElement(verifMapPosition);
 		
 		if(verifMapElement.isRoute()){
 			
