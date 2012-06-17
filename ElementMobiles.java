@@ -25,6 +25,7 @@ public abstract class ElementMobiles extends Elements {
 		/* On recupere notre position courante, en tuiles, sur la map */
 		Coordonnee maMapPosition = map.getPositionInTiles();
 
+		
 		/* On renvoie la tuile suivante, qui depend de notre position et de notre diretion */
 		switch (dir){
 		case NORD :
