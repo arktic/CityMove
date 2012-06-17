@@ -8,7 +8,9 @@ public class Voiture extends Vehicule {
 		//MapElement verifMapElement;
 		
 		
-		
+		/* On déduit notre future position avec notre direction et notre position courante */
+		//verifMapPosition = getNextTilesPosition(0, direction);
+
 		/* On deduit notre future position avec notre direction et notre position courante */
 	
 		//verifMapPosition = getNextTilesPosition(0, direction);

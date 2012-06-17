@@ -2,7 +2,8 @@
  *  Classe abstraite,
  *  permet de regrouper les vehicules
  */
-public abstract class Vehicule extends ElementMobiles 
+
+abstract class Vehicule extends ElementMobiles 
 {
 	@Override
 	/* Pas besoin */
