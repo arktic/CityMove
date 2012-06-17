@@ -22,10 +22,12 @@ public abstract class Feu extends ElementFixe  {
 	
 
 	public void changerEtat(EtatFeu e) {
+		
 	}
 	
 	public void setDemande(EtatFeu newDemande) {
 		demande = newDemande;
+		//setChanged();
 		notifyObservers();
 	}
 
