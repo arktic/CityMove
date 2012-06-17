@@ -15,5 +15,6 @@
  */
 public abstract class Vehicule extends ElementMobiles 
 {
+	@Override
 	public abstract int verifierDeplacement(Direction d);
 }

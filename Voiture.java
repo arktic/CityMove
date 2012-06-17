@@ -5,15 +5,15 @@ public class Voiture extends Vehicule {
 	public int verifierDeplacement(Direction d) {
 		/* On recupere la position en tuiles de notre Voiture */
 		//TODO : map est une varialbe a ajouter dans le main afin d'y avoir accès de n'importe où ? J'espere qque ça marche..
-	//	Coordonnee maMapPosition = CityMove.map.getPositionInTiles(position);
+		//Coordonnee maMapPosition = CityMove.map.getPositionInTiles(position);
 		//Coordonnee verifMapPosition;
 		//MapElement verifMapElement;
 		
 		
 		
-		/* On déduit notre future position avec notre direction et notre position courante */
-		
-		//verifMapPosition = getNextTilesPosition(d);
+		/* On deduit notre future position avec notre direction et notre position courante */
+	
+		//verifMapPosition = getNextTilesPosition(0, direction);
 		
 		
 		//De meme

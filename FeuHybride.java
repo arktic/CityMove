@@ -5,6 +5,7 @@ public class FeuHybride extends FeuLongueRoute implements IFeuPieton {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public void changerEtat(EtatFeu e) {
 	}
 
