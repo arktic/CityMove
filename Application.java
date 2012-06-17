@@ -11,7 +11,6 @@ public final class Application {
 	
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
-		
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				//On crée une nouvelle instance de notre JWindow
@@ -21,12 +20,7 @@ public final class Application {
 				window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
-		
-		try { 
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {}
-		
-		System.exit(0);
+
 	}
 
 }

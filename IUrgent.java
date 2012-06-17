@@ -4,6 +4,6 @@ public interface IUrgent {
 
   public int stoperGirophare();
 
-  public int intervenirFeu();
+  public int intervenirFeu(Feu feu);
 
 }

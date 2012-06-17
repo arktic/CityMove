@@ -35,7 +35,7 @@ public class Map {
 		/* On remplit notre nouvelle map de cases vides */
 		for(int i=0; i<width; i++) {
 			for(int j=0; j<height; j++) {
-				tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
+			//	tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
 			}
 		}
 		this.sizeElement = sizeElem;

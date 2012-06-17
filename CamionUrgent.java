@@ -1,20 +1,28 @@
 public class CamionUrgent extends Camion implements IUrgent {
 
+	IUrgent urg;
+	
+	public CamionUrgent() {
+		super();
+		urg = new Urgent();
+	}
+	
+	
 	@Override
 	public int allumerGirophare() {
-		// TODO Auto-generated method stub
+		urg.allumerGirophare();
 		return 0;
 	}
 
 	@Override
 	public int stoperGirophare() {
-		// TODO Auto-generated method stub
+		urg.stoperGirophare();
 		return 0;
 	}
 
 	@Override
-	public int intervenirFeu() {
-		// TODO Auto-generated method stub
+	public int intervenirFeu(Feu feu) {
+		urg.intervenirFeu(feu);
 		return 0;
 	}
 }
