@@ -1,38 +1,29 @@
 public class Voiture extends Vehicule {
+	
+	
 	@Override
 	public int verifierDeplacement(Direction d) {
-		Coordonnee maMapPosition = getMapPosition();
+		/* On recupere la position en tuiles de notre Voiture */
+		//TODO : map est une varialbe a ajouter dans le main afin d'y avoir accès de n'importe où ? J'espere qque ça marche..
+		Coordonnee maMapPosition = map.getPositionInTiles(position.getX(),position.getY());
 		Coordonnee verifMapPosition;
 		MapElement verifMapElement;
-		BackgroundElement verifBackgroundElement;
 		
 		
-		switch (d){
-			case NORD :
-				verifMapPosition.set(maMapPosition.getx(), maMapPosition.gety()-1);
-				break;
-			case SUD :
-				verifMapPosition.set(maMapPosition.getx(), maMapPosition.gety()+1);
-				break;
-			case EST :
-				verifMapPosition.set(maMapPosition.getx()+1, maMapPosition.gety());
-				break;
-			case OUEST :
-				verifMapPosition.set(maMapPosition.getx()-1, maMapPosition.gety());
-				break;
-			default :
-		}
 		
-		verifMapElement = getElement(verifMapPosition);
-		verifBackgroundElement = verifMapElement.myBackgroundElement;
-		if(verifBackgroundElement == BackgroundElement.ROUTE_NORD || verifBackgroundElement == BackgroundElement.ROUTE_SUD
-		   || verifBackgroundElement == BackgroundElement.ROUTE_EST || verifBackgroundElement == BackgroundElement.ROUTE_OUEST
-		   || verifBackgroundElement == BackgroundElement.ROUTE_SUD_EST || verifBackgroundElement == BackgroundElement.ROUTE_SUD_OUEST
-		   || verifBackgroundElement == BackgroundElement.ROUTE_NORD_EST || verifBackgroundElement == BackgroundElement.ROUTE_NORD_OUEST
-		   || verifBackgroundElement == BackgroundElement.ROUTE_PIETON_NORD_SUD || verifBackgroundElement == BackgroundElement.ROUTE_PIETON_EST_OUEST){
+		/* On déduit notre future position avec notre direction et notre position courante */
+		
+		verifMapPosition = getNextTilesPosition(d);
+		
+		
+		//De meme
+		verifMapElement = map.getMapElement(verifMapPosition);
+		
+		if(verifMapElement.isRoute()){
 			
-			// A COMPLETER
+			
 		}
+		//TODO: A COMPLETER
 		
 		return 0;
 	}

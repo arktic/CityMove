@@ -6,6 +6,7 @@ enum Direction {
 
 	EST,
 
-	OUEST;
+	OUEST,
 
+	AUCUNE;
 }

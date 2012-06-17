@@ -1,5 +1,10 @@
 public class FeuLongueRoute extends Feu implements Runnable {
-//EN COURS DIMPLEMENTATION
+	public FeuLongueRoute(EtatFeu etat) {
+		super(etat);
+		// TODO Auto-generated constructor stub
+	}
+
+	//EN COURS DIMPLEMENTATION
 	/**
 	 * Valeur courante du timer
 	 */
