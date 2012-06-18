@@ -1,16 +1,18 @@
 import javax.swing.*;
-import java.awt.*;
+
 
 public class CityMoveWindow extends JFrame{
 	
 	public CityMoveWindow (int x, int y) {
 		super();
 		build(x,y);
+		setVisible(true);
 	}
 	
 	public CityMoveWindow() {
 		super();
 		build();
+		setVisible(true);
 	}
 	
 	private void build(int x, int y) {
@@ -20,8 +22,8 @@ public class CityMoveWindow extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(buildContentPane());
-		
+		setContentPane(new Map(15,15,100));
+		System.out.println("pasage build ac param");
 	}
 
 	private void build() {
@@ -30,20 +32,11 @@ public class CityMoveWindow extends JFrame{
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(true);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(buildContentPane());
+		System.out.println("pasage build sans param");
+		add (new Map(3,4,100));
 	}
 	
-	private JPanel buildContentPane(){
-		JPanel panel = new JPanel();
-		Image img = getToolkit().getImage("./Ressources/Map/herbe.jpg") ;
-		JLabel image = new JLabel(new ImageIcon(img));
-		panel.setBackground(Color.white);
-		JLabel label = new JLabel("Résultat : Pas encore calculé");
-		image.setBounds(800, 400, 100, 100);
-		label.setBounds(40, 100, WIDTH, HEIGHT);
-		panel.add(image);
-		panel.add(label);
-		return panel;
-	}
+	
 }
