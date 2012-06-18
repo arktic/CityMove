@@ -1,7 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 public class CityMoveWindow extends JFrame implements ActionListener{
 	private JButton pieton = new JButton("Demande piéton");
@@ -9,6 +11,7 @@ public class CityMoveWindow extends JFrame implements ActionListener{
 	public CityMoveWindow (int x, int y) {
 		super();
 		build(x,y);
+		setVisible(true);
 	}
 	
 	public CityMoveWindow() {
@@ -16,6 +19,7 @@ public class CityMoveWindow extends JFrame implements ActionListener{
 		pieton.addActionListener(this);
 		urgence.addActionListener(this);
 		build();
+		setVisible(true);
 	}
 	
 	private void build(int x, int y) {
@@ -25,8 +29,8 @@ public class CityMoveWindow extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(buildContentPane());
-		
+		setContentPane(new Map(15,15,100));
+		System.out.println("pasage build ac param");
 	}
 
 	private void build() {
@@ -35,10 +39,12 @@ public class CityMoveWindow extends JFrame implements ActionListener{
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(true);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(buildContentPane());
+		System.out.println("pasage build sans param");
+		add (new Map(3,4,100));
 	}
-	
+
 	private JPanel buildContentPane(){
 		JPanel panel = new JPanel();
 		Image img = getToolkit().getImage("./Ressources/Map/herbe.jpg") ;

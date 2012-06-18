@@ -1,12 +1,25 @@
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Timer;
 import java.util.Vector;
 
-public class Map {
+import javax.swing.JPanel;
+
+
+public class Map extends JPanel {
 
 	protected int height;
 
 	protected int width;
 
-	protected Vector<Vehicule> tabVehicule;
+	protected static HashMap<BackgroundElement, Image> backgroundImage;
+	
+	
+	protected Vector<ElementMobiles> tabElementMobile;
 
 	/**
 	 * le tableau de bloc qui compose la map
@@ -17,6 +30,7 @@ public class Map {
 	 * La taille en pixel d'un element (carré) de type MapElement
 	 */
 	protected int sizeElement;
+	public Timer timer;
 
 
 	/**
@@ -28,17 +42,44 @@ public class Map {
 		super();
 		this.height = height;
 		this.width = width;
-		this.tabVehicule = new Vector<Vehicule>();
-		//A remplir ac du vide, herbe ?
+		this.tabElementMobile = new Vector<ElementMobiles>();
+		
+		/* On s'occupe de charger les images associées aux background */
+		backgroundImage = new HashMap<>();
+		ajouterBackgroundImages();
+		
+		
 		this.tabMapElement = new MapElement[width][height];
+		setFocusable(true);
+		setDoubleBuffered(true);
 		
 		/* On remplit notre nouvelle map de cases vides */
 		for(int i=0; i<width; i++) {
 			for(int j=0; j<height; j++) {
-			//	tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
+				try {
+					
+				
+				tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
+				}
+				catch(Exception e) {};
 			}
 		}
 		this.sizeElement = sizeElem;
+		
+		//timer = new Timer(5,this);
+		//timer.start();
+	}
+
+
+	
+	/**
+	 * Ajoute toutes les images de background à notre HashMap
+	 */
+	private void ajouterBackgroundImages() {
+		Image img;
+		img = Toolkit.getDefaultToolkit().getImage("./Ressources/Map/herbe.jpg");
+		backgroundImage.put(BackgroundElement.HERBE, img);
+		System.out.println("Ajout de "+img+" a fashmap");
 	}
 
 
@@ -74,15 +115,15 @@ public class Map {
 	/**
 	 * @return the tabVehicule
 	 */
-	public Vector<Vehicule> getTabVehicule() {
-		return tabVehicule;
+	public Vector<ElementMobiles> getTabVehicule() {
+		return tabElementMobile;
 	}
 
 	/**
 	 * @param tabVehicule the tabVehicule to set
 	 */
-	public void setTabVehicule(Vector<Vehicule> tabVehicule) {
-		this.tabVehicule = tabVehicule;
+	public void setTabVehicule(Vector<ElementMobiles> tabElementMobile) {
+		this.tabElementMobile = tabElementMobile;
 	}
 
 	/**
@@ -108,13 +149,13 @@ public class Map {
 
 
 
-	public int addVehicule(Vehicule monVehicule) {
-		tabVehicule.add(monVehicule);
+	public int addVehicule(ElementMobiles monElementMobile) {
+		tabElementMobile.add(monElementMobile);
 		return 0;
 	}
 
-	public int removeVehicule(Vehicule monVehicule) {
-		tabVehicule.remove(monVehicule);
+	public int removeVehicule(ElementMobiles monElementMobile) {
+		tabElementMobile.remove(monElementMobile);
 		return 0;
 	}
 
@@ -136,10 +177,7 @@ public class Map {
 		return tabMapElement[tilesCoord.getX()][tilesCoord.getY()];
 	}
 
-	public int Afficher() {
-		
-		return 0;
-	}
+	
 	
 	
 	
@@ -155,6 +193,35 @@ public class Map {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+
+		Graphics2D g2d = (Graphics2D)g;
+
+		for(int i=0 ; i < height ; i++ ){
+			for(int j=0 ; j < width ; j++) {
+				Image img;
+				img = backgroundImage.get(tabMapElement[j][i]);
+				
+				System.out.println("PASSAGE BOUCLE, img = "+img+" tabMapElement[j][i] = " +tabMapElement[j][i]);
+				g2d.drawImage( img, j*sizeElement, i*sizeElement, this);	
+			}
+		}
+
+
+		//Affichage des autres composants
+		//g2d.drawImage(craft.getImage(), craft.getX(), craft.getY(), this);
+
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+	}
 	
 	
 	

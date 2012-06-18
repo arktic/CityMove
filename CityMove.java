@@ -23,7 +23,6 @@ public final class CityMove {
 		vu2.stoperGirophare();
 	//	System.out.println("etat vu2: " + vu2.getEtatGiro());
 	//	System.out.println("etat vu: " + vu.getEtatGiro());
-		
 
 	}
 
