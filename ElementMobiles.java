@@ -19,11 +19,11 @@ public abstract class ElementMobiles extends Elements {
 	
 	/**
 	 * 
-	 * @param nbTailes
+	 * @param nbTiles
 	 * @param direction
 	 * @return La case situé plusieurs cases en avance de la case actuelle
 	 */
-	public Coordonnee getNextTilesPosition(int nbTailes, Direction direction) {
+	public Coordonnee getNextTilesPosition(int nbTiles, Direction direction) {
 		/* On recupere notre position courante, en tuiles, sur la map */
 		Coordonnee maMapPosition = CityMove.map.getPositionInTiles(this.position);
 
@@ -31,13 +31,13 @@ public abstract class ElementMobiles extends Elements {
 		/* On renvoie la tuile suivante, qui depend de notre position et de notre diretion */
 		switch (direction){
 		case NORD :
-			return new Coordonnee(maMapPosition.getX(), maMapPosition.getY()-nbTailes);
+			return new Coordonnee(maMapPosition.getX(), maMapPosition.getY()-nbTiles);
 		case SUD :
-			return new Coordonnee(maMapPosition.getX(), maMapPosition.getY()+nbTailes);
+			return new Coordonnee(maMapPosition.getX(), maMapPosition.getY()+nbTiles);
 		case EST :
-			return new Coordonnee(maMapPosition.getX()+nbTailes, maMapPosition.getY());
+			return new Coordonnee(maMapPosition.getX()+nbTiles, maMapPosition.getY());
 		case OUEST :
-			return new Coordonnee(maMapPosition.getX()-nbTailes, maMapPosition.getY());
+			return new Coordonnee(maMapPosition.getX()-nbTiles, maMapPosition.getY());
 		default : // Si ce n'est aucun de ceux la, on renvoie la position courante (immobile)
 			return new Coordonnee(maMapPosition.getX(), maMapPosition.getY());
 		}

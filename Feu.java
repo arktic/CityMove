@@ -4,10 +4,9 @@ public abstract class Feu extends ElementFixe  {
 	
 	protected EtatFeu etat;
 
-	private EtatFeu demande;
+	protected EtatFeu demande;
 
 	protected Boolean carrefour;
-	
 	
 	/**
 	 * 
@@ -17,6 +16,9 @@ public abstract class Feu extends ElementFixe  {
 		super();
 
 		this.etat = etat;
+		this.demande = EtatFeu.ROUGE;
+		this.carrefour = false;
+		
 	}
 
 	
@@ -27,7 +29,7 @@ public abstract class Feu extends ElementFixe  {
 	
 	public void setDemande(EtatFeu newDemande) {
 		demande = newDemande;
-		//setChanged();
+		setChanged();
 		notifyObservers();
 	}
 

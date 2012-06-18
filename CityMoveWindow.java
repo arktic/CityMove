@@ -1,8 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CityMoveWindow extends JFrame{
-	
+public class CityMoveWindow extends JFrame implements ActionListener{
+	private JButton pieton = new JButton("Demande piéton");
+	private JButton urgence = new JButton("Demande urgence");
 	public CityMoveWindow (int x, int y) {
 		super();
 		build(x,y);
@@ -10,6 +13,8 @@ public class CityMoveWindow extends JFrame{
 	
 	public CityMoveWindow() {
 		super();
+		pieton.addActionListener(this);
+		urgence.addActionListener(this);
 		build();
 	}
 	
@@ -44,6 +49,21 @@ public class CityMoveWindow extends JFrame{
 		label.setBounds(40, 100, WIDTH, HEIGHT);
 		panel.add(image);
 		panel.add(label);
+		panel.add(pieton);
+		panel.add(urgence);
 		return panel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		 Object src = evt.getSource();
+		    if (src == pieton) {
+		    	CityMove.test.setDemande(EtatFeu.ROUGE);
+		    } else if (src == urgence) {
+		    	CityMove.test.setDemande(EtatFeu.VERT);
+		      
+		    }
+		
 	}
 }
