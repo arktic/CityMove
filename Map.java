@@ -38,7 +38,50 @@ public class Map extends JPanel{
 	 */
 	protected int sizeElement;
 	
+	private static int nbDefaultLigne = 15;
+	private static int nbDefaultColonne = 15;
 
+	
+	
+	
+	
+	/**
+	 * Créé une map prédéfini
+	 * sizeElem : la taille en pixel des tuiles qui la compose
+	 */
+	public Map(int sizeElem) {
+		
+		backgroundImage = new HashMap<>();
+		this.nbColonnes = nbDefaultColonne;
+		this.nbLignes = nbDefaultLigne;
+		this.tabElementMobile = new Vector<ElementMobiles>();
+		
+		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
+		
+		
+		/* On ajoute notre base de donnée d'images de Background à notre image */
+		ajouterBackgroundImages();
+		
+		/* On remplit la map avec de l'herbe */
+		remplirDefaultMap();
+
+		
+		CityMove.map=this;
+		this.sizeElement = sizeElem;
+		
+		setFocusable(true);
+		setDoubleBuffered(true);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * @param heightInTiles
@@ -80,14 +123,29 @@ public class Map extends JPanel{
 			img = ImageIO.read(new File("./Ressources/Background/herbe.jpg"));
 			backgroundImage.put(BackgroundElement.HERBE, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/muraille.jpg"));
-			backgroundImage.put(BackgroundElement.MURRAILLE, img);
-			
 			img = ImageIO.read(new File("./Ressources/Background/route_nord.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD, img);
 			
 			img = ImageIO.read(new File("./Ressources/Background/route_sud.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_est.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_EST, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_ouest.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_OUEST, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_nord_est.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_NORD_EST, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_nord_ouest.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_NORD_OUEST, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_sud_est.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_SUD_EST, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_sud_ouest.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 			
 			
 		} catch (IOException e) {

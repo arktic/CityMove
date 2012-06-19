@@ -2,11 +2,13 @@ import javax.swing.*;
 
 
 public class CityMoveWindow extends JFrame{
-
+	Map map;
+	
 	public CityMoveWindow() {
-		Map map = new Map(4,2,100);
+		map = new Map(22,33,30);
 		add(map);
 		build();
+		
 		
 		
 		for(int i=0;i<1000;i++) {
@@ -27,7 +29,7 @@ public class CityMoveWindow extends JFrame{
 
 	private void build() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(400, 300);
+		setSize(1000, 700);
 		setLocationRelativeTo(null);
 		setTitle("CityMove");
 		setResizable(true);
