@@ -47,7 +47,7 @@ public class Map extends JPanel{
 	 */
 	public Map(int height, int width, int sizeElem) {
 		
-		backgroundImage = new HashMap<>();
+		backgroundImage = new HashMap<BackgroundElement, Image>();
 		this.height = height;
 		this.width = width;
 		this.tabElementMobile = new Vector<ElementMobiles>();
