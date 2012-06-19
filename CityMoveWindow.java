@@ -2,41 +2,37 @@ import javax.swing.*;
 
 
 public class CityMoveWindow extends JFrame{
-	
-	public CityMoveWindow (int x, int y) {
-		super();
-		build(x,y);
-		setVisible(true);
-	}
-	
+
 	public CityMoveWindow() {
-		super();
+		Map map = new Map(2,2,100);
+		add(map);
 		build();
-		setVisible(true);
+		
+		
+		for(int i=0;i<1000;i++) {
+			map.X1+=10;
+		//	map.Y1+=10;
+			repaint();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("X1 = "+map.X1+" Y1  ="+map.Y1);
+		}
+		
+		
 	}
 	
-	private void build(int x, int y) {
-		setTitle("CityMove");
-		setSize(x,y);
-		setLayout(null);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(new Map(15,15,100));
-		System.out.println("pasage build ac param");
-	}
 
 	private void build() {
-		setTitle("CityMove");
-		setSize(1336,768);
-		setLayout(null);
-		setLocationRelativeTo(null);
-		setResizable(true);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		System.out.println("pasage build sans param");
-		add (new Map(3,4,100));
+		setSize(400, 300);
+		setLocationRelativeTo(null);
+		setTitle("CityMove");
+		setResizable(true);
+		setVisible(true);
 	}
-	
-	
+
+
 }

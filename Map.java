@@ -2,22 +2,29 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Timer;
 import java.util.Vector;
 
-import javax.swing.JPanel;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 
-public class Map extends JPanel {
+
+public class Map extends JPanel{
 
 	protected int height;
 
 	protected int width;
 
-	protected static HashMap<BackgroundElement, Image> backgroundImage;
 	
+	public int X1 = 0;
+	public int Y1 = 0;
+	
+	protected static HashMap<BackgroundElement, Image> backgroundImage;
+
 	
 	protected Vector<ElementMobiles> tabElementMobile;
 
@@ -30,46 +37,36 @@ public class Map extends JPanel {
 	 * La taille en pixel d'un element (carré) de type MapElement
 	 */
 	protected int sizeElement;
-	public Timer timer;
+	
 
-
+	
 	/**
 	 * @param height
 	 * @param width
 	 * @param sizeElem
 	 */
 	public Map(int height, int width, int sizeElem) {
-		super();
+		
+		backgroundImage = new HashMap<>();
 		this.height = height;
 		this.width = width;
 		this.tabElementMobile = new Vector<ElementMobiles>();
 		
-		/* On s'occupe de charger les images associées aux background */
-		backgroundImage = new HashMap<>();
+		this.tabMapElement = new MapElement[width][height];
+		
+		
+		/* On ajoute notre base de donnée d'images de Background à notre image */
 		ajouterBackgroundImages();
 		
+		/* On remplit la map avec de l'herbe */
+		remplirDefaultMap();
 		
-		this.tabMapElement = new MapElement[width][height];
-		setFocusable(true);
-		setDoubleBuffered(true);
-		
-		/* On remplit notre nouvelle map de cases vides */
-		for(int i=0; i<width; i++) {
-			for(int j=0; j<height; j++) {
-				try {
-					
-				
-				tabMapElement[i][j].set(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
-				}
-				catch(Exception e) {};
-			}
-		}
+		CityMove.map=this;
 		this.sizeElement = sizeElem;
 		
-		//timer = new Timer(5,this);
-		//timer.start();
+		setFocusable(true);
+		setDoubleBuffered(true);
 	}
-
 
 	
 	/**
@@ -77,61 +74,130 @@ public class Map extends JPanel {
 	 */
 	private void ajouterBackgroundImages() {
 		Image img;
-		img = Toolkit.getDefaultToolkit().getImage("./Ressources/Map/herbe.jpg");
-		backgroundImage.put(BackgroundElement.HERBE, img);
-		System.out.println("Ajout de "+img+" a fashmap");
+		
+		
+		try {
+			img = ImageIO.read(new File("./Ressources/Background/herbe.jpg"));
+			backgroundImage.put(BackgroundElement.HERBE, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/muraille.jpg"));
+			backgroundImage.put(BackgroundElement.MURRAILLE, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_nord.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_NORD, img);
+			
+			img = ImageIO.read(new File("./Ressources/Background/route_sud.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_SUD, img);
+			
+			
+		} catch (IOException e) {
+			System.out.println("Erreur lors du chargment des images...");
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 
+
+	
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+
+		Graphics2D g2d = (Graphics2D)g;
+
+		for(int i=0 ; i < height ; i++ ){
+			for(int j=0 ; j < width ; j++) {
+				Image img;
+				img = backgroundImage.get(tabMapElement[j][i].myBackgroundElement);
+				
+				g2d.drawImage( img, j*sizeElement, i*sizeElement, this);	
+			}
+		}
+
+		
+		
+		/*Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+		*/
+	}
+
+	public void remplirDefaultMap () {
+		/* On remplit notre nouvelle map de cases vides */
+		for(int i=0; i<width; i++) {
+			for(int j=0; j<height; j++) {
+				MapElement newMapElement;
+					if (j==1) {
+					newMapElement = new MapElement(BackgroundElement.ROUTE_NORD, null, TypeMobileElement.VIDE);
+					}
+					else {
+						newMapElement = new MapElement(BackgroundElement.ROUTE_SUD, null, TypeMobileElement.VIDE);
+					}
+				tabMapElement[j][i] = newMapElement;
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/* ACCESSEURS */
 	/**
 	 * @return the height
 	 */
-	public int getHeight() {
+	public int getHeightSize() {
 		return height;
 	}
 
 	/**
 	 * @param height the height to set
 	 */
-	public void setHeight(int height) {
+	/*	public void setHeight(int height) {
 		this.height = height;
-	}
+	}*/
 
 	/**
 	 * @return the width
 	 */
-	public int getWidth() {
+	/*public int getWidth() {
 		return width;
-	}
+	}*/
 
 	/**
 	 * @param width the width to set
 	 */
-	public void setWidth(int width) {
+	/*public void setWidth(int width) {
 		this.width = width;
-	}
+	}*/
 
 	/**
 	 * @return the tabVehicule
 	 */
-	public Vector<ElementMobiles> getTabVehicule() {
+	/*	public Vector<ElementMobiles> getTabVehicule() {
 		return tabElementMobile;
-	}
+	}*/
 
 	/**
 	 * @param tabVehicule the tabVehicule to set
 	 */
-	public void setTabVehicule(Vector<ElementMobiles> tabElementMobile) {
+	/*public void setTabVehicule(Vector<ElementMobiles> tabElementMobile) {
 		this.tabElementMobile = tabElementMobile;
-	}
+	}*/
 
 	/**
 	 * @return the tabMapElement
 	 */
-	public MapElement[][] getTabMapElement() {
+	/*public MapElement[][] getTabMapElement() {
 		return tabMapElement;
-	}
+	}*/
 
 	/**
 	 * @param tabMapElement the tabMapElement to set
@@ -139,7 +205,7 @@ public class Map extends JPanel {
 	public void setTabMapElement(MapElement[][] tabMapElement) {
 		this.tabMapElement = tabMapElement;
 	}
-
+	
 	/**
 	 * @return the sizeElement
 	 */
@@ -191,41 +257,7 @@ public class Map extends JPanel {
 		
 		return tilesPosition;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void paint(Graphics g) {
-		super.paint(g);
-
-		Graphics2D g2d = (Graphics2D)g;
-
-		for(int i=0 ; i < height ; i++ ){
-			for(int j=0 ; j < width ; j++) {
-				Image img;
-				img = backgroundImage.get(tabMapElement[j][i]);
-				
-				System.out.println("PASSAGE BOUCLE, img = "+img+" tabMapElement[j][i] = " +tabMapElement[j][i]);
-				g2d.drawImage( img, j*sizeElement, i*sizeElement, this);	
-			}
-		}
 
 
-		//Affichage des autres composants
-		//g2d.drawImage(craft.getImage(), craft.getX(), craft.getY(), this);
-
-		Toolkit.getDefaultToolkit().sync();
-		g.dispose();
-	}
-	
-	
-	
-	
-	
 	
 }

@@ -2,7 +2,7 @@ public class Pieton extends ElementMobiles {
 
   protected Boolean sexe;
 
-  @Override
+ // @Override TODO METHODE A VIRER
 public int verifierDeplacement(Direction d) {
 	return 0;
   }
