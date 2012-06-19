@@ -56,94 +56,25 @@ public class FeuTemps extends Feu implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true) {
-			switch(etat) {
-			case VERT:
-				System.out.println("\t ETAT VERT en direction ROUGE");
-				changerEtat(EtatFeu.ROUGE);
-				System.out.println("\t ETAT:" + etat);
-			break;
-			case ROUGE:
-				System.out.println("\t ETAT ROUGE en direction VERT");
-				changerEtat(EtatFeu.VERT);
-				System.out.println("\t ETAT:" + etat);
-				
-			break;
-			}
-		}
-	}
-
-	/**
-	 *  On se place ici du point de vue des voitures (le rouge indique l'arret des voitures)
-	 *  changerEtat tente d'amener l'état du feu dans l'état demandé en respectant la sécurité du feu
-	 */
-	@Override
-	synchronized public void changerEtat(EtatFeu e) {
-		switch(e) {
-		case ROUGE:
-			switch(etat) {
-			case VERT:
-				System.out.println("Ftemps,attente vert_time");
-				try {
-					Thread.sleep(vert_time);
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-					
-				}
-				System.out.println("Ftemps, etat transit ORANGE");
-				etat = EtatFeu.ORANGE;
-				System.out.println("Ftemps,attente vert_orange_time");
-				try {
-					Thread.sleep(vert_orange_time);
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-					
-				}
-				System.out.println("Ftemps, fin vert_orange_time");
-				changerEtat(EtatFeu.ROUGE);
-
-				break;
-			case ORANGE:
-				//TODO: on reset le temps, il faudrait une continuité, ceci n'est pas vraiment correct
-				System.out.println("FT attente orange_red_time");
-				try {
-					Thread.sleep(orange_red_time);
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				System.out.println("Ftemps, etat ROUGE atteint");
-				etat = e;
-				break;
-			}
-		break;
-		case VERT:
-			switch(etat) {
-			case ROUGE:
-				System.out.println("Ftemps,attente red_time");
-				try {
-					Thread.sleep(red_time);
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				System.out.println("Ftemps,etat VERT atteint");
-				etat = e;
-			break;
-			case ORANGE:
-				System.out.println("Ftemps,attente orange_red_time");
-				try {
-					Thread.sleep(orange_red_time);
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				System.out.println("Ftemps, fin vert_orange");
+			if(etat == EtatFeu.VERT) {
 				etat = EtatFeu.ROUGE;
-				changerEtat(EtatFeu.VERT);
+				try {
+					this.wait(red_time);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-		break;
+			else {
+					etat = EtatFeu.VERT;
+					try {
+						this.wait(vert_time);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
 		}		
 	}
+
 }
