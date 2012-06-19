@@ -11,7 +11,7 @@ public class CityMoveWindow extends JFrame{
 		
 		for(int i=0;i<1000;i++) {
 			map.X1+=10;
-		//	map.Y1+=10;
+			map.Y1+=10;
 			repaint();
 			try {
 				Thread.sleep(1000);
