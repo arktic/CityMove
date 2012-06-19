@@ -11,8 +11,24 @@ public class Pieton extends ElementMobiles {
 
 @Override
 public boolean verifierDeplacement(Direction d) {
-	// TODO Auto-generated method stub
-	return false;
+	boolean deplacementVerifie = true;
+	
+	Coordonnee coordonneeVerifiee = getNextTilesPosition(1, d);
+	MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
+	
+	if(monMapElementVerifie.isRoutePieton())
+	{
+		Coordonnee maCoordonnee = CityMove.map.getPositionInTiles(getPosition());
+		MapElement monMapElement = CityMove.map.getMapElement(maCoordonnee);
+		Feu feuVerifie = monMapElement.getMyFeu();
+		EtatFeu etatFeuVerifie = feuVerifie.getMyEtat();
+		
+		if(etatFeuVerifie == EtatFeu.VERT) {
+			deplacementVerifie = false;
+		}
+	}
+	
+	return deplacementVerifie;
 }
 
 }
