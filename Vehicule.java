@@ -27,4 +27,5 @@ abstract class Vehicule extends ElementMobiles
 		
 		return deplacementVerifie;
 	}
+
 }
