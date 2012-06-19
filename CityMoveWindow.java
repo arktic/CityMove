@@ -4,7 +4,7 @@ import javax.swing.*;
 public class CityMoveWindow extends JFrame{
 
 	public CityMoveWindow() {
-		Map map = new Map(2,2,100);
+		Map map = new Map(4,2,100);
 		add(map);
 		build();
 		

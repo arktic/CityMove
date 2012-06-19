@@ -15,9 +15,9 @@ import javax.swing.*;
 
 public class Map extends JPanel{
 
-	protected int height;
+	protected int nbLignes;
 
-	protected int width;
+	protected int nbColonnes;
 
 	
 	public int X1 = 0;
@@ -41,18 +41,18 @@ public class Map extends JPanel{
 
 	
 	/**
-	 * @param height
-	 * @param width
+	 * @param heightInTiles
+	 * @param widthInTiles
 	 * @param sizeElem
 	 */
-	public Map(int height, int width, int sizeElem) {
+	public Map(int nbLignes, int nbColonnes, int sizeElem) {
 		
 		backgroundImage = new HashMap<>();
-		this.height = height;
-		this.width = width;
+		this.nbColonnes = nbColonnes;
+		this.nbLignes = nbLignes;
 		this.tabElementMobile = new Vector<ElementMobiles>();
 		
-		this.tabMapElement = new MapElement[width][height];
+		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
 		
 		
 		/* On ajoute notre base de donnée d'images de Background à notre image */
@@ -108,12 +108,12 @@ public class Map extends JPanel{
 
 		Graphics2D g2d = (Graphics2D)g;
 
-		for(int i=0 ; i < height ; i++ ){
-			for(int j=0 ; j < width ; j++) {
+		for(int c=0 ; c < nbColonnes ; c++ ){
+			for(int l=0 ; l < nbLignes ; l++) {
 				Image img;
-				img = backgroundImage.get(tabMapElement[j][i].myBackgroundElement);
+				img = backgroundImage.get(tabMapElement[l][c].myBackgroundElement);
 				
-				g2d.drawImage( img, j*sizeElement, i*sizeElement, this);	
+				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);	
 			}
 		}
 
@@ -126,16 +126,16 @@ public class Map extends JPanel{
 
 	public void remplirDefaultMap () {
 		/* On remplit notre nouvelle map de cases vides */
-		for(int i=0; i<width; i++) {
-			for(int j=0; j<height; j++) {
+		for(int i=0; i<nbLignes; i++) {
+			for(int j=0; j<nbColonnes; j++) {
 				MapElement newMapElement;
-					if (j==1) {
+					if (j==0) {
 					newMapElement = new MapElement(BackgroundElement.ROUTE_NORD, null, TypeMobileElement.VIDE);
 					}
 					else {
 						newMapElement = new MapElement(BackgroundElement.ROUTE_SUD, null, TypeMobileElement.VIDE);
 					}
-				tabMapElement[j][i] = newMapElement;
+				tabMapElement[i][j] = newMapElement;
 			}
 		}
 	}
@@ -153,8 +153,8 @@ public class Map extends JPanel{
 	/**
 	 * @return the height
 	 */
-	public int getHeightSize() {
-		return height;
+	public int getHauteurInTiles() {
+		return nbLignes;
 	}
 
 	/**
