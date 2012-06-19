@@ -8,6 +8,8 @@ public abstract class Feu extends ElementFixe  {
 
 	protected Boolean carrefour;
 	
+	
+	
 	/**
 	 * 
 	 * @param etat: l'etat demande par le feu

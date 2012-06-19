@@ -2,6 +2,11 @@
 
 public class FeuTemps extends Feu implements Runnable {
 	protected long vert_time = 3000;
+	protected  long red_time = 4000;
+	protected  long vert_orange_time = 4000;
+	protected  long orange_red_time = 4000;
+	
+	
 	public FeuTemps(EtatFeu etat) {
 		super(etat);
 		red_time = 5000;
@@ -79,7 +84,7 @@ public class FeuTemps extends Feu implements Runnable {
 			case VERT:
 				System.out.println("Ftemps,attente vert_time");
 				try {
-					this.wait(vert_time);
+					Thread.sleep(vert_time);
 				} catch (InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -118,7 +123,7 @@ public class FeuTemps extends Feu implements Runnable {
 			case ROUGE:
 				System.out.println("Ftemps,attente red_time");
 				try {
-					this.wait(red_time);
+					Thread.sleep(red_time);
 				} catch (InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();

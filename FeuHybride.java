@@ -1,4 +1,4 @@
-public class FeuHybride extends FeuLongueRoute implements IFeuPieton {
+public class FeuHybride extends FeuTemps implements IFeuPieton {
 
 	public FeuHybride(EtatFeu etat) {
 		super(etat);

@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+
 public class CityMoveWindow extends JFrame{
 
 	public CityMoveWindow() {
@@ -32,4 +33,6 @@ public class CityMoveWindow extends JFrame{
 		setResizable(true);
 		setVisible(true);
 	}
+
+
 }

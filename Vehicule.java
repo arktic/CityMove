@@ -7,5 +7,5 @@ abstract class Vehicule extends ElementMobiles
 {
 	//@Override
 	/* Pas besoin TODO: boolean ?!*/
-	public int verifierDeplacement(Direction d);
+	public int verifierDeplacement(Direction d) {return 0;};
 }
