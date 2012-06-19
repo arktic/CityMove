@@ -4,17 +4,17 @@ import javax.swing.*;
 public class CityMoveWindow extends JFrame{
 
 	public CityMoveWindow() {
-		Map map = new Map(2,2,100);
+		Map map = new Map(4,2,100);
 		add(map);
 		build();
 		
 		
 		for(int i=0;i<1000;i++) {
-			map.X1+=10;
-		//	map.Y1+=10;
+			map.X1+=1;
+			map.Y1+=1;
 			repaint();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

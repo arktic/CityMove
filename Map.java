@@ -15,9 +15,9 @@ import javax.swing.*;
 
 public class Map extends JPanel{
 
-	protected int height;
+	protected int nbLignes;
 
-	protected int width;
+	protected int nbColonnes;
 
 	
 	public int X1 = 0;
@@ -41,18 +41,20 @@ public class Map extends JPanel{
 
 	
 	/**
-	 * @param height
-	 * @param width
+	 * @param heightInTiles
+	 * @param widthInTiles
 	 * @param sizeElem
 	 */
-	public Map(int height, int width, int sizeElem) {
-		
+	public Map(int nbLignes, int nbColonnes, int sizeElem) {
 		backgroundImage = new HashMap<BackgroundElement, Image>();
-		this.height = height;
-		this.width = width;
+
+		backgroundImage = new HashMap<BackgroundElement, Image>(); 
+		this.nbColonnes = nbColonnes;
+		this.nbLignes = nbLignes;
+
 		this.tabElementMobile = new Vector<ElementMobiles>();
 		
-		this.tabMapElement = new MapElement[width][height];
+		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
 		
 		
 		/* On ajoute notre base de donnée d'images de Background à notre image */
@@ -108,34 +110,34 @@ public class Map extends JPanel{
 
 		Graphics2D g2d = (Graphics2D)g;
 
-		for(int i=0 ; i < height ; i++ ){
-			for(int j=0 ; j < width ; j++) {
+		for(int c=0 ; c < nbColonnes ; c++ ){
+			for(int l=0 ; l < nbLignes ; l++) {
 				Image img;
-				img = backgroundImage.get(tabMapElement[j][i].myBackgroundElement);
+				img = backgroundImage.get(tabMapElement[l][c].myBackgroundElement);
 				
-				g2d.drawImage( img, j*sizeElement, i*sizeElement, this);	
+				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);	
 			}
 		}
 
-		
+		g2d.drawImage(  backgroundImage.get(BackgroundElement.ROUTE_NORD), X1, Y1, this);	
 		
 		/*Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 		*/
 	}
 
+	
+	/**
+	 * Remplit la map avec de l'herbe
+	 */
 	public void remplirDefaultMap () {
 		/* On remplit notre nouvelle map de cases vides */
-		for(int i=0; i<width; i++) {
-			for(int j=0; j<height; j++) {
+		for(int l=0; l<nbLignes; l++) {
+			for(int c=0; c<nbColonnes; c++) {
 				MapElement newMapElement;
-					if (j==1) {
-					newMapElement = new MapElement(BackgroundElement.ROUTE_NORD, null, TypeMobileElement.VIDE);
-					}
-					else {
-						newMapElement = new MapElement(BackgroundElement.ROUTE_SUD, null, TypeMobileElement.VIDE);
-					}
-				tabMapElement[j][i] = newMapElement;
+					
+				newMapElement = new MapElement(BackgroundElement.HERBE, null, TypeMobileElement.VIDE);
+				tabMapElement[l][c] = newMapElement;
 			}
 		}
 	}
@@ -151,53 +153,20 @@ public class Map extends JPanel{
 	
 	/* ACCESSEURS */
 	/**
-	 * @return the height
+	 * @return le nombre de tuiles en hauteur de la map
 	 */
-	public int getHeightSize() {
-		return height;
+	public int getHauteurInTiles() {
+		return nbLignes;
 	}
 
 	/**
-	 * @param height the height to set
+	 * @return le nombre de tuiles en largeur de la map
 	 */
-	/*	public void setHeight(int height) {
-		this.height = height;
-	}*/
+	public int getLargeurInTiles() {
+		return nbColonnes;
+	}
 
-	/**
-	 * @return the width
-	 */
-	/*public int getWidth() {
-		return width;
-	}*/
-
-	/**
-	 * @param width the width to set
-	 */
-	/*public void setWidth(int width) {
-		this.width = width;
-	}*/
-
-	/**
-	 * @return the tabVehicule
-	 */
-	/*	public Vector<ElementMobiles> getTabVehicule() {
-		return tabElementMobile;
-	}*/
-
-	/**
-	 * @param tabVehicule the tabVehicule to set
-	 */
-	/*public void setTabVehicule(Vector<ElementMobiles> tabElementMobile) {
-		this.tabElementMobile = tabElementMobile;
-	}*/
-
-	/**
-	 * @return the tabMapElement
-	 */
-	/*public MapElement[][] getTabMapElement() {
-		return tabMapElement;
-	}*/
+	
 
 	/**
 	 * @param tabMapElement the tabMapElement to set
@@ -236,7 +205,7 @@ public class Map extends JPanel{
 	
 	
 	/**
-	 * @param tilesCoord coordonnées en  Tuiles dont on veut récupérer le MapElement
+	 * @param tilesCoord coordonnees en  Tuiles dont on veut recuperer le MapElement
 	 * @return
 	 */
 	public MapElement getMapElement(Coordonnee tilesCoord) {

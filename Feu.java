@@ -19,7 +19,9 @@ public abstract class Feu extends ElementFixe  {
 		this.etat = etat;
 	}
 
-	
+	public EtatFeu getMyEtat() {
+		return etat;
+	}
 
 	public void changerEtat(EtatFeu e) {
 		

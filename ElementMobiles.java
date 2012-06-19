@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.lang.model.element.TypeElement;
+
 public abstract class ElementMobiles extends Elements {
 /*----- Attributs -----*/
 	protected int vitesse;
@@ -14,8 +16,63 @@ public abstract class ElementMobiles extends Elements {
 		vitesse = 0;
 		return 0;
 	}
-/* a virer */
-	//public abstract int verifierDeplacement(Direction d);
+	
+	/**
+	 * 
+	 * @param Direction vers laquelle l'element veut se deplacer
+	 * @return Oui ou Non
+	 */
+	public abstract boolean verifierDeplacement(Direction d);
+	
+	/**
+	 * 
+	 * @param tme : Type d'element mobile a verifier
+	 * @param d : direction dans laquele on veut regarder
+	 * @return si il y a un element de ce type devant
+	 */
+	public boolean verifierElementMobile(TypeMobileElement tme, Direction d)
+	{
+		boolean ElementMobileVerifie = true;
+		
+		Coordonnee coordonneeVerifiee = getNextTilesPosition(1, d);
+		MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
+		TypeMobileElement monMobileElementVerifie = monMapElementVerifie.getMyTypeMobileElement();
+		
+		if(tme != monMobileElementVerifie)
+		{
+			ElementMobileVerifie = false;
+		}
+		
+		return ElementMobileVerifie;
+	}
+	
+	/**
+	 * 
+	 * @param d : Direction dans laquelle on veut verifier la presence d'un feu
+	 * @return Vrai ou faux
+	 */
+	public boolean verifierFeu(Direction d)
+	{
+		boolean feuRougeVerifie = true;
+
+		Coordonnee coordonneeVerifiee = getNextTilesPosition(1, d);
+		MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
+		Feu monFeuVerifie = monMapElementVerifie.getMyFeu();
+		
+		if(monFeuVerifie == null) {
+			feuRougeVerifie = false;
+			
+			return feuRougeVerifie;
+		}
+		
+		EtatFeu monEtatFeuVerifie = monFeuVerifie.getMyEtat();
+		
+		if(monEtatFeuVerifie != EtatFeu.ROUGE) {
+			feuRougeVerifie = false;
+		}
+		
+		return feuRougeVerifie;
+	}
 	
 	/**
 	 * 
@@ -26,7 +83,6 @@ public abstract class ElementMobiles extends Elements {
 	public Coordonnee getNextTilesPosition(int nbTailes, Direction direction) {
 		/* On recupere notre position courante, en tuiles, sur la map */
 		Coordonnee maMapPosition = CityMove.map.getPositionInTiles(this.position);
-
 		
 		/* On renvoie la tuile suivante, qui depend de notre position et de notre diretion */
 		switch (direction){
