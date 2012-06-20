@@ -12,6 +12,8 @@ public class Carrefour extends Thread implements Observer {
   public Carrefour (Feu nord, Feu sud) {
 	  nbFeu = 2;
 	  tabFeu = new Feu[2];
+	  nord.addObserver(this);
+	  sud.addObserver(this);
 	  tabFeu[0] = nord;
 	  tabFeu[1] = sud;
   }
@@ -20,6 +22,9 @@ public class Carrefour extends Thread implements Observer {
   public Carrefour (Feu nord, Feu sud, Feu est) {
 	  nbFeu = 3;
 	  tabFeu = new Feu[3];
+	  nord.addObserver(this);
+	  sud.addObserver(this);
+	  est.addObserver(this);
 	  tabFeu[0] = nord;
 	  tabFeu[1] = sud;
 	  tabFeu[2] = est;
@@ -27,6 +32,10 @@ public class Carrefour extends Thread implements Observer {
   
   public Carrefour (Feu nord, Feu sud, Feu est, Feu ouest) {
 	  nbFeu = 4;
+	  nord.addObserver(this);
+	  sud.addObserver(this);
+	  est.addObserver(this);
+	  ouest.addObserver(this);
 	  tabFeu = new Feu[4];
 	  tabFeu[0] = nord;
 	  tabFeu[1] = sud;
