@@ -3,8 +3,8 @@ public class CamionUrgent extends Camion implements IUrgent {
 	IUrgent camionUrgent;
 
 /*----- Constructeurs -----*/
-	public CamionUrgent() {
-		super();
+	public CamionUrgent(int posx, int posy, Direction dir) {
+		super(posx, posy, dir);
 		camionUrgent = new Urgent();
 	}
 	

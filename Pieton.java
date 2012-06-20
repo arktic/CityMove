@@ -4,7 +4,9 @@ public class Pieton extends ElementMobiles {
 
 	protected Boolean sexe;
 
-
+	public Pieton(int posx, int posy,Direction dir) {
+		super(posx,posy,dir);
+	}
 
 	public void demandeFeu(Feu feu) {
 		if((feu.getClass().equals(FeuPieton.class) || feu.getClass().equals(FeuHybride.class)) && feu.getBusy() == false) {
