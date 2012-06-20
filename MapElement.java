@@ -133,7 +133,7 @@ public class MapElement {
 				tab.add(Direction.NORD);
 				tab.add(Direction.EST);
 				break;
-			case TROTOIR_NORD_OUEST :
+			case TROTTOIR_NORD_OUEST :
 				tab.add(Direction.NORD);
 				tab.add(Direction.OUEST);
 				break;
@@ -163,6 +163,80 @@ public class MapElement {
 		return (bg == BackgroundElement.ROUTE_PIETON_NORD_SUD || bg == BackgroundElement.ROUTE_PIETON_EST_OUEST);
 	}
 	
+	
+	
+	
+	public MapElement(Integer i) {
+		//int s_int = Integer.parseInt(s);
+		
+		myFeu=null;
+		myTypeMobileElement = TypeMobileElement.VIDE;
+		
+		switch (i) {
+		case 0:
+			myBackgroundElement = BackgroundElement.HERBE;
+			break;
+		case 1:
+			myBackgroundElement = BackgroundElement.ROUTE_NORD;
+			break;
+		case 2:
+			myBackgroundElement = BackgroundElement.ROUTE_SUD;
+			break;
+		case 3:
+			myBackgroundElement = BackgroundElement.ROUTE_EST;
+			break;
+		case 4:
+			myBackgroundElement = BackgroundElement.ROUTE_OUEST;
+			break;
+		case 5:
+			myBackgroundElement = BackgroundElement.ROUTE_SUD_EST;
+			break;
+		case 6:
+			myBackgroundElement = BackgroundElement.ROUTE_SUD_OUEST;
+			break;
+		case 7:
+			myBackgroundElement = BackgroundElement.ROUTE_NORD_EST;
+			break;
+		case 8:
+			myBackgroundElement = BackgroundElement.ROUTE_NORD_OUEST;
+			break;
+		case 9:
+			myBackgroundElement = BackgroundElement.ROUTE_PIETON_EST_OUEST;
+			break;
+		case 10:
+			myBackgroundElement = BackgroundElement.ROUTE_PIETON_NORD_SUD;
+			break;
+		case 11:
+			myBackgroundElement = BackgroundElement.TROTTOIR_NORD_SUD;
+			break;
+		case 12:
+			myBackgroundElement = BackgroundElement.TROTTOIR_EST_OUEST;
+			break;
+		case 13:
+			myBackgroundElement = BackgroundElement.TROTTOIR_SUD_EST;
+			break;	
+		case 14:
+			myBackgroundElement = BackgroundElement.TROTTOIR_SUD_OUEST;
+			break;
+		case 15:
+			myBackgroundElement = BackgroundElement.TROTTOIR_EST_OUEST;
+			break;
+		case 16:
+			myBackgroundElement = BackgroundElement.TROTTOIR_NORD_EST;
+			break;
+		case 17:
+			myBackgroundElement = BackgroundElement.TROTTOIR_NORD_OUEST;
+			break;
+			
+		default:
+			System.out.println("Erreur lors dela transcription de int en BackgroundElement.");
+			System.exit(1);
+		}
+		
+		//System.out.println("dans constructeur mapelement : "+myBackgroundElement);
+		
+		
+	}
 	
 }
 
