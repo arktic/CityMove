@@ -51,11 +51,11 @@ public class Carrefour implements Observer {
 	private void bloquerEstOuest() {
 		switch (nbFeu) {
 		case 3:
-			tabFeu.get(0).etat = EtatFeu.ROUGE;
+			tabFeu.get(0).setEtat(EtatFeu.ROUGE);
 			break;
 		case 4:
-			tabFeu.get(2).etat = EtatFeu.ROUGE;
-			tabFeu.get(3).etat = EtatFeu.ROUGE;
+			tabFeu.get(2).setEtat(EtatFeu.ROUGE);
+			tabFeu.get(3).setEtat(EtatFeu.ROUGE);
 			break;
 		default:
 			// erreur
@@ -63,26 +63,26 @@ public class Carrefour implements Observer {
 	}
 
 	private void bloquerNord() {
-		tabFeu.get(0).etat = EtatFeu.ROUGE;
+		tabFeu.get(0).setEtat(EtatFeu.ROUGE);
 	}
 
 	private void bloquerSud() {
-		tabFeu.get(1).etat = EtatFeu.ROUGE;
+		tabFeu.get(1).setEtat(EtatFeu.ROUGE);
 	}
 
 	private void bloquerNordSud() {
-		tabFeu.get(0).etat = EtatFeu.ROUGE;
-		tabFeu.get(1).etat = EtatFeu.ROUGE;
+		tabFeu.get(0).setEtat(EtatFeu.ROUGE);
+		tabFeu.get(1).setEtat(EtatFeu.ROUGE);
 	}
 
 	private void autoriserEstOuest() {
-		tabFeu.get(2).etat = EtatFeu.VERT;
-		tabFeu.get(3).etat = EtatFeu.VERT;
+		tabFeu.get(2).setEtat(EtatFeu.VERT);
+		tabFeu.get(3).setEtat(EtatFeu.VERT);
 	}
 
 	private void autoriserNordSud() {
-		tabFeu.get(0).etat = EtatFeu.VERT;
-		tabFeu.get(1).etat = EtatFeu.VERT;
+		tabFeu.get(0).setEtat(EtatFeu.VERT);
+		tabFeu.get(1).setEtat(EtatFeu.VERT);
 	}
 
 
