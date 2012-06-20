@@ -1,5 +1,7 @@
 import javax.swing.*;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+
 
 public class CityMoveWindow extends JFrame{
 	Map map;
@@ -9,18 +11,29 @@ public class CityMoveWindow extends JFrame{
 		add(map);
 		build();
 		
-		
-		for(int i=0;i<1000;i++) {
-			//map.X1+=1;
-			map.Y1-=1;
-			System.out.println("Y1 = "+map.Y1);
-			repaint();
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		new Thread(new Runnable() {
+			public void run() {
+				while(true) {
+					//map.X1+=1;
+					if(map.Y1 < 0)	map.Y1 = 300;
+						map.Y1-=1;
+					System.out.println("Y1 = "+map.Y1);
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							repaint();
+						}
+					});
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
-		}
+		}).start();
+
 		
 		
 	}
