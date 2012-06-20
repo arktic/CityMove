@@ -1,4 +1,3 @@
-import java.lang.Object;
 
 public class Coordonnee {
 /*----- Attributs -----*/

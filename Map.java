@@ -12,32 +12,25 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-
 public class Map extends JPanel{
 
 	protected int nbLignes;
-
 	protected int nbColonnes;
 
-	
 	public int X1 = 0;
 	public int Y1 = 0;
 	
+	/**
+	 * La taille en pixel d'un element (carré) de type MapElement
+	 */
+	protected int sizeElement;
 	protected static HashMap<BackgroundElement, Image> backgroundImage;
-
-	
 	protected Vector<ElementMobiles> tabElementMobile;
 
 	/**
 	 * le tableau de bloc qui compose la map
 	 */
 	protected MapElement tabMapElement[][];
-
-	/**
-	 * La taille en pixel d'un element (carré) de type MapElement
-	 */
-	protected int sizeElement;
-	
 
 	
 	/**

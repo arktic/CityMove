@@ -1,8 +1,3 @@
-import java.awt.Image;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
 
 public class FeuPieton extends Feu implements IFeuPieton {
 	private static int orange_time = 3000;

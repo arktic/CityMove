@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 
 public abstract class Feu extends ElementFixe  {
 
