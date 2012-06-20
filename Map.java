@@ -68,10 +68,10 @@ public class Map extends JPanel{
 		//tabMapElement = map1;
 		CityMove.map=this;
 		this.sizeElement = sizeElem;
-		System.out.println("ELEM = 3 : 0 : "+tabMapElement[0][3]);
+		//System.out.println("ELEM = 3 : 0 : "+tabMapElement[0][3]);
 		addElementMobile(new Voiture(3*sizeElem,0*sizeElem,Direction.SUD));
 		
-		
+		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -171,10 +171,10 @@ public class Map extends JPanel{
 
 	public void deplacementElementMobile() {
 		java.util.Iterator<ElementMobiles> it = tabElementMobile.iterator();
-		System.out.println("Deplacement");
+		//System.out.println("Deplacement");
 		/* On parcours tout nos elements mobiles et on les fait se déplacer */
 		while (it.hasNext()){
-			System.out.println("while ");
+			//System.out.println("while ");
 			it.next().seDeplacer();
 		}
 		
@@ -301,9 +301,9 @@ public class Map extends JPanel{
 	 */
 	public Coordonnee getPositionInTiles(Coordonnee pixelsPosition) {
 		
-		System.out.print("getPositionInTiles de "+pixelsPosition);
+		//.out.print("getPositionInTiles de "+pixelsPosition);
 		Coordonnee tilesPosition = new Coordonnee(pixelsPosition.getX()/sizeElement,pixelsPosition.getY()/sizeElement);
-		System.out.println("  vaut "+tilesPosition);
+		//System.out.println("  vaut "+tilesPosition);
 		return tilesPosition;
 	}
 
