@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 
 public abstract class Feu extends ElementFixe  {
 
@@ -31,10 +30,12 @@ public abstract class Feu extends ElementFixe  {
 //	public void changerEtat(EtatFeu e) {}
 	
 	public void setDemande(EtatFeu newDemande) {
+		//TODO : non nécessaire, un feu est tjrs rajouter à un carrefour.
 		if(carrefour == true) {
 			demande = newDemande;
 			setChanged();
-			notifyObservers();
+			/* On informe notre carrefour que l'on souhaite obtenir cette couleur */
+			notifyObservers(demande);
 		}
 	}
 

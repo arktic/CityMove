@@ -7,6 +7,9 @@ public class FeuHybride extends FeuTemps implements IFeuPieton {
 
 	@Override 
 	public void run() {
+		
+		//TODO: FAUX c'est le carrefour qui décide de tout ça, le feu change juste sa demande
+		// Interruption si ambulande ou pieton ?!
 		while(true) {
 			if(etat == EtatFeu.VERT) {
 				etat = EtatFeu.ROUGE;
