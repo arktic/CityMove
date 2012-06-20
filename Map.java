@@ -46,10 +46,12 @@ public class Map extends JPanel{
 	 * @param sizeElem
 	 */
 	public Map(int nbLignes, int nbColonnes, int sizeElem) {
-		
-		backgroundImage = new HashMap<>();
+		backgroundImage = new HashMap<BackgroundElement, Image>();
+
+		backgroundImage = new HashMap<BackgroundElement, Image>(); 
 		this.nbColonnes = nbColonnes;
 		this.nbLignes = nbLignes;
+
 		this.tabElementMobile = new Vector<ElementMobiles>();
 		
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
@@ -203,7 +205,7 @@ public class Map extends JPanel{
 	
 	
 	/**
-	 * @param tilesCoord coordonnées en  Tuiles dont on veut récupérer le MapElement
+	 * @param tilesCoord coordonnees en  Tuiles dont on veut recuperer le MapElement
 	 * @return
 	 */
 	public MapElement getMapElement(Coordonnee tilesCoord) {
