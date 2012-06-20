@@ -4,11 +4,8 @@ public abstract class Feu extends ElementFixe  {
 	
 	
 	protected EtatFeu etat;
-
 	protected EtatFeu demande;
-
-	protected Boolean carrefour;
-	
+	protected boolean busy;
 	
 	
 	/**
@@ -17,24 +14,34 @@ public abstract class Feu extends ElementFixe  {
 	 */
 	public Feu(EtatFeu etat) {
 		super();
+		busy = false; // indique si le feu est en attente de réponse du carrefour
 		this.etat = etat;
 		this.demande = EtatFeu.ROUGE;
-		this.carrefour = false;
 		
 	}
 
-	public EtatFeu getMyEtat() {
+	synchronized public EtatFeu getEtat() {
 		return etat;
+	}
+	
+	synchronized public boolean getBusy() {
+		return busy;
+	}
+	
+	synchronized public void setEtat(EtatFeu e) {
+		etat = e;
+	}
+	
+	synchronized public void setBusy(boolean b) {
+		busy = b;
 	}
 
 //	public void changerEtat(EtatFeu e) {}
 	
 	public void setDemande(EtatFeu newDemande) {
-		if(carrefour == true) {
 			demande = newDemande;
 			setChanged();
 			notifyObservers();
-		}
 	}
 
 }

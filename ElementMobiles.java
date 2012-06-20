@@ -92,7 +92,7 @@ public abstract class ElementMobiles extends Elements {
 			return feuRougeVerifie;
 		}
 		
-		EtatFeu monEtatFeuVerifie = monFeuVerifie.getMyEtat();
+		EtatFeu monEtatFeuVerifie = monFeuVerifie.getEtat();
 		
 		if(monEtatFeuVerifie != EtatFeu.ROUGE) {
 			feuRougeVerifie = false;
