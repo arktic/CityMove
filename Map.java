@@ -177,7 +177,7 @@ public class Map extends JPanel{
 			}
 		}
 
-		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./Ressources/Background/voiture.png"), X1, Y1, this);	
+		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./CityMove/Ressources/Background/voiture.png"), X1, Y1, this);	
 		
 		/*Toolkit.getDefaultToolkit().sync();
 		g.dispose();

@@ -13,6 +13,7 @@ public class CityMoveWindow extends JFrame{
 		for(int i=0;i<1000;i++) {
 			//map.X1+=1;
 			map.Y1-=1;
+			System.out.println("Y1 = "+map.Y1);
 			repaint();
 			try {
 				Thread.sleep(10);
