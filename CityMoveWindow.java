@@ -3,7 +3,7 @@ import javax.swing.*;
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 
-public class CityMoveWindow extends JFrame{
+public class CityMoveWindow extends JFrame {
 	Map map;
 	
 	public CityMoveWindow() {

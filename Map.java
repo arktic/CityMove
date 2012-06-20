@@ -14,14 +14,12 @@ import javax.swing.*;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 
-
 public class Map extends JPanel{
 
 	protected int nbLignes;
-
 	protected int nbColonnes;
 
-	
+
 	public int X1 = 120;
 	public int Y1 = 570;
 	
@@ -29,20 +27,17 @@ public class Map extends JPanel{
 	public int Y2 = 150;
 	
 	
+	/**
+	 * La taille en pixel d'un element (carré) de type MapElement
+	 */
+	protected int sizeElement;
 	protected static HashMap<BackgroundElement, Image> backgroundImage;
-
-	
 	protected Vector<ElementMobiles> tabElementMobile;
 
 	/**
 	 * le tableau de bloc qui compose la map
 	 */
 	protected MapElement tabMapElement[][];
-
-	/**
-	 * La taille en pixel d'un element (carré) de type MapElement
-	 */
-	protected int sizeElement;
 	
 	private static int nbDefaultLigne = 15;
 	private static int nbDefaultColonne = 15;
@@ -55,7 +50,7 @@ public class Map extends JPanel{
 	 */
 	public Map(int sizeElem) {
 		
-		backgroundImage = new HashMap<>();
+		backgroundImage = new HashMap<BackgroundElement, Image>();
 		this.nbColonnes = nbDefaultColonne;
 		this.nbLignes = nbDefaultLigne;
 		this.tabElementMobile = new Vector<ElementMobiles>();

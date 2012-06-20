@@ -1,14 +1,41 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.lang.model.element.TypeElement;
 
 public abstract class ElementMobiles extends Elements {
 /*----- Attributs -----*/
 	protected int vitesse;
 	protected Direction direction;
-
-	public int seDeplacer() {
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int seDeplacer() { 
+		Direction maDirection;
+	
+		maDirection = choixDeplacement();
+	
+		if(verifierDeplacement(maDirection)) {
+			Coordonnee mapPosition = CityMove.map.getPositionInTiles(getPosition());;
+			Coordonnee newMapPosition;
+			MapElement monMapElement = CityMove.map.getMapElement(position.getX(), position.getY());
+			MapElement monNewMapElement;
+			TypeMobileElement myTypeMobileElement = monMapElement.getMyTypeMobileElement();
+			
+			setPosition(getNextPosition(maDirection));
+			newMapPosition = CityMove.map.getPositionInTiles(getPosition());
+			monNewMapElement = CityMove.map.getMapElement(newMapPosition);
+			monNewMapElement.setMyTypeMobileElement(myTypeMobileElement);
+			
+			if(relativePosition != centralPosition) {
+				monMapElement.setMyTypeMobileElement(TypeMobileElement.VIDE);
+			}
+		}
+		else {
+			stoper();
+		}
+		
 		return 0;
 	}
 
@@ -72,6 +99,25 @@ public abstract class ElementMobiles extends Elements {
 		}
 		
 		return feuRougeVerifie;
+	}
+	
+	public Coordonnee getNextPosition(Direction direction) {
+		/* On recupere notre position courante */
+		Coordonnee maPosition = this.position;
+		
+		/* On renvoie les cordonnees suivantes, qui dependent de notre position et de notre diretion */
+		switch (direction){
+		case NORD :
+			return new Coordonnee(maPosition.getX(), maPosition.getY()-1);
+		case SUD :
+			return new Coordonnee(maPosition.getX(), maPosition.getY()+1);
+		case EST :
+			return new Coordonnee(maPosition.getX()+1, maPosition.getY());
+		case OUEST :
+			return new Coordonnee(maPosition.getX()-1, maPosition.getY());
+		default : // Si ce n'est aucun de ceux la, on renvoie la position courante (immobile)
+			return new Coordonnee(maPosition.getX(), maPosition.getY());
+		}
 	}
 	
 	/**
