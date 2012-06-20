@@ -37,7 +37,7 @@ enum BackgroundElement {
 	
 	TROTTOIR_NORD_EST,
 	
-	TROTOIR_NORD_OUEST,
+	TROTTOIR_NORD_OUEST,
 
 	MURRAILLE;
 }

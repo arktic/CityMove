@@ -28,4 +28,10 @@ public class FeuHybride extends FeuTemps implements IFeuPieton {
 			}
 		}		
 	}
+
+	@Override
+	public void changerEtat(EtatFeu e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

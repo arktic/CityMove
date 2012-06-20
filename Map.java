@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 
@@ -17,8 +18,9 @@ public class Map extends JPanel{
 	protected int nbLignes;
 	protected int nbColonnes;
 
-	public int X1 = 0;
-	public int Y1 = 0;
+
+	public int X1 = 120;
+	public int Y1 = 300;
 	
 	/**
 	 * La taille en pixel d'un element (carré) de type MapElement
@@ -31,7 +33,50 @@ public class Map extends JPanel{
 	 * le tableau de bloc qui compose la map
 	 */
 	protected MapElement tabMapElement[][];
+	
+	private static int nbDefaultLigne = 15;
+	private static int nbDefaultColonne = 15;
 
+	
+	
+	/**
+	 * Créé une map prédéfini
+	 * sizeElem : la taille en pixel des tuiles qui la compose
+	 */
+	public Map(int sizeElem) {
+		
+		backgroundImage = new HashMap<BackgroundElement, Image>();
+		this.nbColonnes = nbDefaultColonne;
+		this.nbLignes = nbDefaultLigne;
+		this.tabElementMobile = new Vector<ElementMobiles>();
+		
+		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
+		
+		
+		/* On ajoute notre base de donnée d'images de Background à notre image */
+		ajouterBackgroundImages();
+		
+		/* On remplit la map avec de l'herbe */
+		//remplirDefaultMap();
+
+		open("./CityMove/Ressources/Map/map1.txt");
+		//tabMapElement = map1;
+		CityMove.map=this;
+		this.sizeElement = sizeElem;
+		
+		setFocusable(true);
+		setDoubleBuffered(true);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * @param heightInTiles
@@ -72,17 +117,32 @@ public class Map extends JPanel{
 		
 		
 		try {
-			img = ImageIO.read(new File("./Ressources/Background/herbe.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/herbe.jpg"));
 			backgroundImage.put(BackgroundElement.HERBE, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/muraille.jpg"));
-			backgroundImage.put(BackgroundElement.MURRAILLE, img);
-			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD, img);
+			
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_est.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_EST, img);
+			
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_ouest.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_OUEST, img);
+			
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord_est.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_NORD_EST, img);
+			
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord_ouest.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_NORD_OUEST, img);
+			
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud_est.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_SUD_EST, img);
+			
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud_ouest.jpg"));
+			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 			
 			
 		} catch (IOException e) {
@@ -112,7 +172,7 @@ public class Map extends JPanel{
 			}
 		}
 
-		g2d.drawImage(  backgroundImage.get(BackgroundElement.ROUTE_NORD), X1, Y1, this);	
+		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./CityMove/Ressources/Background/voiture.png"), X1, Y1, this);	
 		
 		/*Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -222,4 +282,62 @@ public class Map extends JPanel{
 
 
 	
-}
+	
+	
+	/**
+	 * Ouvre un fichier contenant une map
+	 * @param filename le fichier a ouvrir
+	 * @return 0 en cas de succes, 1 sinon
+	 */
+	//TODO : securité si lecture foire
+	public int open(String filename) {
+			if (filename==null) return 1 ;
+
+			int encore = 1 ;
+			int recup_ligne_colonne =0;
+			FichierLecture fe = new FichierLecture (filename) ;
+			int l=0;
+			while (encore == 1) {
+				String s = fe.lireLigne() ;
+				
+				StringTokenizer st = new StringTokenizer(s, new String(" ")) ;
+				String sg = st.nextToken().trim() ;
+				
+				//System.out.println("s = "+s);
+				if (sg.compareToIgnoreCase("NB_LIGNES")==0){
+					nbLignes = Integer.parseInt(st.nextToken().trim()) ;
+					recup_ligne_colonne++;
+				}
+				
+				if (sg.compareToIgnoreCase("NB_COLONNES")==0) {
+					nbColonnes = Integer.parseInt(st.nextToken().trim()) ;
+					recup_ligne_colonne++;
+				}
+				
+				if(recup_ligne_colonne!=2)
+				tabMapElement = new MapElement[nbLignes][nbColonnes];
+				
+				if ( sg.compareToIgnoreCase("LIGNE")==0) {
+					
+					StringTokenizer st2 = new StringTokenizer(st.nextToken().trim(), new String(":"));
+					for (int c=0;c<nbColonnes;c++) {
+						int inte = new Integer(st2.nextToken()) ;
+						MapElement newElem = new MapElement(inte);
+						tabMapElement[l][c] = newElem;
+					}
+					
+					l++;
+					if(l==nbLignes) {
+						encore = 0 ;						
+					}
+				}
+				
+			}
+
+			
+			fe.fermer();
+
+			return 0 ;
+
+		}
+	}
