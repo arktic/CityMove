@@ -28,9 +28,7 @@ public abstract class Feu extends ElementFixe  {
 		return etat;
 	}
 
-	public void changerEtat(EtatFeu e) {
-		
-	}
+//	public void changerEtat(EtatFeu e) {}
 	
 	public void setDemande(EtatFeu newDemande) {
 		if(carrefour == true) {
