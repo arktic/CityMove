@@ -4,8 +4,8 @@ public class MotoUrgent extends Moto implements IUrgent {
 
 	
 
-	public MotoUrgent() {
-		super();
+	public MotoUrgent(int posx, int posy, Direction dir) {
+		super(posx, posy, dir);
 		urg = new Urgent();
 	}
 

@@ -3,8 +3,8 @@ public class VoitureUrgent extends Voiture implements IUrgent {
 
 	IUrgent urg;
 
-	public VoitureUrgent() {
-		super();
+	public VoitureUrgent(int posx, int posy, Direction dir) {
+		super(posx,posy,dir);
 		urg = new Urgent();
 	}
 
