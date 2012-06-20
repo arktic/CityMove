@@ -147,13 +147,20 @@ public class MapElement {
 	 * 
 	 * @return Renvoie vrai si le mapElement appelant est une route
 	 */
-	public Boolean isRoute() {
+	public boolean isRoute() {
 		BackgroundElement bg = getMyBackgroundElement();
+		
 		return (bg == BackgroundElement.ROUTE_NORD || bg == BackgroundElement.ROUTE_SUD
 				   || bg == BackgroundElement.ROUTE_EST || bg == BackgroundElement.ROUTE_OUEST
 				   || bg == BackgroundElement.ROUTE_SUD_EST || bg == BackgroundElement.ROUTE_SUD_OUEST
 				   || bg == BackgroundElement.ROUTE_NORD_EST || bg == BackgroundElement.ROUTE_NORD_OUEST
 				   || bg == BackgroundElement.ROUTE_PIETON_NORD_SUD || bg == BackgroundElement.ROUTE_PIETON_EST_OUEST);
+	}
+	
+	public boolean isRoutePieton() {
+		BackgroundElement bg = getMyBackgroundElement();
+		
+		return (bg == BackgroundElement.ROUTE_PIETON_NORD_SUD || bg == BackgroundElement.ROUTE_PIETON_EST_OUEST);
 	}
 	
 	

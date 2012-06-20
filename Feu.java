@@ -1,3 +1,5 @@
+import javax.imageio.ImageIO;
+
 public abstract class Feu extends ElementFixe  {
 
 	
@@ -16,7 +18,6 @@ public abstract class Feu extends ElementFixe  {
 	 */
 	public Feu(EtatFeu etat) {
 		super();
-
 		this.etat = etat;
 		this.demande = EtatFeu.ROUGE;
 		this.carrefour = false;
@@ -32,9 +33,11 @@ public abstract class Feu extends ElementFixe  {
 	}
 	
 	public void setDemande(EtatFeu newDemande) {
-		demande = newDemande;
-		setChanged();
-		notifyObservers();
+		if(carrefour == true) {
+			demande = newDemande;
+			setChanged();
+			notifyObservers();
+		}
 	}
 
 }
