@@ -64,7 +64,7 @@ public class Map extends JPanel{
 		/* On remplit la map avec de l'herbe */
 		//remplirDefaultMap();
 
-		open("./CityMove/Ressources/Map/map1.txt");
+		open("./Ressources/Map/map1.txt");
 		//tabMapElement = map1;
 		CityMove.map=this;
 		this.sizeElement = sizeElem;
@@ -122,31 +122,31 @@ public class Map extends JPanel{
 		
 		
 		try {
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/herbe.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/herbe.jpg"));
 			backgroundImage.put(BackgroundElement.HERBE, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_nord.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_sud.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_est.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_EST, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_ouest.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_OUEST, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord_est.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_nord_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD_EST, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord_ouest.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_nord_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD_OUEST, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud_est.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_sud_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_EST, img);
 			
-			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud_ouest.jpg"));
+			img = ImageIO.read(new File("./Ressources/Background/route_sud_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 			
 			

@@ -1,4 +1,4 @@
-public class FeuHybride extends FeuTemps implements IFeuPieton {
+public class FeuHybride extends FeuTemps {
 
 	public FeuHybride(EtatFeu etat) {
 		super(etat);
@@ -7,34 +7,33 @@ public class FeuHybride extends FeuTemps implements IFeuPieton {
 
 	@Override 
 	public void run() {
-		
-		//TODO: FAUX c'est le carrefour qui décide de tout ça, le feu change juste sa demande
-		// Interruption si ambulande ou pieton ?!
 		while(true) {
-			if(etat == EtatFeu.VERT) {
-				etat = EtatFeu.ROUGE;
+			if(getEtat() == EtatFeu.VERT) {
 				try {
-					this.wait(red_time);
+					this.wait(vert_time);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				this.setDemande(EtatFeu.ROUGE);
 			}
 			else {
-					etat = EtatFeu.VERT;
 					try {
-						this.wait(vert_time);
+						this.wait(red_time);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				this.setDemande(EtatFeu.VERT);
 			}
+			setBusy(true);
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // attente de la réponse du carrefour	
+			setBusy(false);
 		}		
-	}
-
-	@Override
-	public void changerEtat(EtatFeu e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

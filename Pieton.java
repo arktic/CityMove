@@ -1,12 +1,16 @@
+
+
 public class Pieton extends ElementMobiles {
 
 	protected Boolean sexe;
 
 
 
-	public void demandeFeu() {
+	public void demandeFeu(Feu feu) {
+		if((feu.getClass().equals(FeuPieton.class) || feu.getClass().equals(FeuHybride.class)) && feu.getBusy() == false) {
+			feu.notify();
+		}
 	}
-
 
 
 	@Override
@@ -23,7 +27,7 @@ public class Pieton extends ElementMobiles {
 			Feu feuVerifie = monMapElement.getMyFeu();
 
 			if(feuVerifie != null) {
-				EtatFeu etatFeuVerifie = feuVerifie.getMyEtat();
+				EtatFeu etatFeuVerifie = feuVerifie.getEtat();
 
 				if(etatFeuVerifie == EtatFeu.VERT) {
 					deplacementVerifie = false;

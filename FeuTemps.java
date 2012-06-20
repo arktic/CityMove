@@ -56,26 +56,33 @@ public class FeuTemps extends Feu implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true) {
-			if(etat == EtatFeu.VERT) {
-				etat = EtatFeu.ROUGE;
+			if(getEtat() == EtatFeu.VERT) {
 				try {
-					this.wait(red_time);
+					this.wait(vert_time);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				this.setDemande(EtatFeu.ROUGE); // demande au carrefour
 			}
 			else {
-					etat = EtatFeu.VERT;
 					try {
-						this.wait(vert_time);
+						this.wait(red_time);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				this.setDemande(EtatFeu.VERT); //demande au carrefour
 			}
+			setBusy(true);
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // attente de la réponse du carrefour
+			setBusy(false);
 		}		
 	}
-
 
 }
