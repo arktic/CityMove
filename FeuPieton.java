@@ -1,9 +1,17 @@
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 
 public class FeuPieton extends Feu implements IFeuPieton {
 	private static int orange_time = 3000;
 	private static int red_time = 4000; //temps de traversé
+	
 	public FeuPieton(EtatFeu etat) {
 		super(etat);
+		etat = EtatFeu.VERT;
+		
 		// TODO Auto-generated constructor stub
 	}
 	
