@@ -5,22 +5,20 @@ public class CityMoveWindow extends JFrame{
 	Map map;
 	
 	public CityMoveWindow() {
-		map = new Map(22,33,30);
+		map = new Map(30);
 		add(map);
 		build();
 		
 		
-		
 		for(int i=0;i<1000;i++) {
-			map.X1+=1;
-			map.Y1+=1;
+			//map.X1+=1;
+			map.Y1-=1;
 			repaint();
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println("X1 = "+map.X1+" Y1  ="+map.Y1);
 		}
 		
 		
