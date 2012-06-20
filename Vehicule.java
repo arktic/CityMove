@@ -26,7 +26,7 @@ abstract class Vehicule extends ElementMobiles
 		feuRouge = verifierFeu(d);
 		vehiculePresent = verifierElementMobile(TypeMobileElement.VEHICULE, d);
 		pietonPresent = verifierElementMobile(TypeMobileElement.PIETON, d);
-		
+		System.out.println("feurouge = "+feuRouge+" vehiculepresent = "+vehiculePresent+" pietonpresent : "+pietonPresent);
 		if(!feuRouge && !vehiculePresent && !pietonPresent)
 		{
 			deplacementVerifie = true;

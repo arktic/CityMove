@@ -162,6 +162,11 @@ public class Coordonnee {
 			
 		}	
 	}
+
+	public boolean isOnMap() {
+		
+		return (x>=0 && x<CityMove.map.nbColonnes && y>=0 && y<CityMove.map.nbLignes);
+	}
 	
 
 }

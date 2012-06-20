@@ -107,15 +107,17 @@ public abstract class ElementMobiles extends Elements {
 	 */
 	public boolean verifierElementMobile(TypeMobileElement tme, Direction d)
 	{
-		boolean ElementMobileVerifie = true;
+		boolean ElementMobileVerifie = false;
 		
 		Coordonnee coordonneeVerifiee = getNextTilesPosition(1, d);
-		MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
-		TypeMobileElement monMobileElementVerifie = monMapElementVerifie.getMyTypeMobileElement();
-		
-		if(tme != monMobileElementVerifie)
-		{
-			ElementMobileVerifie = false;
+		if(coordonneeVerifiee.isOnMap()) {
+			MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
+			TypeMobileElement monMobileElementVerifie = monMapElementVerifie.getMyTypeMobileElement();
+			
+			if(monMobileElementVerifie!=null && tme == monMobileElementVerifie)
+			{
+				ElementMobileVerifie = true;
+			}
 		}
 		
 		return ElementMobileVerifie;
@@ -128,26 +130,25 @@ public abstract class ElementMobiles extends Elements {
 	 */
 	public boolean verifierFeu(Direction d)
 	{
-		boolean feuRougeVerifie = true;
+		boolean isRouge = false;
 
 		Coordonnee coordonneeVerifiee = getNextTilesPosition(1, d);
 		System.out.println("coord verif: " + coordonneeVerifiee);
-		MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
-		Feu monFeuVerifie = monMapElementVerifie.getMyFeu();
-		
-		if(monFeuVerifie == null) {
-			feuRougeVerifie = false;
+		if(coordonneeVerifiee.isOnMap()) {
+			MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
+			Feu monFeuVerifie = monMapElementVerifie.getMyFeu();
 			
-			return feuRougeVerifie;
+			if(monFeuVerifie != null) {
+				EtatFeu etatFeu = monFeuVerifie.getEtat();
+				if(etatFeu == EtatFeu.ROUGE) {
+					isRouge = true;
+				}
+			//	return isRouge;
+			}
+			
+		
 		}
-		
-		EtatFeu monEtatFeuVerifie = monFeuVerifie.getEtat();
-		
-		if(monEtatFeuVerifie != EtatFeu.ROUGE) {
-			feuRougeVerifie = false;
-		}
-		
-		return feuRougeVerifie;
+		return isRouge;
 	}
 	
 	public Coordonnee getNextPosition(Direction direction) {
