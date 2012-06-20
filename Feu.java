@@ -42,6 +42,7 @@ public abstract class Feu extends ElementFixe  {
 			demande = newDemande;
 			setChanged();
 			notifyObservers();
+
 	}
 
 }

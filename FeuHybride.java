@@ -7,7 +7,6 @@ public class FeuHybride extends FeuTemps {
 
 	@Override 
 	public void run() {
-			// TODO Auto-generated method stub
 		while(true) {
 			if(getEtat() == EtatFeu.VERT) {
 				try {
