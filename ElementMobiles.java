@@ -49,7 +49,7 @@ public abstract class ElementMobiles extends Elements {
 	
 	/**
 	 * renvoi vrai si nous avons atteint le bout de notre case courante, donnc qu'on vient de libérer la case d'avant
-	 * Note: on suppose ici que tout nos véhicules occupent une case
+	 * Note: on suppose ici que tout nos éléments mobiles occupent une case
 	 * @return
 	 */
 	private boolean doitLibererCaseDerriere() {
