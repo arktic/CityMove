@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+
 
 public abstract class ElementMobiles extends Elements {
 /*----- Attributs -----*/
@@ -11,6 +13,7 @@ public abstract class ElementMobiles extends Elements {
 	 * 
 	 * @return
 	 */
+	//TODO : PAS FINI!!!!!!!!!!!!!! au boulot trou du cul !!!!!!!!!!
 	public int seDeplacer() { 
 		Direction maDirection;
 	
@@ -28,7 +31,9 @@ public abstract class ElementMobiles extends Elements {
 			monNewMapElement = CityMove.map.getMapElement(newMapPosition);
 			monNewMapElement.setMyTypeMobileElement(myTypeMobileElement);
 			
-			if(relativePosition != centralPosition) {
+			
+						
+			if(doitLibererCaseDerriere()) {
 				monMapElement.setMyTypeMobileElement(TypeMobileElement.VIDE);
 			}
 		}
@@ -38,6 +43,36 @@ public abstract class ElementMobiles extends Elements {
 		
 		return 0;
 	}
+
+	
+	
+	
+	/**
+	 * renvoi vrai si nous avons atteint le bout de notre case courante, donnc qu'on vient de libérer la case d'avant
+	 * Note: on suppose ici que tout nos véhicules occupent une case
+	 * @return
+	 */
+	private boolean doitLibererCaseDerriere() {
+		
+		/* On determine si on est encore sur la case derriere */
+		
+		switch (direction) {
+		case NORD:
+			return (position.getY()% (CityMove.map.sizeElement)==0);
+		case SUD:
+			return (position.getY()% (CityMove.map.sizeElement)==0);
+		case EST:
+			return (position.getX()% (CityMove.map.sizeElement)==0);
+		case OUEST:
+			return (position.getX()% (CityMove.map.sizeElement)==0);
+		default:
+			return false;
+		}
+	}
+
+
+
+
 
 	public int stoper() {
 		vitesse = 0;
