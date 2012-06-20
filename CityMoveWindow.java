@@ -19,6 +19,7 @@ public class CityMoveWindow extends JFrame {
 						map.Y1-=1;
 					if(map.Y2 < 0)	map.Y2 = 570;
 						map.Y2-=1;
+					map.deplacementElementMobile();
 					//System.out.println("Y1 = "+map.Y1);
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override

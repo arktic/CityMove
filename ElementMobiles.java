@@ -1,13 +1,21 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
-
 
 public abstract class ElementMobiles extends Elements {
 /*----- Attributs -----*/
 	protected int vitesse;
 	protected Direction direction;
+	
+	
+	
+	public ElementMobiles(int posx, int posy,Direction dir) {
+		super(posx,posy);
+		vitesse=10;
+		direction=dir;
+	}
+	
+	
 	
 	/**
 	 * 
@@ -18,15 +26,20 @@ public abstract class ElementMobiles extends Elements {
 		Direction maDirection;
 	
 		maDirection = choixDeplacement();
-	
+		System.out.println("mon choix deplacement:" + maDirection);
 		if(verifierDeplacement(maDirection)) {
-			Coordonnee mapPosition = CityMove.map.getPositionInTiles(getPosition());;
+			System.out.println("verif deplacement ok");
+			Coordonnee mapPosition = CityMove.map.getPositionInTiles(getPosition());
+			
+			//System.out.println("maPosition : "+mapPosition);
+			
 			Coordonnee newMapPosition;
-			MapElement monMapElement = CityMove.map.getMapElement(position.getX(), position.getY());
+			MapElement monMapElement = CityMove.map.getMapElement(CityMove.map.getPositionInTiles(position));
 			MapElement monNewMapElement;
 			TypeMobileElement myTypeMobileElement = monMapElement.getMyTypeMobileElement();
 			
 			setPosition(getNextPosition(maDirection));
+			System.out.println("voiture position: " + position);
 			newMapPosition = CityMove.map.getPositionInTiles(getPosition());
 			monNewMapElement = CityMove.map.getMapElement(newMapPosition);
 			monNewMapElement.setMyTypeMobileElement(myTypeMobileElement);
@@ -118,6 +131,7 @@ public abstract class ElementMobiles extends Elements {
 		boolean feuRougeVerifie = true;
 
 		Coordonnee coordonneeVerifiee = getNextTilesPosition(1, d);
+		System.out.println("coord verif: " + coordonneeVerifiee);
 		MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
 		Feu monFeuVerifie = monMapElementVerifie.getMyFeu();
 		
@@ -164,7 +178,7 @@ public abstract class ElementMobiles extends Elements {
 	public Coordonnee getNextTilesPosition(int nbTiles, Direction direction) {
 		/* On recupere notre position courante, en tuiles, sur la map */
 		Coordonnee maMapPosition = CityMove.map.getPositionInTiles(this.position);
-		
+		System.out.println("ma map position:" + maMapPosition);
 		/* On renvoie la tuile suivante, qui depend de notre position et de notre diretion */
 		switch (direction){
 		case NORD :
@@ -187,10 +201,14 @@ public abstract class ElementMobiles extends Elements {
 	public Direction choixDeplacement() {
 		Direction maDirection = Direction.AUCUNE;
 		
+		//System.out.println("CHOIXDEPLACEMENT: "+ maDirection);
 		/* Je recupere mon mapElement correspondant a mon ElementMobile */
 		Coordonnee posInTiles = CityMove.map.getPositionInTiles(position);
+		//System.out.println("posIntTiles : "+posInTiles);
 		MapElement monMapElement = CityMove.map.getMapElement(posInTiles);
+		System.out.println("mapElem : "+monMapElement);
 		
+		System.out.println("ChoixDeplacemnt : getpossi avec " +monMapElement);
 		/* Je recupere le tableau de possibilites de ce mapElement puis je stock la taille du tableau */
 		ArrayList<Direction> tab = monMapElement.getPossibilities();
 		int taille = tab.size();
@@ -200,7 +218,7 @@ public abstract class ElementMobiles extends Elements {
 		int choix = generator.nextInt(taille);
 		
 		maDirection = tab.get(choix);
-		
+	//	System.out.println("CHOIXDEPLACEMENT: "+ maDirection);
 		return maDirection;
 	}
 

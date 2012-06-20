@@ -5,6 +5,13 @@
 
 abstract class Vehicule extends ElementMobiles 
 {
+	
+	public Vehicule(int posx,int posy,Direction dir) {
+		super(posx,posy,dir);
+	}
+	
+	
+	
 	/**
 	 * @param d : Direction pour laquelle on veut verifier que le deplacement est possible
 	 * @return Oui ou non

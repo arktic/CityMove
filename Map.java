@@ -64,13 +64,18 @@ public class Map extends JPanel{
 		/* On remplit la map avec de l'herbe */
 		//remplirDefaultMap();
 
-		open("./Ressources/Map/map1.txt");
+		open("./CityMove/Ressources/Map/map1.txt");
 		//tabMapElement = map1;
 		CityMove.map=this;
 		this.sizeElement = sizeElem;
+		System.out.println("ELEM = 3 : 0 : "+tabMapElement[0][3]);
+		addElementMobile(new Voiture(3*sizeElem,0*sizeElem,Direction.SUD));
+		
+		
 		
 		setFocusable(true);
 		setDoubleBuffered(true);
+		
 	}
 	
 	
@@ -106,9 +111,13 @@ public class Map extends JPanel{
 		/* On remplit la map avec de l'herbe */
 		remplirDefaultMap();
 		
+		
+		
 		CityMove.map=this;
 		this.sizeElement = sizeElem;
 		
+		
+
 		setFocusable(true);
 		setDoubleBuffered(true);
 	}
@@ -122,31 +131,31 @@ public class Map extends JPanel{
 		
 		
 		try {
-			img = ImageIO.read(new File("./Ressources/Background/herbe.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/herbe.jpg"));
 			backgroundImage.put(BackgroundElement.HERBE, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_est.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_EST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_ouest.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_OUEST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord_est.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD_EST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord_ouest.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_nord_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD_OUEST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud_est.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_EST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud_ouest.jpg"));
+			img = ImageIO.read(new File("./CityMove/Ressources/Background/route_sud_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 			
 			
@@ -162,9 +171,10 @@ public class Map extends JPanel{
 
 	public void deplacementElementMobile() {
 		java.util.Iterator<ElementMobiles> it = tabElementMobile.iterator();
-		
+		System.out.println("Deplacement");
 		/* On parcours tout nos elements mobiles et on les fait se déplacer */
 		while (it.hasNext()){
+			System.out.println("while ");
 			it.next().seDeplacer();
 		}
 		
@@ -187,6 +197,7 @@ public class Map extends JPanel{
 
 		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./CityMove/Ressources/Background/voiture.png"), X1, Y1, this);	
 		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./CityMove/Ressources/Background/voiture.png"), X2, Y2, this);	
+		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./CityMove/Ressources/Background/voiture.png"), tabElementMobile.get(0).position.x, tabElementMobile.get(0).position.y, this);	
 		
 		/*Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -251,12 +262,12 @@ public class Map extends JPanel{
 
 
 
-	public int addVehicule(ElementMobiles monElementMobile) {
+	public int addElementMobile(ElementMobiles monElementMobile) {
 		tabElementMobile.add(monElementMobile);
 		return 0;
 	}
 
-	public int removeVehicule(ElementMobiles monElementMobile) {
+	public int removeElementMobile(ElementMobiles monElementMobile) {
 		tabElementMobile.remove(monElementMobile);
 		return 0;
 	}
@@ -276,7 +287,7 @@ public class Map extends JPanel{
 	 * @return
 	 */
 	public MapElement getMapElement(Coordonnee tilesCoord) {
-		return tabMapElement[tilesCoord.getX()][tilesCoord.getY()];
+		return tabMapElement[tilesCoord.getY()][tilesCoord.getX()];
 	}
 
 	
@@ -289,8 +300,10 @@ public class Map extends JPanel{
 	 * @return
 	 */
 	public Coordonnee getPositionInTiles(Coordonnee pixelsPosition) {
-		Coordonnee tilesPosition = new Coordonnee(pixelsPosition.getX()%sizeElement,pixelsPosition.getY()%sizeElement);
 		
+		System.out.print("getPositionInTiles de "+pixelsPosition);
+		Coordonnee tilesPosition = new Coordonnee(pixelsPosition.getX()/sizeElement,pixelsPosition.getY()/sizeElement);
+		System.out.println("  vaut "+tilesPosition);
 		return tilesPosition;
 	}
 

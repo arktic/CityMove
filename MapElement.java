@@ -89,6 +89,7 @@ public class MapElement {
 				tab.add(Direction.NORD);
 				break;
 			case ROUTE_SUD :
+				System.out.println("PASSAGE SUD");
 				tab.add(Direction.SUD);
 				break;
 			case ROUTE_EST :
@@ -237,6 +238,18 @@ public class MapElement {
 		
 		
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MapElement [myBackgroundElement=" + myBackgroundElement
+				+ ", myFeu=" + myFeu + ", myTypeMobileElement="
+				+ myTypeMobileElement + "]";
+	}
+	
+	
 	
 }
 

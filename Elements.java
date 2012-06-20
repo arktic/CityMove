@@ -12,6 +12,10 @@ public class Elements extends Observable {
 		position = new Coordonnee();
 		pathImg = "No image";
 	}
+	
+	public Elements(int posx,int posy) {
+		position = new Coordonnee(posx,posy);
+	}
 
 /*----- Accesseurs -----*/
 	/**
