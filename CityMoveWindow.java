@@ -19,12 +19,12 @@ public class CityMoveWindow extends JFrame {
 				while(true) {
 
 					map.deplacementElementMobile();
-
+					
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
 
-							// TODO Auto-generated method stub
+
 							repaint();
 
 						}
@@ -38,7 +38,29 @@ public class CityMoveWindow extends JFrame {
 			}
 		}).start();
 
+	/*	
+		FeuPieton fp = new FeuPieton(EtatFeu.ROUGE);
+		(new Thread(fp)).start();
+		FeuPieton fp1 = new FeuPieton(EtatFeu.VERT);
+		System.out.println("Avnt lancement fp1");
+		(new Thread(fp1)).start();
+		System.out.println("avnt ajout osbervers");
+		fp.addObserver(fp1);
+		System.out.println("Apres ajout observers");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("Avant notif effectué");
+		//fp.setChanged();
+		fp.notifyObservers(EtatFeu.ROUGE);
+		
+		System.out.println("Notification effectué");
+		//fp.notify();
 		while(true) {
+<<<<<<< HEAD
 			try {
 				Thread.sleep(4000);
 			} catch (InterruptedException e) {
@@ -52,6 +74,21 @@ public class CityMoveWindow extends JFrame {
 			else
 				map.tabMapElement[10][3].myFeu.etat=EtatFeu.ROUGE;
 		}
+=======
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(map.tabMapElement[10][3].myFeu.etat==EtatFeu.ROUGE) {
+			map.tabMapElement[10][3].myFeu.etat=EtatFeu.VERT;
+		}
+		else
+			map.tabMapElement[10][3].myFeu.etat=EtatFeu.ROUGE;
+		}*/
+
 	}
 
 
