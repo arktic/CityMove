@@ -1,11 +1,12 @@
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Observable;
 
 
 public class FeuTemps extends Feu implements Runnable {
-	protected long vert_time = 3000;
-	protected  long red_time = 4000;
-	protected  long vert_orange_time = 4000;
-	protected  long orange_red_time = 4000;
+	protected long vert_time = 5000;
+	protected  long red_time = 5000;
 	
 	
 	public FeuTemps(EtatFeu etat) {
@@ -69,19 +70,17 @@ public class FeuTemps extends Feu implements Runnable {
 				try {
 					Thread.sleep(vert_time);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				this.setEtat(EtatFeu.ROUGE); // demande au carrefour
+				this.setEtatAndNotify(EtatFeu.ROUGE);
 			}
 			else {
 						try {
 							Thread.sleep(red_time);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-				this.setEtat(EtatFeu.VERT); //demande au carrefour
+				this.setEtatAndNotify(EtatFeu.VERT); 
 			}
 		}		
 	}
@@ -90,7 +89,14 @@ public class FeuTemps extends Feu implements Runnable {
 	public void update(Observable o, Object arg) {
 		MapElement myMapElement = CityMove.map.getMapElement(positionInTiles);
 		BackgroundElement myBackgroundElement = myMapElement.getMyBackgroundElement();
+		
 		EtatFeu etatFeuObserve = (EtatFeu) arg;
+		System.out.println("reception d'une notif de chgt en "+etatFeuObserve);
+		
+		//Calendar actualTime = new GregorianCalendar();
+		
+		/* On viens de recevoir un changement, on marque donc la derniere notification */
+		lastNotif.setTime(new Date());
 		Feu feuObserve = (Feu) o;
 		Coordonnee mapPositionObserve = feuObserve.getPositionInTiles();
 		MapElement mapElementObserve = CityMove.map.getMapElement(mapPositionObserve);
@@ -98,43 +104,54 @@ public class FeuTemps extends Feu implements Runnable {
 		
 		switch (myBackgroundElement) {
 			case ROUTE_NORD :
+				System.out.println("TEST NORD");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_SUD, etatFeuObserve);
 				break;
 
 			case ROUTE_SUD :
+				System.out.println("TEST SUD");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_NORD, etatFeuObserve);
 				break;
 				
 			case ROUTE_EST :
+				System.out.println("TEST EST");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_OUEST, etatFeuObserve);
 				break;
 				
 			case ROUTE_OUEST :
+				System.out.println("TEST OUEST");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_EST, etatFeuObserve);
 				break;
 			default : System.out.println("Probleme dans le switch de myBackgroundElement\n"); System.exit(1);
 		}
 		
-		System.out.println("NOTIF RECU dans feupieton");
+		System.out.println("NOTIF RECU dans feu pieton");
 	}
 	
 	private void adapterEtat(BackgroundElement be, BackgroundElement backgroundAtester, EtatFeu e) {
+		System.out.println("Je suis dans adapterEtat\n");
 		if(be == backgroundAtester) {
 			if(e == EtatFeu.VERT) {
+				System.out.println("Ca merde 1 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 			else {
+				System.out.println("Ca merde 2 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 		}
-		else {
+		else{
 			if(e == EtatFeu.VERT) {
+				System.out.println("Ca merde 3 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 			else {
+				System.out.println("Ca merde 4 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 		}
+		
 	}
+	
 
 }
