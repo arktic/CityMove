@@ -22,23 +22,18 @@ public abstract class ElementMobiles extends Elements {
 	 * @return
 	 */
 	public int seDeplacer() { 
-		Direction maDirection;
-	
-		maDirection = choixDeplacement();
-		//System.out.println("mon choix deplacement:" + maDirection);
+		Direction maDirection = choixDeplacement();
+		
 		if(verifierDeplacement(maDirection)) {
-			//System.out.println("verif deplacement ok");
 			Coordonnee mapPosition = CityMove.map.getPositionInTiles(getPosition());
 			
-			//System.out.println("maPosition : "+mapPosition);
 			
 			Coordonnee newMapPosition;
-			MapElement monMapElement = CityMove.map.getMapElement(CityMove.map.getPositionInTiles(position));
+			MapElement monMapElement = CityMove.map.getMapElement(mapPosition);
 			MapElement monNewMapElement;
 			TypeMobileElement myTypeMobileElement = monMapElement.getMyTypeMobileElement();
 			
 			setPosition(getNextPosition(maDirection));
-			//System.out.println("voiture position: " + position);
 			newMapPosition = CityMove.map.getPositionInTiles(getPosition());
 			monNewMapElement = CityMove.map.getMapElement(newMapPosition);
 			monNewMapElement.setMyTypeMobileElement(myTypeMobileElement);
@@ -201,10 +196,8 @@ public abstract class ElementMobiles extends Elements {
 	public Direction choixDeplacement() {
 		Direction maDirection = Direction.AUCUNE;
 		
-		//System.out.println("CHOIXDEPLACEMENT: "+ maDirection);
 		/* Je recupere mon mapElement correspondant a mon ElementMobile */
 		Coordonnee posInTiles = CityMove.map.getPositionInTiles(position);
-		//System.out.println("posIntTiles : "+posInTiles);
 		MapElement monMapElement = CityMove.map.getMapElement(posInTiles);
 		//System.out.println("mapElem : "+monMapElement);
 		
@@ -215,10 +208,11 @@ public abstract class ElementMobiles extends Elements {
 		
 		/* Je genere un nommbre aleatoire compris entre 0 et la taile de mon tableau -> c'est la que ce fait le choix */
 		Random generator = new Random();
+		
 		int choix = generator.nextInt(taille);
 		
 		maDirection = tab.get(choix);
-	//	System.out.println("CHOIXDEPLACEMENT: "+ maDirection);
+		//System.out.println("ALEA : direction = "+maDirection);
 		return maDirection;
 	}
 

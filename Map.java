@@ -20,6 +20,8 @@ public class Map extends JPanel{
 	protected int nbColonnes;
 
 
+	private String repertoire_workspace ="./CityMove/Ressources/";
+	
 	public int X1 = 120;
 	public int Y1 = 570;
 	
@@ -64,14 +66,17 @@ public class Map extends JPanel{
 		/* On remplit la map avec de l'herbe */
 		//remplirDefaultMap();
 
-		open("./Ressources/Map/map1.txt");
+		open(repertoire_workspace+"Map/map1.txt");
 		//tabMapElement = map1;
 		CityMove.map=this;
 		this.sizeElement = sizeElem;
 		//System.out.println("ELEM = 3 : 0 : "+tabMapElement[0][3]);
+		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
+		generateur.start();
+		
 		addElementMobile(new Voiture(3*sizeElem,0*sizeElem,Direction.SUD));
 		
-		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
+		
 		
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -131,31 +136,31 @@ public class Map extends JPanel{
 		
 		
 		try {
-			img = ImageIO.read(new File("./Ressources/Background/herbe.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/herbe.jpg"));
 			backgroundImage.put(BackgroundElement.HERBE, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_nord.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_sud.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_est.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_EST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_ouest.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_OUEST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord_est.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_nord_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD_EST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_nord_ouest.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_nord_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_NORD_OUEST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud_est.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_sud_est.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_EST, img);
 			
-			img = ImageIO.read(new File("./Ressources/Background/route_sud_ouest.jpg"));
+			img = ImageIO.read(new File(repertoire_workspace+"Background/route_sud_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 			
 			
@@ -186,6 +191,7 @@ public class Map extends JPanel{
 
 		Graphics2D g2d = (Graphics2D)g;
 
+		/* affichage du background */
 		for(int c=0 ; c < nbColonnes ; c++ ){
 			for(int l=0 ; l < nbLignes ; l++) {
 				Image img;
@@ -195,9 +201,18 @@ public class Map extends JPanel{
 			}
 		}
 
-		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./Ressources/Background/voiture.png"), X1, Y1, this);	
-		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./Ressources/Background/voiture.png"), X2, Y2, this);	
-		g2d.drawImage( Toolkit.getDefaultToolkit().getImage("./Ressources/Background/voiture.png"), tabElementMobile.get(0).position.x, tabElementMobile.get(0).position.y, this);	
+		
+		java.util.Iterator<ElementMobiles> it = tabElementMobile.iterator();
+		
+		while(it.hasNext()) {
+			/* Determiner quelle image à afficher, et aussi dans quel sens */
+			ElementMobiles courant = it.next();
+			g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+		}
+		
+		g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), X1, Y1, this);	
+		g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), X2, Y2, this);	
+		//g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), tabElementMobile.get(0).position.x, tabElementMobile.get(0).position.y, this);	
 		
 		/*Toolkit.getDefaultToolkit().sync();
 		g.dispose();

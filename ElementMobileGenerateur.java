@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  */
 public class ElementMobileGenerateur extends Thread {
 
-	protected static double frequence_vehicule = 10/100;
+	protected static double frequence_vehicule = 1;
 	protected static double frequence_vehicule_urgent = 1/1000;
 	protected static double frequence_pieton = 1/1000;
 	private static double default_coef = frequence_vehicule;
@@ -15,9 +16,6 @@ public class ElementMobileGenerateur extends Thread {
 	public ArrayList<Coordonnee> tabCoord;
 	public ArrayList<Direction> tabDirection;
 	private ArrayList<Double> tabCoef;
-	
-	//TODO : thread ?! je pense que oui, mais on pourrait en avoir qu'un pour tout les endroits d'entrée de la map
-	
 	
 	
 	
@@ -92,9 +90,15 @@ public class ElementMobileGenerateur extends Thread {
 	
 	
 	public void run() {
-		
+		Random generator = new Random();
+		System.out.println("Lancement du generateur...");
 		while(true) {
-			
+			/* Pour chacuns des points d'entrée */
+			for(int i = 0 ; i < tabCoord.size() ; i++) {
+				if(generator.nextDouble()<tabCoef.get(i)) {
+					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX(),tabCoord.get(i).getY(),tabDirection.get(i))); 
+				}
+			}
 			
 		}
 	}

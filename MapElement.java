@@ -140,7 +140,7 @@ public class MapElement {
 				break;
 			default : System.out.println("Probleme dans le switch");
 		}
-		
+	//	System.out.println("En sortie, tabSol : "+tab);
 		return tab;
 	}
 	
