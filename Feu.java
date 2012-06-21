@@ -15,7 +15,7 @@ public abstract class Feu extends Observable implements Observer {
 	//protected boolean busy;
 	protected Coordonnee positionInTiles;
 	protected Calendar lastNotif;
-	protected int tempsMinEntre2Notifs = 100;
+	protected int tempsMinEntre2Notifs = 200;
 
 	public Feu() {
 		etat = EtatFeu.ROUGE;
@@ -67,7 +67,7 @@ public abstract class Feu extends Observable implements Observer {
 		if (actualTime.getTimeInMillis() - lastNotif.getTimeInMillis() >= tempsMinEntre2Notifs ) {
 			Random generator = new Random();
 			try {
-				this.wait(generator.nextInt(50));
+				this.wait(generator.nextInt(100)+100);
 			} catch (InterruptedException e1) {
 			
 				e1.printStackTrace();

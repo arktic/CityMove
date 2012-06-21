@@ -22,7 +22,7 @@ public class Map extends JPanel{
 	protected int nbColonnes;
 	protected int nbCarrefour;
 
-	private String repertoire_workspace ="./CityMove/Ressources/";
+	private String repertoire_workspace ="./Ressources/";
 	protected int hauteur;
 	protected int largeur;
 	

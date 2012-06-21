@@ -125,7 +125,7 @@ public class FeuTemps extends Feu implements Runnable {
 			default : System.out.println("Probleme dans le switch de myBackgroundElement\n"); System.exit(1);
 		}
 		
-		System.out.println("NOTIF RECU dans feu pieton");
+		System.out.println("NOTIF RECU dans feu temps");
 	}
 	
 	private void adapterEtat(BackgroundElement be, BackgroundElement backgroundAtester, EtatFeu e) {
