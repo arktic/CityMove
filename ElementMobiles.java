@@ -27,20 +27,19 @@ public abstract class ElementMobiles extends Elements {
 
 
 		/* On détermine notre nouvelle direction */
-		
+
 		if(getPosition().isOnMap()) {
-		maDirection = choixDeplacement();
-		//System.out.println("mon choix deplacement:" + maDirection);
+			maDirection = choixDeplacement();
+
 		}
 
 		Coordonnee newPosition = CityMove.map.getPositionInTiles(getNextPosition(maDirection));
-		//System.out.println("Next position :" + newPosition);
 
 		if(isElementMobileOnMap(newPosition)) {
+
+
 			if(verifierDeplacement(maDirection)) {
 				/* Si on peut se rendre sur la case vers maDirection */
-				//System.out.println("OK VERIF");
-				//System.out.println("maPosition : "+mapPosition);
 
 				MapElement oldMapElement = CityMove.map.getMapElement(CityMove.map.getPositionInTiles(getPosition()));
 				MapElement newMapElement;
@@ -49,8 +48,8 @@ public abstract class ElementMobiles extends Elements {
 				/* On actualise la position courante  et la nouvelle direction */
 				setPosition(getNextPosition(maDirection));
 				setDirection(maDirection);
-				
-				
+
+
 				newMapElement = CityMove.map.getMapElement(newPosition);
 				newMapElement.setMyTypeMobileElement(myTypeMobileElement);
 
@@ -64,26 +63,26 @@ public abstract class ElementMobiles extends Elements {
 			}
 		}
 		else if(isElementMobileOnDarkMap(newPosition)){
-			//System.out.println("PASSAGE DARK MAP");
+			
 			/* Sortir visuellement le véhicule de la carte */
 			setPosition(getNextPosition(maDirection));
 			setDirection(maDirection);
-			
+
 			MapElement oldMapElement = null;
-			
+
 			switch(maDirection) {
 			case NORD:
 				oldMapElement = CityMove.map.getMapElement(
 						CityMove.map.getPositionInTiles(new Coordonnee(getPosition().getX(),0))
 						);
 				break;
-				
+
 			case SUD:
 				oldMapElement = CityMove.map.getMapElement(
 						CityMove.map.getPositionInTiles(new Coordonnee(getPosition().getX(),CityMove.map.getHauteur()))
 						);
 				break;
-				
+
 			case EST:
 				oldMapElement = CityMove.map.getMapElement(
 						CityMove.map.getPositionInTiles(new Coordonnee(0,getPosition().getY()))
@@ -94,17 +93,17 @@ public abstract class ElementMobiles extends Elements {
 						CityMove.map.getPositionInTiles(new Coordonnee(CityMove.map.getLargeur(),getPosition().getY()))
 						);
 				break;
-				
+
 			}
-			
+
 			oldMapElement.setMyTypeMobileElement(TypeMobileElement.VIDE);
-			
+
 
 		} else {
-			System.out.println("Suppresion de un vehicule !!!!");
+			//System.out.println("Suppresion de un vehicule  en"+CityMove.map.getPositionInTiles(getPosition()));
 			CityMove.map.removeElementMobile(this);
 		}
-			
+
 
 
 
@@ -116,31 +115,30 @@ public abstract class ElementMobiles extends Elements {
 
 	/**
 	 * Renvoie vrai si la coordonnée d'un véhicule passé en param est visible sur la map dark
-	 * @param pos
+	 * @param posInTiles : la position en coordonneé
 	 * @return
 	 */
-	private boolean isElementMobileOnDarkMap(Coordonnee pos) {
-		
+	private boolean isElementMobileOnDarkMap(Coordonnee posInTiles) {
+
 		Map map = CityMove.map;
-	//	System.out.println("DARKMAP avec "+pos);
-		return (  pos.getX()*map.sizeElement>= -map.sizeElement
-				&& pos.getX()*map.sizeElement< map.largeur-2*map.sizeElement 
-				&& pos.getY()*map.sizeElement>= -map.sizeElement
-				&& pos.getY()*map.sizeElement< map.hauteur-2*map.sizeElement);
+		return (  posInTiles.getX()*map.sizeElement>= -1//map.sizeElement
+				&& posInTiles.getX()*map.sizeElement< map.getLargeurInTiles()-2//*map.sizeElement 
+				&& posInTiles.getY()*map.sizeElement>= -1//map.sizeElement
+				&& posInTiles.getY()*map.sizeElement< map.getHauteurInTiles()-2);//*map.sizeElement);
 	}
 
 
 	/**
 	 * Renvoie vrai si la coordonnée d'un véhicule passé en param est visible sur la map 
-	 * @param pos
+	 * @param posInTiles
 	 * @return
 	 */
-	private boolean isElementMobileOnMap(Coordonnee pos) {
-		
-		return (  pos.getX()>=0 
-				&& pos.getX()<CityMove.map.largeur-CityMove.map.sizeElement 
-				&& pos.getY()>=0 
-				&& pos.getY()<CityMove.map.hauteur-CityMove.map.sizeElement);
+	private boolean isElementMobileOnMap(Coordonnee posInTiles) {
+
+		return (  posInTiles.getX()>=0 
+				&& posInTiles.getX()<CityMove.map.getLargeurInTiles()-1//CityMove.map.getSizeElement()
+				&& posInTiles.getY()>=0 
+				&& posInTiles.getY()<CityMove.map.getHauteurInTiles() -1);//CityMove.map.getSizeElement());
 	}
 
 
@@ -154,9 +152,9 @@ public abstract class ElementMobiles extends Elements {
 	synchronized public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
-	
-	
-	
+
+
+
 	synchronized public  int getVitesse() {
 		return vitesse;
 	}
@@ -328,7 +326,7 @@ public abstract class ElementMobiles extends Elements {
 			maDirection = Direction.AUCUNE;
 		//System.out.println("choix:" + choix);
 
-		
+
 
 		return maDirection;
 	}
