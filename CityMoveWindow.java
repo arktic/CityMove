@@ -10,20 +10,22 @@ public class CityMoveWindow extends JFrame {
 	public CityMoveWindow() {
 		map = new Map(30);
 		add(map);
+
 		build();
+		resizeWindow(map);
 
 		new Thread(new Runnable() {
 			public void run() {
 				while(true) {
-					
+
 					map.deplacementElementMobile();
 
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
 
-								// TODO Auto-generated method stub
-								repaint();
+							// TODO Auto-generated method stub
+							repaint();
 
 						}
 					});
@@ -37,23 +39,32 @@ public class CityMoveWindow extends JFrame {
 		}).start();
 
 		while(true) {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(map.tabMapElement[10][3].myFeu.etat==EtatFeu.ROUGE) {
-			map.tabMapElement[10][3].myFeu.etat=EtatFeu.VERT;
-		}
-		else
-			map.tabMapElement[10][3].myFeu.etat=EtatFeu.ROUGE;
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if(map.tabMapElement[10][3].myFeu.etat==EtatFeu.ROUGE) {
+				map.tabMapElement[10][3].myFeu.etat=EtatFeu.VERT;
+			}
+			else
+				map.tabMapElement[10][3].myFeu.etat=EtatFeu.ROUGE;
 		}
 	}
 
 
-	
+
+
+
+	private void resizeWindow(Map map2) {
+		setSize(map2.largeur, map2.hauteur);
+
+	}
+
+
+
 
 
 	private void build() {

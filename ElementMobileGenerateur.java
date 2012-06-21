@@ -11,23 +11,23 @@ public class ElementMobileGenerateur extends Thread {
 	protected static double frequence_vehicule = 1;
 	protected static double frequence_vehicule_urgent = 1/1000;
 	protected static double frequence_pieton = 1/1000;
-	private static double default_coef = 0.2;
-	
+	private static double default_coef = 1;
+
 	public ArrayList<Coordonnee> tabCoord;
 	public ArrayList<Direction> tabDirection;
 	private ArrayList<Double> tabCoef;
-	
-	
-	
-	
+
+
+
+
 	public ElementMobileGenerateur() {
 		tabCoord= new ArrayList<Coordonnee>();
 		tabDirection= new ArrayList<Direction>();
 		tabCoef= new ArrayList<Double>();
 		ajouterToutPointEntree();
 	}
-	
-	
+
+
 	/**
 	 * Permet d'ajouter un point d'entree au générateur
 	 * @param coo les coordonnees de ce point d'entree
@@ -40,23 +40,22 @@ public class ElementMobileGenerateur extends Thread {
 		tabDirection.add(dir);
 		tabCoef.add(coef);
 	}
-	
-	
+
+
 	/**
 	 * Permet d'ajouter un point d'entree au générateur
 	 * @param coo les coordonnees de ce point d'entree
 	 * @param dir la direction de ce point d'entree
 	 */
 	private void ajouterPointEntree(Coordonnee coo, Direction dir) {
-		System.out.println("Ajout de "+coo+" en direction de "+dir);
 		tabCoord.add(coo);
 		tabDirection.add(dir);
 		tabCoef.add(default_coef);
 	}
-	
-	
+
+
 	private void ajouterToutPointEntree() {
-		
+
 		int l=0,c=0;
 		Map map = CityMove.map;
 		/* Parcours du coté haut */
@@ -65,8 +64,8 @@ public class ElementMobileGenerateur extends Thread {
 				ajouterPointEntree(new Coordonnee(c,l),Direction.SUD);
 			}
 		}
-		
-		
+
+
 		/* Parcours bord droit et gauche */
 		int cg = 0, cd = map.nbColonnes-1;
 		for(l=1;l<map.nbLignes-1;l++) {
@@ -77,7 +76,7 @@ public class ElementMobileGenerateur extends Thread {
 				ajouterPointEntree(new Coordonnee(cd,l),Direction.OUEST);
 			}
 		}
-		
+
 		/* Parcours bord bas */
 		l=map.nbLignes-1;
 		for( c = 0 ; c < map.nbColonnes ; c++) {
@@ -86,34 +85,33 @@ public class ElementMobileGenerateur extends Thread {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	public void run() {
 		Random generator = new Random();
-		System.out.println("Lancement du generateur...");
 		while(true) {
 			/* Pour chacuns des points d'entrée */
 			for(int i = 0 ; i < tabCoord.size() ; i++) {
 				if(generator.nextDouble()<tabCoef.get(i)) {
-					//System.out.println("Ajout d'une voiture en "+tabCoord.get(i).getX()+","+tabCoord.get(i).getY());
-					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,tabDirection.get(i))); 
+					//TODO: test pour ne pas ajouter de voiure si il y ena  deja une à cet endroit..
+					//TODO : modif pour faire apparaitre les voituures une case avant (pour effet d'arriver et pas teleportation ;))
+					Direction dir = tabDirection.get(i);
+					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));
+
+					
 				}
+				try {
+					Thread.sleep(400);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 }
+
+
+

@@ -16,7 +16,7 @@ public class FichierLecture {
 		}
 		catch(Exception exception) {
 			System.err.println("Erreur: Impossible d'ouvrir '"+nom+"'.");
-			//   System.exit(1);
+			System.exit(1);
 		}
 	}
 	
