@@ -23,34 +23,38 @@ public abstract class ElementMobiles extends Elements {
 	 */
 	public int seDeplacer() { 
 		Direction maDirection;
-	
+		Coordonnee newMapPosition;
+		
 		maDirection = choixDeplacement();
-		//System.out.println("mon choix deplacement:" + maDirection);
-		if(verifierDeplacement(maDirection)) {
+		System.out.println("mon choix deplacement:" + maDirection);
+		if(verifierElementMobile(null,maDirection)) {
 			//System.out.println("verif deplacement ok");
-			Coordonnee mapPosition = CityMove.map.getPositionInTiles(getPosition());
-			
+			System.out.println("OK VERIF");
 			//System.out.println("maPosition : "+mapPosition);
 			
-			Coordonnee newMapPosition;
-			MapElement monMapElement = CityMove.map.getMapElement(CityMove.map.getPositionInTiles(position));
+			MapElement monMapElement = CityMove.map.getMapElement(CityMove.map.getPositionInTiles(getPosition()));
 			MapElement monNewMapElement;
 			TypeMobileElement myTypeMobileElement = monMapElement.getMyTypeMobileElement();
 			
 			setPosition(getNextPosition(maDirection));
 			//System.out.println("voiture position: " + position);
+			setDirection(maDirection);
 			newMapPosition = CityMove.map.getPositionInTiles(getPosition());
 			monNewMapElement = CityMove.map.getMapElement(newMapPosition);
 			monNewMapElement.setMyTypeMobileElement(myTypeMobileElement);
 			
 			
-						
 			if(doitLibererCaseDerriere()) {
 				monMapElement.setMyTypeMobileElement(TypeMobileElement.VIDE);
 			}
 		}
 		else {
-			stoper();
+			System.out.println("Else verif not ok, my position: " + getPosition());
+			if(!(getPosition() == getNextPosition(getDirection()))) {
+				// faire sortir de la carte
+				System.out.println("ELSE");
+				setPosition(getNextPosition(maDirection));
+			}
 		}
 		
 		return 0;
@@ -59,6 +63,18 @@ public abstract class ElementMobiles extends Elements {
 	
 	
 	
+	public Direction getDirection() {
+		return direction;
+	}
+
+
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+
+
 	/**
 	 * renvoi vrai si nous avons atteint le bout de notre case courante, donnc qu'on vient de libérer la case d'avant
 	 * Note: on suppose ici que tout nos éléments mobiles occupent une case
@@ -113,7 +129,7 @@ public abstract class ElementMobiles extends Elements {
 			MapElement monMapElementVerifie = CityMove.map.getMapElement(coordonneeVerifiee);
 			TypeMobileElement monMobileElementVerifie = monMapElementVerifie.getMyTypeMobileElement();
 			
-			if(monMobileElementVerifie!=null && tme == monMobileElementVerifie)
+			if(monMobileElementVerifie!=null)// && tme == monMobileElementVerifie)
 			{
 				ElementMobileVerifie = true;
 			}
@@ -212,12 +228,13 @@ public abstract class ElementMobiles extends Elements {
 		/* Je recupere le tableau de possibilites de ce mapElement puis je stock la taille du tableau */
 		ArrayList<Direction> tab = monMapElement.getPossibilities();
 		int taille = tab.size();
-		
+		System.out.println("tab: " + tab);
 		/* Je genere un nommbre aleatoire compris entre 0 et la taile de mon tableau -> c'est la que ce fait le choix */
 		Random generator = new Random();
 		int choix = generator.nextInt(taille);
+		System.out.println("choix:" + choix);
 		
-		maDirection = tab.get(choix);
+		maDirection = tab.get(choix);//tab.get(choix);
 	//	System.out.println("CHOIXDEPLACEMENT: "+ maDirection);
 		return maDirection;
 	}

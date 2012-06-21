@@ -19,7 +19,9 @@ public class Map extends JPanel{
 	protected int nbLignes;
 	protected int nbColonnes;
 
-
+	protected int hauteur;
+	protected int largeur;
+	
 	public int X1 = 120;
 	public int Y1 = 570;
 	
@@ -53,10 +55,11 @@ public class Map extends JPanel{
 		backgroundImage = new HashMap<BackgroundElement, Image>();
 		this.nbColonnes = nbDefaultColonne;
 		this.nbLignes = nbDefaultLigne;
+		largeur = nbDefaultLigne * sizeElem;
+		hauteur = nbDefaultColonne * sizeElem;
 		this.tabElementMobile = new Vector<ElementMobiles>();
 		
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
-		
 		
 		/* On ajoute notre base de donnée d'images de Background à notre image */
 		ajouterBackgroundImages();
@@ -99,7 +102,8 @@ public class Map extends JPanel{
 		backgroundImage = new HashMap<BackgroundElement, Image>(); 
 		this.nbColonnes = nbColonnes;
 		this.nbLignes = nbLignes;
-
+		largeur = nbDefaultLigne * sizeElem;
+		hauteur = nbDefaultColonne * sizeElem;
 		this.tabElementMobile = new Vector<ElementMobiles>();
 		
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
