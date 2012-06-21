@@ -26,4 +26,4 @@ NB_CARREFOUR 1
 
 Info:CARREFOUR [NBFEU CARREFOUR]; [type feu],[X],[Y],[type feu],[X],[Y] etc indique un carrefour
 Code: 100 = FeuTemps 101 = FeuPieton 102 = FeuHybride
-CARREFOUR 4; 100,3,8,100,13,4,100,10,6,100,10,1
+CARREFOUR 4; 100,3,8,100,4,13,100,6,10,100,1,11

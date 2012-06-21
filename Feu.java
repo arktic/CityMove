@@ -8,7 +8,7 @@ public abstract class Feu extends Observable implements Observer {
 	
 	protected EtatFeu etat;
 	//protected EtatFeu demande;
-	protected boolean busy;
+	//protected boolean busy;
 	protected Coordonnee positionInTiles;
 	
 	
@@ -17,6 +17,7 @@ public abstract class Feu extends Observable implements Observer {
 	}
 	
 	public Feu(Coordonnee coordonnee) {
+		etat = EtatFeu.ROUGE;
 		positionInTiles = coordonnee;
 	}
 	/**
@@ -32,9 +33,9 @@ public abstract class Feu extends Observable implements Observer {
 		return etat;
 	}
 	
-	synchronized public boolean getBusy() {
+	/*synchronized public boolean getBusy() {
 		return busy;
-	}
+	}*/
 	
 	synchronized public Coordonnee getPositionInTiles() {
 		return positionInTiles;
@@ -43,12 +44,13 @@ public abstract class Feu extends Observable implements Observer {
 	synchronized public void setEtat(EtatFeu e) {
 		etat = e;
 		setChanged();
-		notifyObservers();
+		//notifyObservers(etat);
+ 
 	}
 	
-	synchronized public void setBusy(boolean b) {
+	/*synchronized public void setBusy(boolean b) {
 		busy = b;
-	}
+	}*/
 
 //	public void changerEtat(EtatFeu e) {}
 	

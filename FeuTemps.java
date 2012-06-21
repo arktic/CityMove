@@ -67,7 +67,7 @@ public class FeuTemps extends Feu implements Runnable {
 		while(true) {
 			if(getEtat() == EtatFeu.VERT) {
 				try {
-					this.wait(vert_time);
+					Thread.sleep(vert_time);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -75,22 +75,14 @@ public class FeuTemps extends Feu implements Runnable {
 				this.setEtat(EtatFeu.ROUGE); // demande au carrefour
 			}
 			else {
-					try {
-						this.wait(red_time);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+						try {
+							Thread.sleep(red_time);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 				this.setEtat(EtatFeu.VERT); //demande au carrefour
 			}
-			setBusy(true);
-			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} // attente de la réponse du carrefour
-			setBusy(false);
 		}		
 	}
 

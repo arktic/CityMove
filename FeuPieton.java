@@ -39,14 +39,14 @@ public class FeuPieton extends Feu implements Runnable{//implements IFeuPieton {
 							e1.printStackTrace();
 						}
 						this.setEtat(EtatFeu.VERT);
-						setBusy(true); // on est en attente d'une réponse du carrefour, empeche les doubles demandes
+						//setBusy(true); // on est en attente d'une réponse du carrefour, empeche les doubles demandes
 						try {
 							Thread.sleep(10000); // on attend le carrefour
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						setBusy(false); // on est libre en demande
+						//setBusy(false); // on est libre en demande
 				}	
 			}
 		}

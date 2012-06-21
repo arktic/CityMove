@@ -23,7 +23,7 @@ public class CityMoveWindow extends JFrame {
 						public void run() {
 
 								// TODO Auto-generated method stub
-								repaint();
+							repaint();
 
 						}
 					});
@@ -36,7 +36,7 @@ public class CityMoveWindow extends JFrame {
 			}
 		}).start();
 
-		
+	/*	
 		FeuPieton fp = new FeuPieton(EtatFeu.ROUGE);
 		(new Thread(fp)).start();
 		FeuPieton fp1 = new FeuPieton(EtatFeu.VERT);
@@ -70,7 +70,7 @@ public class CityMoveWindow extends JFrame {
 		}
 		else
 			map.tabMapElement[10][3].myFeu.etat=EtatFeu.ROUGE;
-		}
+		}*/
 	}
 
 

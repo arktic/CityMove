@@ -185,9 +185,8 @@ public class Map extends JPanel{
 
 		int indice=0;
 		
-		for(indice=0;indice<getSizeTabElementMobile();indice++){
+		for(indice=0;indice<getSizeTabElementMobile();indice++) {
 			getTabElementMobileAt(indice).seDeplacer();
-			indice++;
 		}
 
 	}
@@ -234,7 +233,7 @@ public class Map extends JPanel{
 				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);
 				
 				
-				if(courant.myFeu!=null)
+				if(courant.getMyFeu()!=null) {
 					switch(courant.getMyFeu().getEtat()) {
 					
 					case ROUGE:
@@ -244,6 +243,7 @@ public class Map extends JPanel{
 						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_vert.png"), c*sizeElement, l*sizeElement, this);
 						break;
 					}
+				}
 			}
 			
 			
@@ -604,12 +604,17 @@ public class Map extends JPanel{
 					}
 					/* on a tout les feux d'un carrefour, on crée les liens */
 					for(int j=0; j<nbFeu;j++) {
-						for(int k = j; k<nbFeu-1 ; k++) {
+						System.out.println("Observer ajouter à  j:"+ j);
+						for(int k = j+1; k<nbFeu+j ; k++) {
 							tabFeu[j].addObserver(tabFeu[k%nbFeu]);
+							System.out.println("liste: -" + k%nbFeu); 
 						}
 						/* attribution à tabMapElement */
 						Coordonnee c = new Coordonnee(tabFeu[j].getPositionInTiles());
 						tabMapElement[c.getY()][c.getX()].myFeu = tabFeu[j];
+					}
+					for(int y = 0; y< nbFeu ; y++) {
+						new Thread((Runnable)tabFeu[y]).start();
 					}
 
 				encore --;
