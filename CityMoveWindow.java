@@ -36,9 +36,24 @@ public class CityMoveWindow extends JFrame {
 			}
 		}).start();
 
-
-
+		while(true) {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(map.tabMapElement[10][3].myFeu.etat==EtatFeu.ROUGE) {
+			map.tabMapElement[10][3].myFeu.etat=EtatFeu.VERT;
+		}
+		else
+			map.tabMapElement[10][3].myFeu.etat=EtatFeu.ROUGE;
+		}
 	}
+
+
+	
 
 
 	private void build() {

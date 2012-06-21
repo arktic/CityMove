@@ -2,7 +2,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 
 public class Map extends JPanel{
@@ -217,14 +217,28 @@ public class Map extends JPanel{
 
 		Graphics2D g2d = (Graphics2D)g;
 
-		/* affichage du background */
+		/* affichage du background et des feux */
 		for(int c=0 ; c < nbColonnes ; c++ ){
 			for(int l=0 ; l < nbLignes ; l++) {
 				Image img;
-				img = backgroundImage.get(tabMapElement[l][c].myBackgroundElement);
-
-				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);	
+				MapElement courant = tabMapElement[l][c];
+				img = backgroundImage.get(courant.myBackgroundElement);
+				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);
+				
+				
+				if(courant.myFeu!=null)
+					switch(courant.myFeu.etat) {
+					
+					case ROUGE:
+						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_rouge.png"), c*sizeElement, l*sizeElement, this);
+						break;
+					case VERT:
+						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_vert.png"), c*sizeElement, l*sizeElement, this);
+						break;
+					}
 			}
+			
+			
 		}
 
 
@@ -249,12 +263,26 @@ public class Map extends JPanel{
 					break;
 					
 				default:
-					System.out.println("errer affichage voiture");
+					System.out.println("Erreur lors de l'affichage voiture");
 				}
 		}
 		
 		
+		
+		
+		
+		
+		
 	}
+
+
+
+
+
+
+
+
+
 
 
 	/**
@@ -472,6 +500,15 @@ public class Map extends JPanel{
 				for (int c=0;c<nbColonnes;c++) {
 					int inte = new Integer(st2.nextToken()) ;
 					MapElement newElem = new MapElement(inte);
+					
+					
+					if(l==10 && c==3)
+					newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
+					
+					if(l==13 && c==4)
+						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
+						
+					
 					//System.out.println("l= "+l+" c = "+c);
 					tabMapElement[l][c] = newElem;
 				}

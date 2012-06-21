@@ -11,7 +11,7 @@ public class ElementMobileGenerateur extends Thread {
 	protected static double frequence_vehicule = 1;
 	protected static double frequence_vehicule_urgent = 1/1000;
 	protected static double frequence_pieton = 1/1000;
-	private static double default_coef = 0.05;
+	private static double default_coef = 0.2;
 	
 	public ArrayList<Coordonnee> tabCoord;
 	public ArrayList<Direction> tabDirection;
