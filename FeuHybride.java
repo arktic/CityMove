@@ -1,10 +1,15 @@
 public class FeuHybride extends FeuTemps {
 
+	
 	public FeuHybride(EtatFeu etat) {
 		super(etat);
 		// TODO Auto-generated constructor stub
 	}
 
+	public FeuHybride() {
+		super();
+	}
+	
 	@Override 
 	public void run() {
 		while(true) {
@@ -15,7 +20,7 @@ public class FeuHybride extends FeuTemps {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				this.setDemande(EtatFeu.ROUGE);
+				setEtat(EtatFeu.ROUGE);
 			}
 			else {
 					try {
@@ -24,7 +29,7 @@ public class FeuHybride extends FeuTemps {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				this.setDemande(EtatFeu.VERT);
+				setEtat(EtatFeu.VERT);
 			}
 			setBusy(true);
 			try {

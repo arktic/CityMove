@@ -17,7 +17,7 @@ public class CityMoveWindow extends JFrame {
 				while(true) {
 					
 					map.deplacementElementMobile();
-
+					
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
@@ -36,6 +36,27 @@ public class CityMoveWindow extends JFrame {
 			}
 		}).start();
 
+		
+		FeuPieton fp = new FeuPieton(EtatFeu.ROUGE);
+		(new Thread(fp)).start();
+		FeuPieton fp1 = new FeuPieton(EtatFeu.VERT);
+		System.out.println("Avnt lancement fp1");
+		(new Thread(fp1)).start();
+		System.out.println("avnt ajout osbervers");
+		fp.addObserver(fp1);
+		System.out.println("Apres ajout observers");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("Avant notif effectué");
+		//fp.setChanged();
+		fp.notifyObservers(EtatFeu.ROUGE);
+		
+		System.out.println("Notification effectué");
+		//fp.notify();
 		while(true) {
 		try {
 			Thread.sleep(3000);
