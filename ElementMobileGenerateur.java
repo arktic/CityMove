@@ -11,7 +11,7 @@ public class ElementMobileGenerateur extends Thread {
 	protected static double frequence_vehicule = 1;
 	protected static double frequence_vehicule_urgent = 1/1000;
 	protected static double frequence_pieton = 1/1000;
-	private static double default_coef = frequence_vehicule;
+	private static double default_coef = 0.1;
 	
 	public ArrayList<Coordonnee> tabCoord;
 	public ArrayList<Direction> tabDirection;
@@ -96,8 +96,15 @@ public class ElementMobileGenerateur extends Thread {
 			/* Pour chacuns des points d'entrée */
 			for(int i = 0 ; i < tabCoord.size() ; i++) {
 				if(generator.nextDouble()<tabCoef.get(i)) {
-					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX(),tabCoord.get(i).getY(),tabDirection.get(i))); 
+					System.out.println("Ajout d'une voiture");
+					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,tabDirection.get(i))); 
 				}
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 		}

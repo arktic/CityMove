@@ -2,9 +2,9 @@ import java.util.Observable;
 
 public class Elements extends Observable {
 /*----- Attributs -----*/
-	protected String nom;
-	protected Coordonnee position;
-	protected String pathImg;
+	private String nom;
+	private Coordonnee position;
+	private String pathImg;
 	
 /*----- Constructeurs -----*/
 	public Elements() {
@@ -21,42 +21,42 @@ public class Elements extends Observable {
 	/**
 	 * @return Le nom de l'objet appelant
 	 */
-	public String getNom() {
+	synchronized public String getNom() {
 		return this.nom;
 	}
 	
 	/**
 	 * @param Le nom a donner a l'objet
 	 */
-	public void setNom(String nom) {
+	synchronized public void setNom(String nom) {
 		this.nom = nom;
 	}
 	
 	/**
 	 * @return La position de l'objet appelant
 	 */
-	public Coordonnee getPosition() {
+	synchronized public Coordonnee getPosition() {
 		return this.position;
 	}
 	
 	/**
 	 * @param La position a donner a l'objet
 	 */
-	public void setPosition(Coordonnee position) {
+	synchronized public void setPosition(Coordonnee position) {
 		this.position = position;
 	}
 
 	/**
 	 * @return Le chemin d'acces a limage de l'objet appelant
 	 */
-	public String getPathImg() {
+	synchronized public String getPathImg() {
 		return this.pathImg;
 	}
 	
 	/**
 	 * @param Le chemin d'acces a l'image que l'on veut attribuer a l'objet
 	 */
-	public void setPathImg(String pathImg) {
+	synchronized public void setPathImg(String pathImg) {
 		this.pathImg = pathImg;
 	}
 	

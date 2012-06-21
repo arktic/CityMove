@@ -19,13 +19,14 @@ abstract class Vehicule extends ElementMobiles
 	public boolean verifierDeplacement(Direction d) {
 		boolean deplacementVerifie = false;
 		
-		boolean feuRouge = true;
-		boolean vehiculePresent = true;
-		boolean pietonPresent = true;
+		/* Booléen permettant de tester le déplacement */
 		
-		feuRouge = verifierFeu(d);
-		vehiculePresent = verifierElementMobile(TypeMobileElement.VEHICULE, d);
-		pietonPresent = verifierElementMobile(TypeMobileElement.PIETON, d);
+		/* test si il y a un feu présent */
+		boolean feuRouge = verifierFeu(d);
+		boolean vehiculePresent = verifierElementMobile(TypeMobileElement.VEHICULE, d);
+		boolean pietonPresent = verifierElementMobile(TypeMobileElement.PIETON, d);
+		
+	
 		//System.out.println("feurouge = "+feuRouge+" vehiculepresent = "+vehiculePresent+" pietonpresent : "+pietonPresent);
 		if(!feuRouge && !vehiculePresent && !pietonPresent)
 		{

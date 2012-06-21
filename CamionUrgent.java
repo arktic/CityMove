@@ -42,7 +42,7 @@ public class CamionUrgent extends Camion implements IUrgent {
 		/* On parcours les nbTilesATester à la recherche d'un feu. Si on en trouve un, on lui demande de changer au vert */
 		while(i<nbTilesATester) {
 
-			coordSuivantes = getNextTilesPosition(i+1,direction);
+			coordSuivantes = getNextTilesPosition(i+1,getDirection());
 
 			/* On récupère le feu présent à cet endroit, ou null */
 			feu = CityMove.map.getMapElement(coordSuivantes).getMyFeu();

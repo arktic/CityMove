@@ -1,31 +1,38 @@
 import javax.swing.*;
+import javax.swing.text.TabExpander;
 
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 
 public class CityMoveWindow extends JFrame {
 	Map map;
-	
+
 	public CityMoveWindow() {
 		map = new Map(30);
 		add(map);
 		build();
-		
+
 		new Thread(new Runnable() {
 			public void run() {
 				while(true) {
 					//map.X1+=1;
-					if(map.Y1 < 0)	map.Y1 = 570;
-						map.Y1-=1;
-					if(map.Y2 < 0)	map.Y2 = 570;
-						map.Y2-=1;
+					if(map.Y1 < 0)	
+						map.Y1 = 570;
+					map.Y1-=1;
+					if(map.Y2 < 0)	
+						map.Y2 = 570;
+					map.Y2-=1;
+
 					map.deplacementElementMobile();
+
 					//System.out.println("Y1 = "+map.Y1);
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
-							repaint();
+
+								// TODO Auto-generated method stub
+								repaint();
+
 						}
 					});
 					try {
@@ -37,10 +44,10 @@ public class CityMoveWindow extends JFrame {
 			}
 		}).start();
 
-		
-		
+
+
 	}
-	
+
 
 	private void build() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

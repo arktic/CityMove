@@ -25,42 +25,42 @@ public class MapElement {
 	/**
 	 * @return the myBackgroundElement
 	 */
-	public BackgroundElement getMyBackgroundElement() {
+	synchronized public BackgroundElement getMyBackgroundElement() {
 		return myBackgroundElement;
 	}
 
 	/**
 	 * @param myBackgroundElement the myBackgroundElement to set
 	 */
-	public void setMyBackgroundElement(BackgroundElement myBackgroundElement) {
+	synchronized public void setMyBackgroundElement(BackgroundElement myBackgroundElement) {
 		this.myBackgroundElement = myBackgroundElement;
 	}
 
 	/**
 	 * @return the myFeu
 	 */
-	public Feu getMyFeu() {
+	synchronized public Feu getMyFeu() {
 		return myFeu;
 	}
 
 	/**
 	 * @param myFeu the myFeu to set
 	 */
-	public void setMyFeu(Feu myFeu) {
+	synchronized public void setMyFeu(Feu myFeu) {
 		this.myFeu = myFeu;
 	}
 
 	/**
 	 * @return the myTypeMobileElement
 	 */
-	public TypeMobileElement getMyTypeMobileElement() {
+	synchronized public TypeMobileElement getMyTypeMobileElement() {
 		return myTypeMobileElement;
 	}
 
 	/**
 	 * @param myTypeMobileElement the myTypeMobileElement to set
 	 */
-	public void setMyTypeMobileElement(TypeMobileElement myTypeMobileElement) {
+	synchronized public void setMyTypeMobileElement(TypeMobileElement myTypeMobileElement) {
 		this.myTypeMobileElement = myTypeMobileElement;
 	}
 
@@ -70,7 +70,7 @@ public class MapElement {
 	 * @param feu the feu to set
 	 * @param tmobile the TypeMobileElement to set
 	 */
-	public void set(BackgroundElement bg, Feu feu,TypeMobileElement tmobile) {
+	synchronized public void set(BackgroundElement bg, Feu feu,TypeMobileElement tmobile) {
 		myBackgroundElement = bg;
 		myFeu = feu;
 		myTypeMobileElement = tmobile;
