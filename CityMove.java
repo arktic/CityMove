@@ -1,6 +1,6 @@
 public final class CityMove {
 
-	public static Map map;//=  new Map(600,480,10);
+	public static Map map;
 	public static CityMoveWindow window;
 	private int nombreVoiture;
 	

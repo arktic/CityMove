@@ -166,7 +166,41 @@ public class Coordonnee {
 	public boolean isOnMap() {
 		//System.out.println("CiyMove collonne: " + CityMove.map.nbColonnes);
 		//System.out.println("lignes: " + CityMove.map.nbLignes);
-		return (x>=0 && x<CityMove.map.getLargeurInTiles() && y>=0 && y<CityMove.map.getHauteurInTiles());
+		return ( x > -1 
+				&& x < CityMove.map.getLargeurInTiles() 
+				&& y > -1 
+				&& y < CityMove.map.getHauteurInTiles()
+				);
+	}
+
+	public boolean isOnDarkMap() {
+		/*return (  posInTiles.getX()*map.sizeElement>= -1//map.sizeElement
+				&& posInTiles.getX()*map.sizeElement< map.getLargeurInTiles()-2//*map.sizeElement 
+				&& posInTiles.getY()*map.sizeElement>= -1//map.sizeElement
+				&& posInTiles.getY()*map.sizeElement< map.getHauteurInTiles()-2); */
+		return ( x>-2 
+				&& x<=CityMove.map.getLargeurInTiles() 
+				&& y>-2 
+				&& y<=CityMove.map.getHauteurInTiles()
+				);
+	}
+
+	public boolean onEdgeofTile(Direction d) {
+		switch(d) {
+		case NORD:
+			return (getY())%CityMove.map.sizeElement==0;
+		case SUD:
+			return (getY())%CityMove.map.sizeElement==0;
+		case EST:
+			return (getX())%CityMove.map.sizeElement==0;
+		case OUEST:
+			return (getX())%CityMove.map.sizeElement==0;
+		default:
+			return true;
+		
+		}
+		
+	
 	}
 	
 

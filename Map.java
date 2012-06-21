@@ -22,7 +22,7 @@ public class Map extends JPanel{
 	protected int nbColonnes;
 	protected int nbCarrefour;
 
-	private String repertoire_workspace ="./Ressources/";
+	private String repertoire_workspace ="./CityMove/Ressources/";
 	protected int hauteur;
 	protected int largeur;
 	
@@ -78,7 +78,6 @@ public class Map extends JPanel{
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		generateur.start();
 		
-		addElementMobile(new Voiture(3*sizeElem,0*sizeElem,Direction.SUD));
 		
 
 		setFocusable(true);
@@ -183,9 +182,9 @@ public class Map extends JPanel{
 
 	public void deplacementElementMobile() {
 
-		int indice=0;
-		
-		for(indice=0;indice<getSizeTabElementMobile();indice++) {
+		int indice=0;	
+		for(indice=0;indice<getSizeTabElementMobile();indice++){			
+
 			getTabElementMobileAt(indice).seDeplacer();
 		}
 
@@ -384,10 +383,8 @@ public class Map extends JPanel{
 	 * @return
 	 */
 	public Coordonnee getPositionInTiles(Coordonnee pixelsPosition) {
-
-		//.out.print("getPositionInTiles de "+pixelsPosition);
 		Coordonnee tilesPosition = new Coordonnee(pixelsPosition.getX()/sizeElement,pixelsPosition.getY()/sizeElement);
-		//System.out.println("  vaut "+tilesPosition);
+		
 		return tilesPosition;
 	}
 
@@ -420,15 +417,6 @@ public class Map extends JPanel{
 	}
 
 
-
-
-
-
-
-
-
-
-
 	/**
 	 * @return the largeur
 	 */
@@ -437,31 +425,12 @@ public class Map extends JPanel{
 	}
 
 
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param largeur the largeur to set
 	 */
 	public void setLargeur(int largeur) {
 		this.largeur = largeur;
 	}
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * Ouvre un fichier contenant une map
@@ -514,10 +483,10 @@ public class Map extends JPanel{
 					newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
 					
 					if(l==13 && c==4)
-						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
-						
+						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));						
 					*/
 					//System.out.println("l= "+l+" c = "+c);
+
 					tabMapElement[l][c] = newElem;
 				}
 
@@ -533,7 +502,6 @@ public class Map extends JPanel{
 		
 		largeur = nbColonnes*sizeElement;
 		hauteur = nbLignes*sizeElement;
-		System.out.println("open : largeur,hateur pixel"+largeur+"  :  "+hauteur+"     sizeelem = "+sizeElement);
 
 		fe.fermer();
 

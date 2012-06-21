@@ -25,7 +25,7 @@ public class Urgent implements IUrgent {
 	public int intervenirFeu(Feu feu) {
 		
 		/* On dit au feu que l'on veut qu'il passe au VERT */
-		if(feu!=null && feu.getBusy() == false) feu.notify();		
+		if(feu!=null /*&& feu.getBusy() == false*/) feu.notify();		
 		return 0;
 	}
 

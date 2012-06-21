@@ -89,7 +89,6 @@ public class MapElement {
 				tab.add(Direction.NORD);
 				break;
 			case ROUTE_SUD :
-				//System.out.println("PASSAGE SUD");
 				tab.add(Direction.SUD);
 				break;
 			case ROUTE_EST :
@@ -140,7 +139,7 @@ public class MapElement {
 				break;
 			default : System.out.println("Probleme dans le switch");
 		}
-	//	System.out.println("En sortie, tabSol : "+tab);
+
 		return tab;
 	}
 	
