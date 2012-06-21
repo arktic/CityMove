@@ -12,15 +12,17 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+//import sun.security.mscapi.KeyStore.MY;
+
 
 
 public class Map extends JPanel{
 
 	protected int nbLignes;
 	protected int nbColonnes;
+	protected int nbCarrefour;
 
-
-	private String repertoire_workspace ="./CityMove/Ressources/";
+	private String repertoire_workspace ="./Ressources/";
 	protected int hauteur;
 	protected int largeur;
 	
@@ -64,7 +66,9 @@ public class Map extends JPanel{
 
 		/* On ouvre une map préfabriquée */
 		open(repertoire_workspace+"Map/map1.txt");
-		
+		System.out.println("VA FEU");
+		openFeu(repertoire_workspace+"Map/map1.txt");
+		System.out.println("FEU FAIT");
 		
 		
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
@@ -465,7 +469,7 @@ public class Map extends JPanel{
 		if (filename==null) return 1 ;
 
 		int encore = 1 ;
-		int recup_ligne_colonne =0;
+		int recup_param =0;
 
 		nbLignes=nbColonnes=0;
 
@@ -479,17 +483,17 @@ public class Map extends JPanel{
 
 			if (sg.compareToIgnoreCase("NB_LIGNES")==0){
 				nbLignes = Integer.parseInt(st.nextToken().trim()) ;
-				recup_ligne_colonne++;
+				recup_param++;
 			}
 
 			if (sg.compareToIgnoreCase("NB_COLONNES")==0) {
 				nbColonnes = Integer.parseInt(st.nextToken().trim()) ;
-				recup_ligne_colonne++;
+				recup_param++;
 			}
-
+			
 			//System.out.println("nbl= "+nbLignes+" nbc = "+nbColonnes);
-			if(recup_ligne_colonne==2) {
-				recup_ligne_colonne=0;
+			if(recup_param==2) {
+				recup_param=0;
 				//	System.out.println("Allocation de tab de nbl = "+nbLignes+" nbCol = "+nbColonnes);
 				tabMapElement = new MapElement[nbLignes][nbColonnes];
 			}
@@ -502,13 +506,13 @@ public class Map extends JPanel{
 					MapElement newElem = new MapElement(inte);
 					
 					
-					if(l==10 && c==3)
+				/*	if(l==10 && c==3)
 					newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
 					
 					if(l==13 && c==4)
 						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
 						
-					
+					*/
 					//System.out.println("l= "+l+" c = "+c);
 					tabMapElement[l][c] = newElem;
 				}
@@ -531,5 +535,85 @@ public class Map extends JPanel{
 
 		return 0 ;
 
+	}
+	
+	/**
+	 * fonction de chargement les feux, appel unique dans le constructeur de map
+	 * @param filename fichier source
+	 * @return non utilisé
+	 */
+	public int openFeu(String filename) {
+		if (filename==null) return 1 ;
+
+		int encore = 1 ;
+
+		FichierLecture fe = new FichierLecture (filename) ;
+		while (encore > 0) {
+			String s = fe.lireLigne() ;
+			//System.out.println("Lecture de "+s);
+			StringTokenizer st = new StringTokenizer(s, new String(" ")) ;
+			String sg = st.nextToken().trim() ;	
+			if (sg.compareToIgnoreCase("NB_CARREFOUR")==0) {
+				nbCarrefour = Integer.parseInt(st.nextToken().trim()) ;
+				System.out.println("NB_CARREFOUR:" + nbCarrefour);
+				encore = nbCarrefour;
+			}
+
+			if (sg.compareToIgnoreCase("CARREFOUR") == 0) {
+				System.out.println("Trouve CARREFOUR");
+				String ss = null, snbfeu , sinfofeu, sfeu;
+				StringTokenizer stnbFeu = new StringTokenizer(st.nextToken(), new String(";"));
+				snbfeu = stnbFeu.nextToken().trim();
+				//System.out.println("snbfeu: "+snbfeu);
+				
+				StringTokenizer stInfoFeu = new StringTokenizer(st.nextToken(), new String(","));
+				//System.out.println("stINFOFEU:"+stInfoFeu.nextToken());
+				//System.out.println("stINFOFEU:"+stInfoFeu.nextToken());
+
+
+					int nbFeu = new Integer(snbfeu);
+					System.out.println("nbFeu: " + nbFeu);
+					Feu tabFeu[] = new Feu[nbFeu];
+					/* récupération des n feux du carrefour */
+					for(int i=0; i < nbFeu; i++) {
+						int intf = new Integer(stInfoFeu.nextToken());
+						Coordonnee cf = new Coordonnee(new Integer(stInfoFeu.nextToken()) ,new Integer( stInfoFeu.nextToken()));
+						System.out.println("Coord:" + cf);
+						switch(intf) {
+						case 100:
+							System.out.println("100");
+							tabFeu[i] = new FeuTemps(cf);
+							break;
+						case 101:
+							System.out.println("101");
+							tabFeu[i] = new FeuPieton(cf);
+							break;
+						case 102:
+							System.out.println("102");
+							tabFeu[i] = new FeuHybride(cf);
+							break;
+						default:
+							// erreur
+							System.out.println("Code feu erroné");
+							System.exit(1);
+						}
+					/* on a tout les feux d'un carrefour, on crée les liens */
+					for(int j=0; j<nbFeu;j++) {
+						for(int k = j; k<nbFeu-1 ; k++) {
+							tabFeu[j].addObserver(Observer(tabFeu[k%nbFeu]));
+							tabFeu[j].addObserver(Observer(tabFeu[k%nbFeu]));
+						}
+						/* attribution à tabMapElement */
+						Coordonnee c = new Coordonnee(tabFeu[j].getPositionInTiles());
+						tabMapElement[c.getY()][c.getX()].myFeu = tabFeu[j];
+					}
+					
+
+				}
+				encore --;
+			}
+		}
+		fe.fermer();
+		return 0;
 	}
 }

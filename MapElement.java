@@ -228,7 +228,15 @@ public class MapElement {
 		case 17:
 			myBackgroundElement = BackgroundElement.TROTTOIR_NORD_OUEST;
 			break;
-			
+		case 100:
+			myFeu = new FeuTemps(EtatFeu.ROUGE);
+		break;
+		case 101:
+			myFeu = new FeuPieton(EtatFeu.ROUGE);
+		break;
+		case 102:
+			myFeu = new FeuHybride(EtatFeu.ROUGE);
+		break;
 		default:
 			System.out.println("Erreur lors dela transcription de int en BackgroundElement.");
 			System.exit(1);

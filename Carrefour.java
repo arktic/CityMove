@@ -69,6 +69,14 @@ public class Carrefour implements Observer {
 	private void bloquerSud() {
 		tabFeu.get(1).setEtat(EtatFeu.ROUGE);
 	}
+	
+	private void autoriserNord() {
+		tabFeu.get(0).setEtat(EtatFeu.VERT);
+	}
+
+	private void autoriserSud() {
+		tabFeu.get(1).setEtat(EtatFeu.VERT);
+	}
 
 	private void bloquerNordSud() {
 		tabFeu.get(0).setEtat(EtatFeu.ROUGE);
@@ -91,17 +99,45 @@ public class Carrefour implements Observer {
 	public void update(Observable o, Object valeurDemandee) {
 		try {  
 			Feu feuEnQuestion = (Feu) o;  
-
-
-			/* Ici, il faut checker nombre de feu dans ce carrefour, checker quel est le feu qui a demander kke chose, et agir en conséquence */
-			
 			/* On récupère l'indice du feu qui nous demande un changement */
 			int indiceFeu = tabFeu.indexOf(feuEnQuestion);
 			/* Si le feu appartient bien à ce carrefour */
 			if(indiceFeu!=-1) {
 				//TODO
+				/* Ici, il faut checker nombre de feu dans ce carrefour, checker quel est le feu qui a demander kke chose, et agir en conséquence */
+				if(nbFeu == 2) {
+					if(indiceFeu == 0) { // FeuNord
+						if((EtatFeu) valeurDemandee ==  EtatFeu.VERT) {
+							bloquerSud();
+							autoriserNord();
+						}
+						else {
+							bloquerSud();
+							autoriserNord();
+						}
+					}
+					else { // Feu Sud
+						if((EtatFeu) valeurDemandee ==  EtatFeu.VERT) {
+							autoriserSud();
+							bloquerNord();
+						}
+						else {
+							bloquerNord();
+							autoriserSud();
+						}
+					}
+					o.notify();
+				
+				}
+				else if (nbFeu == 3) {
+					
+				}
+				else if (nbFeu == 4) {
+					
+				}
 			}
-			
+		
+
 		} catch (Exception e) {  
 			e.printStackTrace();  
 		}  
