@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
+
 public class Map extends JPanel{
 
 	protected int nbLignes;
@@ -22,14 +23,7 @@ public class Map extends JPanel{
 	private String repertoire_workspace ="./Ressources/";
 	protected int hauteur;
 	protected int largeur;
-
-	public int X1 = 120;
-	public int Y1 = 570;
-
-	public int X2 = 720;
-	public int Y2 = 150;
-
-
+	
 	/**
 	 * La taille en pixel d'un element (carré) de type MapElement
 	 */
@@ -61,7 +55,10 @@ public class Map extends JPanel{
 		this.tabElementMobile = new Vector<ElementMobiles>();
 
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
-
+		CityMove.map=this;
+		this.sizeElement = sizeElem;
+		
+		
 		/* On ajoute notre base de donnée d'images de Background à notre image */
 		ajouterBackgroundImages();
 
@@ -69,8 +66,6 @@ public class Map extends JPanel{
 		open(repertoire_workspace+"Map/map1.txt");
 		
 		
-		CityMove.map=this;
-		this.sizeElement = sizeElem;
 		
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		generateur.start();
@@ -98,7 +93,7 @@ public class Map extends JPanel{
 	 * @param widthInTiles
 	 * @param sizeElem
 	 */
-	public Map(int nbLignes, int nbColonnes, int sizeElem) {
+	/*public Map(int nbLignes, int nbColonnes, int sizeElem) {
 		backgroundImage = new HashMap<BackgroundElement, Image>();
 
 		backgroundImage = new HashMap<BackgroundElement, Image>(); 
@@ -110,13 +105,13 @@ public class Map extends JPanel{
 
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
 
-
+*/
 		/* On ajoute notre base de donnée d'images de Background à notre image */
-		ajouterBackgroundImages();
+	//	ajouterBackgroundImages();
 
 		/* On remplit la map avec de l'herbe */
-		remplirDefaultMap();
-
+	//	remplirDefaultMap();
+/*
 
 
 		CityMove.map=this;
@@ -127,7 +122,7 @@ public class Map extends JPanel{
 		setFocusable(true);
 		setDoubleBuffered(true);
 	}
-
+*/
 
 	/**
 	 * Ajoute toutes les images de background à notre HashMap
@@ -137,6 +132,7 @@ public class Map extends JPanel{
 
 
 		try {
+			/* -- Image de background */
 			img = ImageIO.read(new File(repertoire_workspace+"Background/herbe.jpg"));
 			backgroundImage.put(BackgroundElement.HERBE, img);
 
@@ -164,7 +160,9 @@ public class Map extends JPanel{
 			img = ImageIO.read(new File(repertoire_workspace+"Background/route_sud_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 
-
+			
+			
+			
 		} catch (IOException e) {
 			System.out.println("Erreur lors du chargment des images...");
 			e.printStackTrace();
@@ -219,14 +217,28 @@ public class Map extends JPanel{
 
 		Graphics2D g2d = (Graphics2D)g;
 
-		/* affichage du background */
+		/* affichage du background et des feux */
 		for(int c=0 ; c < nbColonnes ; c++ ){
 			for(int l=0 ; l < nbLignes ; l++) {
 				Image img;
-				img = backgroundImage.get(tabMapElement[l][c].myBackgroundElement);
-
-				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);	
+				MapElement courant = tabMapElement[l][c];
+				img = backgroundImage.get(courant.myBackgroundElement);
+				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);
+				
+				
+				if(courant.myFeu!=null)
+					switch(courant.myFeu.etat) {
+					
+					case ROUGE:
+						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_rouge.png"), c*sizeElement, l*sizeElement, this);
+						break;
+					case VERT:
+						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_vert.png"), c*sizeElement, l*sizeElement, this);
+						break;
+					}
 			}
+			
+			
 		}
 
 
@@ -236,17 +248,41 @@ public class Map extends JPanel{
 				
 				
 				ElementMobiles courant = getTabElementMobileAt(indice);
-				g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
-				
+				switch(courant.getDirection()) {
+				case NORD:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/voiture_nord.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				case SUD:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/voiture_sud.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				case EST:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/voiture_est.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				case OUEST:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/voiture_ouest.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+					
+				default:
+					System.out.println("Erreur lors de l'affichage voiture");
+				}
 		}
-		g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), X1, Y1, this);	
-		g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), X2, Y2, this);	
-		//g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"Background/voiture.png"), tabElementMobile.get(0).position.x, tabElementMobile.get(0).position.y, this);	
-
-		/*Toolkit.getDefaultToolkit().sync();
-		g.dispose();
-		 */
+		
+		
+		
+		
+		
+		
+		
 	}
+
+
+
+
+
+
+
+
+
 
 
 	/**
@@ -464,6 +500,15 @@ public class Map extends JPanel{
 				for (int c=0;c<nbColonnes;c++) {
 					int inte = new Integer(st2.nextToken()) ;
 					MapElement newElem = new MapElement(inte);
+					
+					
+					if(l==10 && c==3)
+					newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
+					
+					if(l==13 && c==4)
+						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
+						
+					
 					//System.out.println("l= "+l+" c = "+c);
 					tabMapElement[l][c] = newElem;
 				}
@@ -475,7 +520,12 @@ public class Map extends JPanel{
 			}
 
 		}
-
+		
+		
+		
+		largeur = nbColonnes*sizeElement;
+		hauteur = nbLignes*sizeElement;
+		System.out.println("open : largeur,hateur pixel"+largeur+"  :  "+hauteur+"     sizeelem = "+sizeElement);
 
 		fe.fermer();
 

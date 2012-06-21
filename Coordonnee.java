@@ -166,7 +166,7 @@ public class Coordonnee {
 	public boolean isOnMap() {
 		//System.out.println("CiyMove collonne: " + CityMove.map.nbColonnes);
 		//System.out.println("lignes: " + CityMove.map.nbLignes);
-		return (x>=0 && x<CityMove.map.largeur && y>=0 && y<CityMove.map.hauteur);
+		return (x>=0 && x<CityMove.map.getLargeurInTiles() && y>=0 && y<CityMove.map.getHauteurInTiles());
 	}
 	
 
