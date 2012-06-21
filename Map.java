@@ -69,8 +69,12 @@ public class Map extends JPanel{
 		System.out.println("VA FEU");
 		openFeu(repertoire_workspace+"Map/map1.txt");
 		System.out.println("FEU FAIT");
-		
-		
+/*		try {
+			this.wait(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		generateur.start();
 		
@@ -231,7 +235,7 @@ public class Map extends JPanel{
 				
 				
 				if(courant.myFeu!=null)
-					switch(courant.myFeu.etat) {
+					switch(courant.getMyFeu().getEtat()) {
 					
 					case ROUGE:
 						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_rouge.png"), c*sizeElement, l*sizeElement, this);
@@ -597,19 +601,17 @@ public class Map extends JPanel{
 							System.out.println("Code feu erroné");
 							System.exit(1);
 						}
+					}
 					/* on a tout les feux d'un carrefour, on crée les liens */
 					for(int j=0; j<nbFeu;j++) {
 						for(int k = j; k<nbFeu-1 ; k++) {
-							tabFeu[j].addObserver(Observer(tabFeu[k%nbFeu]));
-							tabFeu[j].addObserver(Observer(tabFeu[k%nbFeu]));
+							tabFeu[j].addObserver(tabFeu[k%nbFeu]);
 						}
 						/* attribution à tabMapElement */
 						Coordonnee c = new Coordonnee(tabFeu[j].getPositionInTiles());
 						tabMapElement[c.getY()][c.getX()].myFeu = tabFeu[j];
 					}
-					
 
-				}
 				encore --;
 			}
 		}
