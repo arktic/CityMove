@@ -1,37 +1,31 @@
-public class CamionUrgent extends Camion implements IUrgent {
-/*----- Attributs -----*/
-	IUrgent camionUrgent;
 
-/*----- Constructeurs -----*/
+public class CamionUrgent extends Voiture implements IUrgent {
+
+
+	IUrgent urg;
+
 	public CamionUrgent(int posx, int posy, Direction dir) {
-		super(posx, posy, dir);
-		camionUrgent = new Urgent();
+		super(posx,posy,dir);
+		urg = new Urgent();
 	}
-	
-/*----- Autres methodes -----*/
-	/**
-	 * Allume le Giropahare,
-	 * Fait appel a la fonction de la classe abstraite Urgent
-	 */
+
+
+	@Override
 	public int allumerGirophare() {
-		camionUrgent.allumerGirophare();
-		
+		urg.allumerGirophare();
 		return 0;
 	}
 
-	/**
-	 * Eteint le girophare,
-	 * Fait appel a la fonction de la calsse abstraite Urgent
-	 */
+	@Override
 	public int stoperGirophare() {
-		camionUrgent.stoperGirophare();
-		
+		urg.stoperGirophare();
 		return 0;
 	}
 
+
 	/**
-	 * Permet de demande au feu présents devant nous de passer au vert
-	 * @return
+	 * Permet de demande au feu present devant nous de passer au vert
+	 * @return 0
 	 */
 	public int intervenirFeu() {
 
@@ -39,14 +33,14 @@ public class CamionUrgent extends Camion implements IUrgent {
 		Feu feu = null;
 		Coordonnee coordSuivantes;
 
-		/* On parcours les nbTilesATester à la recherche d'un feu. Si on en trouve un, on lui demande de changer au vert */
+		/* On parcours les nbTilesATester a la recherche d'un feu. Si on en trouve un, on lui demande de changer au vert */
 		while(i<nbTilesATester) {
 
 			coordSuivantes = getNextTilesPosition(i+1,getDirection());
 
-			/* On récupère le feu présent à cet endroit, ou null */
-			feu = CityMove.map.getMapElement(coordSuivantes).getMyFeu();
-
+			/* On recupere le feu present a cet endroit, ou null */
+			if (coordSuivantes.isOnMap())
+				feu = CityMove.map.getMapElement(coordSuivantes).getMyFeu();
 
 			intervenirFeu(feu);
 			i++;
@@ -55,15 +49,10 @@ public class CamionUrgent extends Camion implements IUrgent {
 	}
 
 
-	
-	 /** Fait une demande pour le passage au vert du feu desire,
-	 * Fait appel a la fonction de la classe abstraite Urgent
-	 * @param Le feu dont on veut qu'il passe au vert
-	 */
-@Override
+	@Override
 	public int intervenirFeu(Feu feu) {
-		camionUrgent.intervenirFeu(feu);
-		
+		urg.intervenirFeu(feu);
 		return 0;
 	}
+	
 }

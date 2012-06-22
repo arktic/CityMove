@@ -10,16 +10,11 @@ public abstract class Feu extends Observable implements Observer {
 
 
 	protected EtatFeu etat;
-	@Override
-	public String toString() {
-		return "Feu [etat=" + getEtat() + ", positionInTiles=" + getPositionInTiles()
-				+ "]";
-	}
-
-	//protected EtatFeu demande;
-	//protected boolean busy;
+	;
 	protected Coordonnee positionInTiles;
+	/* la date de la derniere notification */
 	protected Calendar lastNotif;
+	/* permet d'ignorer des notifications trop proches, en ms */
 	protected int tempsMinEntre2Notifs = 200;
 
 	public Feu() {
@@ -48,20 +43,23 @@ public abstract class Feu extends Observable implements Observer {
 	synchronized public EtatFeu getEtat() {
 		return etat;
 	}
-
-	/*synchronized public boolean getBusy() {
-		return busy;
-	}*/
-
+	
+	/**
+	 * 
+	 * @return la position in tiles
+	 */
 	synchronized public Coordonnee getPositionInTiles() {
 		return positionInTiles;
 	}
 
+	
+	/* chgt d'etat sans notification*/
 	synchronized public void setEtat(EtatFeu e) {
-		//System.out.println("Je suis dans setEtat\n");
+		
 		etat = e;
 	}
 
+	/* de meme, mais en notifiant */
 	synchronized public void setEtatAndNotify(EtatFeu e) {
 		
 		/* On recupere le temps actuel */
@@ -70,14 +68,6 @@ public abstract class Feu extends Observable implements Observer {
 		
 		/* Si il y a eu une notification il y a pas longtemps, on ne fait rien */
 		if (actualTime.getTimeInMillis() - lastNotif.getTimeInMillis() >= tempsMinEntre2Notifs ) {
-			/*Random generator = new Random();
-			try {
-				this.wait(generator.nextInt(100)+100);
-			} catch (InterruptedException e1) {
-			
-				e1.printStackTrace();
-			}*/
-			//System.out.println("Notif de chgt d etat en"+e+" a "+countObservers()+" feux");
 			etat = e;
 			setChanged();
 			notifyObservers(etat);
@@ -85,12 +75,7 @@ public abstract class Feu extends Observable implements Observer {
 		}
 	}
 
-	/*synchronized public void setBusy(boolean b) {
-		busy = b;
-	}*/
-
-	//	public void changerEtat(EtatFeu e) {}
-
+	
 	public void update(Observable o, Object arg) {
 		MapElement myMapElement = CityMove.map.getMapElement(positionInTiles);
 		BackgroundElement myBackgroundElement = myMapElement.getMyBackgroundElement();
@@ -104,53 +89,58 @@ public abstract class Feu extends Observable implements Observer {
 
 		switch (myBackgroundElement) {
 		case ROUTE_NORD :
-			//System.out.println("TEST NORD");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_SUD, etatFeuObserve);
 			break;
 
 		case ROUTE_SUD :
-			//System.out.println("TEST SUD");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_NORD, etatFeuObserve);
 			break;
 
 		case ROUTE_EST :
-			//System.out.println("TEST EST");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_OUEST, etatFeuObserve);
 			break;
 
 		case ROUTE_OUEST :
-			//System.out.println("TEST OUEST");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_EST, etatFeuObserve);
 			break;
 		default : System.out.println("Probleme dans le switch de myBackgroundElement\n"); System.exit(1);
 		}
 
-		//System.out.println("NOTIF RECU dans feu pieton");
 	}
-
+	/**
+	 * permet d'adapter son etat a celui d'un autre
+	 * @param be notre bg
+	 * @param backgroundAtester celui du feu que l'on test, e:notreEtat
+	 * @param e
+	 */
 	private void adapterEtat(BackgroundElement be, BackgroundElement backgroundAtester, EtatFeu e) {
-		//System.out.println("Je suis dans adapterEtat\n");
 		if(be == backgroundAtester) {
 			if(e == EtatFeu.VERT) {
-				//System.out.println("Ca merde 1 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 			else {
-				//System.out.println("Ca merde 2 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 		}
 		else{
 			if(e == EtatFeu.VERT) {
-				//System.out.println("Ca merde 3 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 			else {
-				//System.out.println("Ca merde 4 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 		}
 
+	}
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Feu [etat=" + getEtat() + ", positionInTiles=" + getPositionInTiles()
+				+ "]";
 	}
 
 }
