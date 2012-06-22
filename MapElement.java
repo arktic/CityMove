@@ -157,6 +157,10 @@ public class MapElement {
 				   || bg == BackgroundElement.ROUTE_PIETON_NORD_SUD || bg == BackgroundElement.ROUTE_PIETON_EST_OUEST);
 	}
 	
+	/**
+	 * retourne vrai si l'element est une route pieton
+	 * @return
+	 */
 	public boolean isRoutePieton() {
 		BackgroundElement bg = getMyBackgroundElement();
 		
@@ -165,7 +169,10 @@ public class MapElement {
 	
 	
 	
-	
+	/**
+	 * mappage des elements pour pouvoir parser les fichiers maps
+	 * @param i: code de l'element (represente dans le fichier map)
+	 */
 	public MapElement(Integer i) {
 		//int s_int = Integer.parseInt(s);
 		
@@ -240,10 +247,6 @@ public class MapElement {
 			System.out.println("Erreur lors dela transcription de int en BackgroundElement.");
 			System.exit(1);
 		}
-		
-		//System.out.println("dans constructeur mapelement : "+myBackgroundElement);
-		
-		
 	}
 
 	/* (non-Javadoc)

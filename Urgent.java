@@ -10,7 +10,6 @@ public class Urgent implements IUrgent {
 
 	@Override
 	public int stoperGirophare() {
-		//System.out.println("TEST APPELER STOPPERGIROPGHARE DS URGENT");
 		etatGirophare=false;
 		return 0;
 	}

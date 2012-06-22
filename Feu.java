@@ -3,7 +3,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 
 public abstract class Feu extends Observable implements Observer {
