@@ -1,6 +1,6 @@
 /**
  * 
- * Defini le type des Elements de background
+ * Defini le type des Elements de background de notre map
  *
  */
 enum BackgroundElement {
