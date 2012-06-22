@@ -11,6 +11,12 @@ public abstract class Feu extends Observable implements Observer {
 
 
 	protected EtatFeu etat;
+	@Override
+	public String toString() {
+		return "Feu [etat=" + getEtat() + ", positionInTiles=" + getPositionInTiles()
+				+ "]";
+	}
+
 	//protected EtatFeu demande;
 	//protected boolean busy;
 	protected Coordonnee positionInTiles;
@@ -53,7 +59,7 @@ public abstract class Feu extends Observable implements Observer {
 	}
 
 	synchronized public void setEtat(EtatFeu e) {
-		System.out.println("Je suis dans setEtat\n");
+		//System.out.println("Je suis dans setEtat\n");
 		etat = e;
 	}
 
@@ -65,14 +71,14 @@ public abstract class Feu extends Observable implements Observer {
 		
 		/* Si il y a eu une notification il y a pas longtemps, on ne fait rien */
 		if (actualTime.getTimeInMillis() - lastNotif.getTimeInMillis() >= tempsMinEntre2Notifs ) {
-			Random generator = new Random();
+			/*Random generator = new Random();
 			try {
 				this.wait(generator.nextInt(100)+100);
 			} catch (InterruptedException e1) {
 			
 				e1.printStackTrace();
-			}
-			System.out.println("Notif de chgt d etat en"+e+" a "+countObservers()+" feux");
+			}*/
+			//System.out.println("Notif de chgt d etat en"+e+" a "+countObservers()+" feux");
 			etat = e;
 			setChanged();
 			notifyObservers(etat);
@@ -91,7 +97,7 @@ public abstract class Feu extends Observable implements Observer {
 		BackgroundElement myBackgroundElement = myMapElement.getMyBackgroundElement();
 
 		EtatFeu etatFeuObserve = (EtatFeu) arg;
-		System.out.println("reception d'une notif de chgt en "+etatFeuObserve);
+		//System.out.println("reception d'une notif de chgt en "+etatFeuObserve);
 		Feu feuObserve = (Feu) o;
 		Coordonnee mapPositionObserve = feuObserve.getPositionInTiles();
 		MapElement mapElementObserve = CityMove.map.getMapElement(mapPositionObserve);
@@ -99,49 +105,49 @@ public abstract class Feu extends Observable implements Observer {
 
 		switch (myBackgroundElement) {
 		case ROUTE_NORD :
-			System.out.println("TEST NORD");
+			//System.out.println("TEST NORD");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_SUD, etatFeuObserve);
 			break;
 
 		case ROUTE_SUD :
-			System.out.println("TEST SUD");
+			//System.out.println("TEST SUD");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_NORD, etatFeuObserve);
 			break;
 
 		case ROUTE_EST :
-			System.out.println("TEST EST");
+			//System.out.println("TEST EST");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_OUEST, etatFeuObserve);
 			break;
 
 		case ROUTE_OUEST :
-			System.out.println("TEST OUEST");
+			//System.out.println("TEST OUEST");
 			adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_EST, etatFeuObserve);
 			break;
 		default : System.out.println("Probleme dans le switch de myBackgroundElement\n"); System.exit(1);
 		}
 
-		System.out.println("NOTIF RECU dans feu pieton");
+		//System.out.println("NOTIF RECU dans feu pieton");
 	}
 
 	private void adapterEtat(BackgroundElement be, BackgroundElement backgroundAtester, EtatFeu e) {
-		System.out.println("Je suis dans adapterEtat\n");
+		//System.out.println("Je suis dans adapterEtat\n");
 		if(be == backgroundAtester) {
 			if(e == EtatFeu.VERT) {
-				System.out.println("Ca merde 1 !!!\n");
+				//System.out.println("Ca merde 1 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 			else {
-				System.out.println("Ca merde 2 !!!\n");
+				//System.out.println("Ca merde 2 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 		}
 		else{
 			if(e == EtatFeu.VERT) {
-				System.out.println("Ca merde 3 !!!\n");
+				//System.out.println("Ca merde 3 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 			else {
-				System.out.println("Ca merde 4 !!!\n");
+				//System.out.println("Ca merde 4 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 		}

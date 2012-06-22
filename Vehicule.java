@@ -16,16 +16,17 @@ abstract class Vehicule extends ElementMobiles
 	 * @param d : Direction pour laquelle on veut verifier que le deplacement est possible
 	 * @return Oui ou non
 	 */
-	public boolean verifierDeplacement(Coordonnee coord) {
+	public boolean verifierDeplacement(Coordonnee pixelCoord) {
 		boolean deplacementVerifie = false;
 
+		//System.out.print("TestVerif avec "+pixelCoord);
 		
-		/* test si il y a un feu présent */
-		boolean feuRouge = verifierFeu(coord);
-		boolean vehiculePresent = verifierElementMobile(TypeMobileElement.VEHICULE, coord);
-		boolean pietonPresent = verifierElementMobile(TypeMobileElement.PIETON, coord);
+		/* test si il y a un feu present */
+		boolean feuRouge = verifierFeu(CityMove.map.getPositionInTiles(pixelCoord));
+		boolean vehiculePresent = verifierElementMobile(TypeMobileElement.VEHICULE, pixelCoord);
+		boolean pietonPresent = verifierElementMobile(TypeMobileElement.PIETON, pixelCoord);
 		
-		
+		//System.out.println("   :feurouge: "+feuRouge+" ,vehiculepresent"+vehiculePresent+"  ,pietonpresent"+pietonPresent);
 		if(!feuRouge && !vehiculePresent && !pietonPresent)
 		{
 			deplacementVerifie = true;

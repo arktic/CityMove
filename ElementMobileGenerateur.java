@@ -9,37 +9,21 @@ import java.util.Random;
 public class ElementMobileGenerateur extends Thread {
 
 	protected static double frequence_vehicule = 1;
-	protected static double frequence_vehicule_urgent = 1/1000;
-	protected static double frequence_pieton = 1/1000;
-	private static double default_coef = 1;
-
+	protected static double frequence_vehicule_urgent = 0.02;
+	protected static double frequence_pieton = 0.0001;
+	
 	public ArrayList<Coordonnee> tabCoord;
 	public ArrayList<Direction> tabDirection;
-	private ArrayList<Double> tabCoef;
-
+	
 
 
 
 	public ElementMobileGenerateur() {
 		tabCoord= new ArrayList<Coordonnee>();
 		tabDirection= new ArrayList<Direction>();
-		tabCoef= new ArrayList<Double>();
 		ajouterToutPointEntree();
 	}
 
-
-	/**
-	 * Permet d'ajouter un point d'entree au générateur
-	 * @param coo les coordonnees de ce point d'entree
-	 * @param dir la direction de ce point d'entree
-	 * @param coef : le coefficient de génération de voiture à cet endroit
-	 */
-	private void ajouterPointEntree(Coordonnee coo, Direction dir,double coef) {
-		System.out.println("Ajout de "+coo+" en direction de "+dir);
-		tabCoord.add(coo);
-		tabDirection.add(dir);
-		tabCoef.add(coef);
-	}
 
 
 	/**
@@ -50,7 +34,6 @@ public class ElementMobileGenerateur extends Thread {
 	private void ajouterPointEntree(Coordonnee coo, Direction dir) {
 		tabCoord.add(coo);
 		tabDirection.add(dir);
-		tabCoef.add(default_coef);
 	}
 
 
@@ -93,16 +76,25 @@ public class ElementMobileGenerateur extends Thread {
 		while(true) {
 			/* Pour chacuns des points d'entrée */
 			for(int i = 0 ; i < tabCoord.size() ; i++) {
-				if(generator.nextDouble()<tabCoef.get(i)) {
+				Direction dir = tabDirection.get(i);
+				if(generator.nextDouble()<frequence_vehicule) {
 					//TODO: test pour ne pas ajouter de voiure si il y ena  deja une à cet endroit..
 					//TODO : modif pour faire apparaitre les voituures une case avant (pour effet d'arriver et pas teleportation ;))
-					Direction dir = tabDirection.get(i);
-					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));
-
 					
+					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));	
+
 				}
+				
+						
+				if(generator.nextDouble()<frequence_vehicule_urgent)
+				{
+				
+					//System.out.println("Ajout d'une voiture urgente en "+tabCoord.get(i).getX()+":"+tabCoord.get(i).getY());
+					CityMove.map.addElementMobile(new VoitureUrgent(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));
+				}
+					
 				try {
-					Thread.sleep(400);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

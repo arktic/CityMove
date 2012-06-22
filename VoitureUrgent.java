@@ -38,9 +38,10 @@ public class VoitureUrgent extends Voiture implements IUrgent {
 			coordSuivantes = getNextTilesPosition(i+1,getDirection());
 
 			/* On récupère le feu présent à cet endroit, ou null */
-			feu = CityMove.map.getMapElement(coordSuivantes).getMyFeu();
+			if (coordSuivantes.isOnMap())
+				feu = CityMove.map.getMapElement(coordSuivantes).getMyFeu();
 
-
+			//System.out.println("interventionfeu");
 			intervenirFeu(feu);
 			i++;
 		}

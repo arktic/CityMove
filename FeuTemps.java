@@ -6,7 +6,7 @@ import java.util.Observable;
 
 public class FeuTemps extends Feu implements Runnable {
 	protected long vert_time = 5000;
-	protected  long red_time = 5000;
+	protected  long red_time = 4000;
 	
 	
 	public FeuTemps(EtatFeu etat) {
@@ -91,7 +91,7 @@ public class FeuTemps extends Feu implements Runnable {
 		BackgroundElement myBackgroundElement = myMapElement.getMyBackgroundElement();
 		
 		EtatFeu etatFeuObserve = (EtatFeu) arg;
-		System.out.println("reception d'une notif de chgt en "+etatFeuObserve);
+		//System.out.println("reception d'une notif de chgt en "+etatFeuObserve);
 		
 		//Calendar actualTime = new GregorianCalendar();
 		
@@ -104,49 +104,49 @@ public class FeuTemps extends Feu implements Runnable {
 		
 		switch (myBackgroundElement) {
 			case ROUTE_NORD :
-				System.out.println("TEST NORD");
+				//	System.out.println("TEST NORD");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_SUD, etatFeuObserve);
 				break;
 
 			case ROUTE_SUD :
-				System.out.println("TEST SUD");
+				//	System.out.println("TEST SUD");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_NORD, etatFeuObserve);
 				break;
 				
 			case ROUTE_EST :
-				System.out.println("TEST EST");
+				//System.out.println("TEST EST");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_OUEST, etatFeuObserve);
 				break;
 				
 			case ROUTE_OUEST :
-				System.out.println("TEST OUEST");
+				//	System.out.println("TEST OUEST");
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_EST, etatFeuObserve);
 				break;
 			default : System.out.println("Probleme dans le switch de myBackgroundElement\n"); System.exit(1);
 		}
 		
-		System.out.println("NOTIF RECU dans feu temps");
+		//System.out.println("NOTIF RECU dans feu temps");
 	}
 	
 	private void adapterEtat(BackgroundElement be, BackgroundElement backgroundAtester, EtatFeu e) {
-		System.out.println("Je suis dans adapterEtat\n");
+		//System.out.println("Je suis dans adapterEtat\n");
 		if(be == backgroundAtester) {
 			if(e == EtatFeu.VERT) {
-				System.out.println("Ca merde 1 !!!\n");
+				//	System.out.println("Ca merde 1 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 			else {
-				System.out.println("Ca merde 2 !!!\n");
+				//System.out.println("Ca merde 2 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 		}
 		else{
 			if(e == EtatFeu.VERT) {
-				System.out.println("Ca merde 3 !!!\n");
+				//System.out.println("Ca merde 3 !!!\n");
 				setEtat(EtatFeu.ROUGE);
 			}
 			else {
-				System.out.println("Ca merde 4 !!!\n");
+				//System.out.println("Ca merde 4 !!!\n");
 				setEtat(EtatFeu.VERT);
 			}
 		}

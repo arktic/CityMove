@@ -25,7 +25,7 @@ public class Map extends JPanel{
 	private String repertoire_workspace ="./Ressources/";
 	protected int hauteur;
 	protected int largeur;
-	
+
 	/**
 	 * La taille en pixel d'un element (carré) de type MapElement
 	 */
@@ -59,8 +59,8 @@ public class Map extends JPanel{
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
 		CityMove.map=this;
 		this.sizeElement = sizeElem;
-		
-		
+
+
 		/* On ajoute notre base de donnée d'images de Background à notre image */
 		ajouterBackgroundImages();
 
@@ -69,16 +69,12 @@ public class Map extends JPanel{
 		System.out.println("VA FEU");
 		openFeu(repertoire_workspace+"Map/map1.txt");
 		System.out.println("FEU FAIT");
-/*		try {
-			this.wait(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		generateur.start();
-		
-		
+
+
+		//addElementMobile(new VoitureUrgent(0,330,Direction.EST));
+
 
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -112,13 +108,13 @@ public class Map extends JPanel{
 
 		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
 
-*/
-		/* On ajoute notre base de donnée d'images de Background à notre image */
+	 */
+	/* On ajoute notre base de donnée d'images de Background à notre image */
 	//	ajouterBackgroundImages();
 
-		/* On remplit la map avec de l'herbe */
+	/* On remplit la map avec de l'herbe */
 	//	remplirDefaultMap();
-/*
+	/*
 
 
 		CityMove.map=this;
@@ -129,7 +125,7 @@ public class Map extends JPanel{
 		setFocusable(true);
 		setDoubleBuffered(true);
 	}
-*/
+	 */
 
 	/**
 	 * Ajoute toutes les images de background à notre HashMap
@@ -167,9 +163,9 @@ public class Map extends JPanel{
 			img = ImageIO.read(new File(repertoire_workspace+"Background/route_sud_ouest.jpg"));
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 
-			
-			
-			
+
+
+
 		} catch (IOException e) {
 			System.out.println("Erreur lors du chargment des images...");
 			e.printStackTrace();
@@ -230,11 +226,11 @@ public class Map extends JPanel{
 				MapElement courant = tabMapElement[l][c];
 				img = backgroundImage.get(courant.myBackgroundElement);
 				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);
-				
-				
+
+
 				if(courant.getMyFeu()!=null) {
 					switch(courant.getMyFeu().getEtat()) {
-					
+
 					case ROUGE:
 						g2d.drawImage( Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"FixeElement/feu_rouge.png"), c*sizeElement, l*sizeElement, this);
 						break;
@@ -244,17 +240,23 @@ public class Map extends JPanel{
 					}
 				}
 			}
-			
-			
+
+
 		}
 
 
 
 		for(int indice=0;indice<getSizeTabElementMobile();indice++) {
-				/* Determiner quelle image à afficher, et aussi dans quel sens */
-				
-				
-				ElementMobiles courant = getTabElementMobileAt(indice);
+			/* Determiner quelle image à afficher, et aussi dans quel sens */
+
+
+			ElementMobiles courant = getTabElementMobileAt(indice);
+			if (courant instanceof VoitureUrgent) {
+				g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance.jpg"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+
+			}
+
+			else if(courant instanceof Voiture) {
 				switch(courant.getDirection()) {
 				case NORD:
 					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/voiture_nord.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
@@ -268,18 +270,19 @@ public class Map extends JPanel{
 				case OUEST:
 					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/voiture_ouest.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
 					break;
-					
+
 				default:
 					System.out.println("Erreur lors de l'affichage voiture");
 				}
+			}
 		}
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 	}
 
 
@@ -349,9 +352,9 @@ public class Map extends JPanel{
 	}
 
 	synchronized public int removeElementMobile(ElementMobiles monElementMobile) {
-		
-			getTabElementMobile().remove(monElementMobile);
-		
+
+		getTabElementMobile().remove(monElementMobile);
+
 		return 0;
 	}
 
@@ -384,7 +387,7 @@ public class Map extends JPanel{
 	 */
 	public Coordonnee getPositionInTiles(Coordonnee pixelsPosition) {
 		Coordonnee tilesPosition = new Coordonnee(pixelsPosition.getX()/sizeElement,pixelsPosition.getY()/sizeElement);
-		
+
 		return tilesPosition;
 	}
 
@@ -463,7 +466,7 @@ public class Map extends JPanel{
 				nbColonnes = Integer.parseInt(st.nextToken().trim()) ;
 				recup_param++;
 			}
-			
+
 			//System.out.println("nbl= "+nbLignes+" nbc = "+nbColonnes);
 			if(recup_param==2) {
 				recup_param=0;
@@ -477,14 +480,14 @@ public class Map extends JPanel{
 				for (int c=0;c<nbColonnes;c++) {
 					int inte = new Integer(st2.nextToken()) ;
 					MapElement newElem = new MapElement(inte);
-					
-					
-				/*	if(l==10 && c==3)
+
+
+					/*	if(l==10 && c==3)
 					newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
-					
+
 					if(l==13 && c==4)
 						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));						
-					*/
+					 */
 					//System.out.println("l= "+l+" c = "+c);
 
 					tabMapElement[l][c] = newElem;
@@ -497,9 +500,9 @@ public class Map extends JPanel{
 			}
 
 		}
-		
-		
-		
+
+
+
 		largeur = nbColonnes*sizeElement;
 		hauteur = nbLignes*sizeElement;
 
@@ -508,7 +511,7 @@ public class Map extends JPanel{
 		return 0 ;
 
 	}
-	
+
 	/**
 	 * fonction de chargement les feux, appel unique dans le constructeur de map
 	 * @param filename fichier source
@@ -537,53 +540,57 @@ public class Map extends JPanel{
 				StringTokenizer stnbFeu = new StringTokenizer(st.nextToken(), new String(";"));
 				snbfeu = stnbFeu.nextToken().trim();
 				//System.out.println("snbfeu: "+snbfeu);
-				
+
 				StringTokenizer stInfoFeu = new StringTokenizer(st.nextToken(), new String(","));
-				//System.out.println("stINFOFEU:"+stInfoFeu.nextToken());
-				//System.out.println("stINFOFEU:"+stInfoFeu.nextToken());
 
 
-					int nbFeu = new Integer(snbfeu);
-					System.out.println("nbFeu: " + nbFeu);
-					Feu tabFeu[] = new Feu[nbFeu];
-					/* récupération des n feux du carrefour */
-					for(int i=0; i < nbFeu; i++) {
-						int intf = new Integer(stInfoFeu.nextToken());
-						Coordonnee cf = new Coordonnee(new Integer(stInfoFeu.nextToken()) ,new Integer( stInfoFeu.nextToken()));
-						System.out.println("Coord:" + cf);
-						switch(intf) {
-						case 100:
-							System.out.println("100");
-							tabFeu[i] = new FeuTemps(cf);
-							break;
-						case 101:
-							System.out.println("101");
-							tabFeu[i] = new FeuPieton(cf);
-							break;
-						case 102:
-							System.out.println("102");
-							tabFeu[i] = new FeuHybride(cf);
-							break;
-						default:
-							// erreur
-							System.out.println("Code feu erroné");
-							System.exit(1);
-						}
+				int nbFeu = new Integer(snbfeu);
+				System.out.println("nbFeu: " + nbFeu);
+				Feu tabFeu[] = new Feu[nbFeu];
+				/* récupération des n feux du carrefour */
+				for(int i=0; i < nbFeu; i++) {
+					int intf = new Integer(stInfoFeu.nextToken());
+					Coordonnee cf = new Coordonnee(new Integer(stInfoFeu.nextToken()) ,new Integer( stInfoFeu.nextToken()));
+					System.out.println("Coord:" + cf);
+					switch(intf) {
+					case 100:
+						System.out.println("100");
+						tabFeu[i] = new FeuTemps(cf);
+						break;
+					case 101:
+						System.out.println("101");
+						tabFeu[i] = new FeuPieton(cf);
+						break;
+					case 102:
+						System.out.println("102");
+						tabFeu[i] = new FeuHybride(cf);
+						break;
+					default:
+						// erreur
+						System.out.println("Code feu erroné");
+						System.exit(1);
 					}
-					/* on a tout les feux d'un carrefour, on crée les liens */
-					for(int j=0; j<nbFeu;j++) {
-						System.out.println("Observer ajouter à  j:"+ j);
-						for(int k = j+1; k<nbFeu+j ; k++) {
-							tabFeu[j].addObserver(tabFeu[k%nbFeu]);
-							System.out.println("liste: -" + k%nbFeu); 
-						}
-						/* attribution à tabMapElement */
-						Coordonnee c = new Coordonnee(tabFeu[j].getPositionInTiles());
-						tabMapElement[c.getY()][c.getX()].myFeu = tabFeu[j];
+				}
+				/* on a tout les feux d'un carrefour, on crée les liens */
+				for(int j=0; j<nbFeu;j++) {
+					System.out.println("Observer ajouter à  j:"+ j);
+					for(int k = j+1; k<nbFeu+j ; k++) {
+						tabFeu[j].addObserver(tabFeu[k%nbFeu]);
+						System.out.println("liste: -" + k%nbFeu); 
 					}
-					for(int y = 0; y< nbFeu ; y++) {
-						new Thread((Runnable)tabFeu[y]).start();
+					/* attribution à tabMapElement */
+					Coordonnee c = new Coordonnee(tabFeu[j].getPositionInTiles());
+					tabMapElement[c.getY()][c.getX()].myFeu = tabFeu[j];
+				}
+				for(int y = 0; y< nbFeu ; y++) {
+					try {
+						Thread.sleep(400);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+					new Thread((Runnable)tabFeu[y]).start();
+				}
 
 				encore --;
 			}
