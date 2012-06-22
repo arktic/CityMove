@@ -26,7 +26,7 @@ public class Urgent implements IUrgent {
 		
 		/* On dit au feu que l'on veut qu'il passe au VERT */
 		if(feu!=null) {
-			System.out.println("ENVOIE DEMANDE A FEU: "+feu);
+			//System.out.println("ENVOIE DEMANDE A FEU: "+feu);
 			feu.setEtatAndNotify(EtatFeu.VERT);		
 		}
 		return 0;

@@ -203,5 +203,25 @@ public class Coordonnee {
 	
 	}
 	
+	
+	public boolean verifierElementMobile()
+	{
+		ElementMobiles aTester=null;
+		boolean occupe=false;		
+				
+		int indice=0;
+		while (!occupe && indice<CityMove.map.getSizeTabElementMobile()){
+			aTester = CityMove.map.getTabElementMobileAt(indice);
+
+			
+				occupe = aTester.contains(this);
+				//System.out.println("indice :"+indice+" occupe ="+occupe);
+			
+			indice++;
+		}
+
+		return occupe;
+	}
+	
 
 }

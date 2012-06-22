@@ -8,8 +8,8 @@ import java.util.Random;
  */
 public class ElementMobileGenerateur extends Thread {
 
-	protected static double frequence_vehicule = 1;
-	protected static double frequence_vehicule_urgent = 0.02;
+	protected static double frequence_vehicule = 0.6;
+	protected static double frequence_vehicule_urgent = 0.03;
 	protected static double frequence_pieton = 0.0001;
 	
 	public ArrayList<Coordonnee> tabCoord;
@@ -77,24 +77,31 @@ public class ElementMobileGenerateur extends Thread {
 			/* Pour chacuns des points d'entrée */
 			for(int i = 0 ; i < tabCoord.size() ; i++) {
 				Direction dir = tabDirection.get(i);
-				if(generator.nextDouble()<frequence_vehicule) {
-					//TODO: test pour ne pas ajouter de voiure si il y ena  deja une à cet endroit..
-					//TODO : modif pour faire apparaitre les voituures une case avant (pour effet d'arriver et pas teleportation ;))
+				boolean elemDejaAjoute=false;
+				if(!tabCoord.get(i).verifierElementMobile()) {
+					if( generator.nextDouble()<frequence_vehicule_urgent)
+					{
 					
-					CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));	
-
+						//System.out.println("Ajout d'une voiture urgente en "+tabCoord.get(i).getX()+":"+tabCoord.get(i).getY());
+						CityMove.map.addElementMobile(new VoitureUrgent(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));
+						elemDejaAjoute = true;
+					}
+					
+					
+					
 				}
-				
+				if(!elemDejaAjoute && !tabCoord.get(i).verifierElementMobile())  {			
+					if(generator.nextDouble()<frequence_vehicule) {
+						//TODO: test pour ne pas ajouter de voiure si il y ena  deja une à cet endroit..
+						//TODO : modif pour faire apparaitre les voituures une case avant (pour effet d'arriver et pas teleportation ;))
 						
-				if(generator.nextDouble()<frequence_vehicule_urgent)
-				{
-				
-					//System.out.println("Ajout d'une voiture urgente en "+tabCoord.get(i).getX()+":"+tabCoord.get(i).getY());
-					CityMove.map.addElementMobile(new VoitureUrgent(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));
+						CityMove.map.addElementMobile(new Voiture(tabCoord.get(i).getX()*CityMove.map.sizeElement,tabCoord.get(i).getY()*CityMove.map.sizeElement,dir));	
+						
+					}
 				}
 					
 				try {
-					Thread.sleep(500);
+					Thread.sleep(300);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -203,7 +203,7 @@ public abstract class ElementMobiles extends Elements {
 	 * @param nextCoord : direction dans laquele on veut regarder
 	 * @return si il y a un element de ce type devant
 	 */
-	public boolean verifierElementMobile(TypeMobileElement tme, Coordonnee pixelPosition)
+	public boolean verifierElementMobile( Coordonnee pixelPosition)
 	{
 		ElementMobiles aTester=null;
 		boolean occupe=false;		
@@ -222,13 +222,13 @@ public abstract class ElementMobiles extends Elements {
 		return occupe;
 	}
 
-	private boolean contains(Coordonnee pixelPosition) {
+	public boolean contains(Coordonnee pixelPosition) {
 		Coordonnee tileaTester = CityMove.map.getPositionInTiles(pixelPosition);
 		Coordonnee currentPositionTile = CityMove.map.getPositionInTiles(getPosition());
-		//Coordonnee nextPosition = CityMove.map.getPositionInTiles(getPosition().getNextCoordonnee(getDirection()));
+		Coordonnee nextPosition = CityMove.map.getPositionInTiles(getPosition()).getNextCoordonnee(getDirection());
 		
-		return tileaTester.equals(currentPositionTile); 
-				//|| tileaTester.equals(nextPosition);
+		return tileaTester.equals(currentPositionTile) 
+				|| tileaTester.equals(nextPosition);
 	}
 
 
