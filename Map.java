@@ -62,8 +62,8 @@ public class Map extends JPanel{
 		ajouterBackgroundImages();
 
 		/* On ouvre une map préfabriquée */
-		open(repertoire_workspace+"Map/map1.txt"); //attention a bien configurer le repertoire_workspace dans map
-		openFeu(repertoire_workspace+"Map/map1.txt");
+		open(repertoire_workspace+"Map/map2.txt"); //attention a bien configurer le repertoire_workspace dans map
+		openFeu(repertoire_workspace+"Map/map2.txt");
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		generateur.start();
 
