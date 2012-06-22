@@ -1,52 +1,56 @@
 import java.util.Observable;
 
 
-public class FeuPieton extends Feu implements Runnable{//implements IFeuPieton {
+public class FeuPieton extends Feu implements Runnable {
 	private static int red_time = 4000; //temps de traversé
 	
+	/**
+	 * Constructeur a partir d'un etat
+	 * @param etat: Etat initial voulu
+	 */
 	public FeuPieton(EtatFeu etat) {
 		super(etat);
 		etat = EtatFeu.VERT;
-		
-		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Constructeur par defaut
+	 * etat est a rouge par defaut
+	 */
 	public FeuPieton() {
 		super();
 	}
 	
+	/**
+	 * Constructeur a partir de coordonnee
+	 * @param c: coordonnees d'initialisation voulus
+	 */
 	public FeuPieton(Coordonnee c) {
 		super(c);
 	}
-	
-	/**
-	 *  On se place ici du point de vue des voitures (le rouge indique l'arret des voitures)
-	 */
-	//@Override
-	//public void changerEtat(EtatFeu e) {
-	
-	//}
+
 
 	@Override
+	/**
+	 * Methode de gestion du feu
+	 * un feu pieton est au vert la pluspart du temps
+	 * il passe au rouge sous la demande d'un pieton
+	 */
+	/* TODO verifier la methode (signaux) */
 	public void run() {
-			// TODO Auto-generated method stub
 			while(true) {
 				if(getEtat() == EtatFeu.ROUGE) {
 						try {
 							Thread.sleep(red_time);
 						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						this.setEtat(EtatFeu.VERT);
-						//setBusy(true); // on est en attente d'une réponse du carrefour, empeche les doubles demandes
 						try {
 							Thread.sleep(10000); // on attend le carrefour
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						//setBusy(false); // on est libre en demande
 				}	
 			}
 		}
@@ -54,6 +58,12 @@ public class FeuPieton extends Feu implements Runnable{//implements IFeuPieton {
 
 
 	@Override
+	/**
+	 * Methode de synchronisation avec les autres feu
+	 * le feu observe les autres de son carrefour
+	 * les autres feux l'observe egalement
+	 */
+	/*TODO verifier la methode (notify etc..) */
 	public void update(Observable o, Object arg) {
 		MapElement myMapElement = CityMove.map.getMapElement(positionInTiles);
 		BackgroundElement myBackgroundElement = myMapElement.getMyBackgroundElement();
@@ -62,7 +72,7 @@ public class FeuPieton extends Feu implements Runnable{//implements IFeuPieton {
 		Coordonnee mapPositionObserve = feuObserve.getPositionInTiles();
 		MapElement mapElementObserve = CityMove.map.getMapElement(mapPositionObserve);
 		BackgroundElement backgroundElementFeuObserve = mapElementObserve.getMyBackgroundElement();
-		
+		/* reperage des feux du carrefour */
 		switch (myBackgroundElement) {
 			case ROUTE_NORD :
 				adapterEtat(backgroundElementFeuObserve, BackgroundElement.ROUTE_SUD, etatFeuObserve);
@@ -85,6 +95,13 @@ public class FeuPieton extends Feu implements Runnable{//implements IFeuPieton {
 		System.out.println("NOTIF RECU dans feupieton");
 	}
 	
+	/**
+	 * Fonction de synchronisation du carrefour 
+	 * determine la couleur des feux en fonctions de leurs position sur le carrefour
+	 * @param be : background element du feu en cours
+	 * @param backgroundAtester : background element du feu à tester
+	 * @param e : etat du feu
+	 */
 	private void adapterEtat(BackgroundElement be, BackgroundElement backgroundAtester, EtatFeu e) {
 		if(be == backgroundAtester) {
 			if(e == EtatFeu.VERT) {

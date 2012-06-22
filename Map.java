@@ -12,9 +12,6 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-//import sun.security.mscapi.KeyStore.MY;
-
-
 
 public class Map extends JPanel{
 
@@ -65,67 +62,16 @@ public class Map extends JPanel{
 		ajouterBackgroundImages();
 
 		/* On ouvre une map préfabriquée */
-		open(repertoire_workspace+"Map/map1.txt");
-		System.out.println("VA FEU");
+		open(repertoire_workspace+"Map/map1.txt"); //attention a bien configurer le repertoire_workspace dans map
 		openFeu(repertoire_workspace+"Map/map1.txt");
-		System.out.println("FEU FAIT");
 		ElementMobileGenerateur generateur = new ElementMobileGenerateur();
 		generateur.start();
 
-
-		//addElementMobile(new VoitureUrgent(0,330,Direction.EST));
-
-
 		setFocusable(true);
 		setDoubleBuffered(true);
 
 	}
 
-
-
-
-
-
-
-
-
-
-
-	/**
-	 * @param heightInTiles
-	 * @param widthInTiles
-	 * @param sizeElem
-	 */
-	/*public Map(int nbLignes, int nbColonnes, int sizeElem) {
-		backgroundImage = new HashMap<BackgroundElement, Image>();
-
-		backgroundImage = new HashMap<BackgroundElement, Image>(); 
-		this.nbColonnes = nbColonnes;
-		this.nbLignes = nbLignes;
-		largeur = nbDefaultLigne * sizeElem;
-		hauteur = nbDefaultColonne * sizeElem;
-		this.tabElementMobile = new Vector<ElementMobiles>();
-
-		this.tabMapElement = new MapElement[nbLignes][nbColonnes];
-
-	 */
-	/* On ajoute notre base de donnée d'images de Background à notre image */
-	//	ajouterBackgroundImages();
-
-	/* On remplit la map avec de l'herbe */
-	//	remplirDefaultMap();
-	/*
-
-
-		CityMove.map=this;
-		this.sizeElement = sizeElem;
-
-
-
-		setFocusable(true);
-		setDoubleBuffered(true);
-	}
-	 */
 
 	/**
 	 * Ajoute toutes les images de background à notre HashMap
@@ -164,28 +110,23 @@ public class Map extends JPanel{
 			backgroundImage.put(BackgroundElement.ROUTE_SUD_OUEST, img);
 
 
-
-
 		} catch (IOException e) {
 			System.out.println("Erreur lors du chargment des images...");
 			e.printStackTrace();
 		}
-
-
-
 	}
 
-
+	/**
+	 * Fonction deplacant tout les elements mobile de la carte
+	 */
 	public void deplacementElementMobile() {
 
 		int indice=0;	
 		for(indice=0;indice<getSizeTabElementMobile();indice++){			
-
 			getTabElementMobileAt(indice).seDeplacer();
 		}
 
 	}
-
 
 	synchronized public ElementMobiles getTabElementMobileAt(int indice) {
 		return getTabElementMobile().get(indice);
@@ -205,20 +146,15 @@ public class Map extends JPanel{
 	}
 
 
-
-
-
-
-
-
-
-
-
+	/** 
+	 * redefinition de paint
+	 * fonction chargee d'affciher tout les elements de la map
+	 * assurer vous d'avoir un repertoire_workspace correcte
+	 * (a parametrer dans map)
+	 */
 	public void paint(Graphics g) {
 		super.paint(g);
-
 		Graphics2D g2d = (Graphics2D)g;
-
 		/* affichage du background et des feux */
 		for(int c=0 ; c < nbColonnes ; c++ ){
 			for(int l=0 ; l < nbLignes ; l++) {
@@ -226,7 +162,6 @@ public class Map extends JPanel{
 				MapElement courant = tabMapElement[l][c];
 				img = backgroundImage.get(courant.myBackgroundElement);
 				g2d.drawImage( img, c*sizeElement, l*sizeElement, this);
-
 
 				if(courant.getMyFeu()!=null) {
 					switch(courant.getMyFeu().getEtat()) {
@@ -245,11 +180,8 @@ public class Map extends JPanel{
 		}
 
 
-
 		for(int indice=0;indice<getSizeTabElementMobile();indice++) {
 			/* Determiner quelle image à afficher, et aussi dans quel sens */
-
-
 			ElementMobiles courant = getTabElementMobileAt(indice);
 			if (courant instanceof VoitureUrgent) {
 				g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance.jpg"), courant.getPosition().getX(), courant.getPosition().getY(), this);
@@ -277,20 +209,7 @@ public class Map extends JPanel{
 			}
 		}
 
-
-
-
-
-
-
 	}
-
-
-
-
-
-
-
 
 
 
@@ -403,15 +322,6 @@ public class Map extends JPanel{
 	}
 
 
-
-
-
-
-
-
-
-
-
 	/**
 	 * @param hauteur the hauteur to set
 	 */
@@ -440,7 +350,6 @@ public class Map extends JPanel{
 	 * @param filename le fichier a ouvrir
 	 * @return 0 en cas de succes, 1 sinon
 	 */
-	//TODO : securité si lecture foire
 	public int open(String filename) {
 		if (filename==null) return 1 ;
 
@@ -456,7 +365,7 @@ public class Map extends JPanel{
 			//System.out.println("Lecture de "+s);
 			StringTokenizer st = new StringTokenizer(s, new String(" ")) ;
 			String sg = st.nextToken().trim() ;
-
+			/* recuperation du nombre de ligne et colonnes */
 			if (sg.compareToIgnoreCase("NB_LIGNES")==0){
 				nbLignes = Integer.parseInt(st.nextToken().trim()) ;
 				recup_param++;
@@ -466,54 +375,37 @@ public class Map extends JPanel{
 				nbColonnes = Integer.parseInt(st.nextToken().trim()) ;
 				recup_param++;
 			}
-
-			//System.out.println("nbl= "+nbLignes+" nbc = "+nbColonnes);
+			/* allocation du tableau une fois les parametres recuperes */
 			if(recup_param==2) {
 				recup_param=0;
-				//	System.out.println("Allocation de tab de nbl = "+nbLignes+" nbCol = "+nbColonnes);
 				tabMapElement = new MapElement[nbLignes][nbColonnes];
 			}
 
-			if ( sg.compareToIgnoreCase("LIGNE")==0) {// && nbLignes!=0 && nbColonnes!=0) {
+			if ( sg.compareToIgnoreCase("LIGNE")==0) {
 
 				StringTokenizer st2 = new StringTokenizer(st.nextToken().trim(), new String(":"));
 				for (int c=0;c<nbColonnes;c++) {
 					int inte = new Integer(st2.nextToken()) ;
 					MapElement newElem = new MapElement(inte);
-
-
-					/*	if(l==10 && c==3)
-					newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));
-
-					if(l==13 && c==4)
-						newElem.setMyFeu(new FeuTemps(EtatFeu.ROUGE));						
-					 */
-					//System.out.println("l= "+l+" c = "+c);
-
 					tabMapElement[l][c] = newElem;
 				}
-
 				++l;
-				if(l==nbLignes) {
+				if(l==nbLignes) { // on a fini
 					encore = 0 ;						
 				}
 			}
-
 		}
-
-
-
+		
 		largeur = nbColonnes*sizeElement;
 		hauteur = nbLignes*sizeElement;
-
 		fe.fermer();
-
 		return 0 ;
 
 	}
 
 	/**
 	 * fonction de chargement les feux, appel unique dans le constructeur de map
+	 * a appeler uniquement apres avoir appele open (initialise le tabMapElement)
 	 * @param filename fichier source
 	 * @return non utilisé
 	 */
@@ -525,53 +417,50 @@ public class Map extends JPanel{
 		FichierLecture fe = new FichierLecture (filename) ;
 		while (encore > 0) {
 			String s = fe.lireLigne() ;
-			//System.out.println("Lecture de "+s);
 			StringTokenizer st = new StringTokenizer(s, new String(" ")) ;
 			String sg = st.nextToken().trim() ;	
+			/* trouver le nombre de carrefour */
 			if (sg.compareToIgnoreCase("NB_CARREFOUR")==0) {
 				nbCarrefour = Integer.parseInt(st.nextToken().trim()) ;
 				System.out.println("NB_CARREFOUR:" + nbCarrefour);
 				encore = nbCarrefour;
 			}
-
+			/* configurer et ajouter les carrefours (feux lies) a la map */
 			if (sg.compareToIgnoreCase("CARREFOUR") == 0) {
 				System.out.println("Trouve CARREFOUR");
-				String ss = null, snbfeu , sinfofeu, sfeu;
+				String snbfeu;
 				StringTokenizer stnbFeu = new StringTokenizer(st.nextToken(), new String(";"));
 				snbfeu = stnbFeu.nextToken().trim();
-				//System.out.println("snbfeu: "+snbfeu);
 
 				StringTokenizer stInfoFeu = new StringTokenizer(st.nextToken(), new String(","));
 
-
+				/* allocation des feux pour le carrefour courant */
 				int nbFeu = new Integer(snbfeu);
 				System.out.println("nbFeu: " + nbFeu);
 				Feu tabFeu[] = new Feu[nbFeu];
 				/* récupération des n feux du carrefour */
 				for(int i=0; i < nbFeu; i++) {
 					int intf = new Integer(stInfoFeu.nextToken());
+					/* recuperation du type et des coordonnees */
 					Coordonnee cf = new Coordonnee(new Integer(stInfoFeu.nextToken()) ,new Integer( stInfoFeu.nextToken()));
 					System.out.println("Coord:" + cf);
 					switch(intf) {
 					case 100:
-						System.out.println("100");
 						tabFeu[i] = new FeuTemps(cf);
 						break;
 					case 101:
-						System.out.println("101");
 						tabFeu[i] = new FeuPieton(cf);
 						break;
 					case 102:
-						System.out.println("102");
 						tabFeu[i] = new FeuHybride(cf);
 						break;
 					default:
 						// erreur
-						System.out.println("Code feu erroné");
-						System.exit(1);
+						System.out.println("Code feu erroné"); System.exit(1);
 					}
 				}
 				/* on a tout les feux d'un carrefour, on crée les liens */
+				/* chaque feu est lie aux autres du carrefour */
 				for(int j=0; j<nbFeu;j++) {
 					System.out.println("Observer ajouter à  j:"+ j);
 					for(int k = j+1; k<nbFeu+j ; k++) {
@@ -582,6 +471,7 @@ public class Map extends JPanel{
 					Coordonnee c = new Coordonnee(tabFeu[j].getPositionInTiles());
 					tabMapElement[c.getY()][c.getX()].myFeu = tabFeu[j];
 				}
+				/* lancement du carrefour */
 				for(int y = 0; y< nbFeu ; y++) {
 					try {
 						Thread.sleep(400);
