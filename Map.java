@@ -184,7 +184,24 @@ public class Map extends JPanel{
 			/* Determiner quelle image à afficher, et aussi dans quel sens */
 			ElementMobiles courant = getTabElementMobileAt(indice);
 			if (courant instanceof VoitureUrgent) {
-				g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance.jpg"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+				switch(courant.getDirection()) {
+				case NORD:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance_nord.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				case SUD:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance_sud.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				case EST:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance_est.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				case OUEST:
+					g2d.drawImage(Toolkit.getDefaultToolkit().getImage(repertoire_workspace+"MobileElement/ambulance_ouest.png"), courant.getPosition().getX(), courant.getPosition().getY(), this);
+					break;
+				default:
+					System.out.println("Erreur lors de l'affichage ambulance");
+					
+				}
+				
 
 			}
 
